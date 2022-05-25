@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/PixelWinnerUA/Messenger/static/css/main.21fba46a.css",
+    "main.js": "/PixelWinnerUA/Messenger/static/js/main.ccf79823.js",
+    "static/media/bg-img.png": "/PixelWinnerUA/Messenger/static/media/bg-img.c804ce4c7c3775753e13.png",
+    "index.html": "/PixelWinnerUA/Messenger/index.html",
+    "main.21fba46a.css.map": "/PixelWinnerUA/Messenger/static/css/main.21fba46a.css.map",
+    "main.ccf79823.js.map": "/PixelWinnerUA/Messenger/static/js/main.ccf79823.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.21fba46a.css",
+    "static/js/main.ccf79823.js"
+  ]
+}

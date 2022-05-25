@@ -1,0 +1,14 @@
+{
+  "short_name": "Pixel Messenger",
+  "name": "Pixel Messenger, made by Alex and Vlad",
+  "icons": [
+    {
+      "src": "MyLogo.svg",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
