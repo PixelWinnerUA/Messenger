@@ -1,0 +1,11 @@
+@import "./variables";
+
+.SideBar{
+  position: relative;
+  grid-area: sidebar;
+  height: 100%;
+  min-height: 100%;
+  width: 300px;
+  border: $block-border;
+  background-color: $background-light-color;
+}
