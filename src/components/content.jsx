@@ -3,8 +3,10 @@ import "../styles/Content.scss"
 
 const Content = () => {
     return (
-        <div className="Content">
-            dgfdg
+        <div className="Content-Background">
+            <div className="Content">
+                dgfdg
+            </div>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 @import "./variables";
 
-.Settingsbar{
-
+.Settingsbar {
+  height: $settings-bar-height;
+  border: $block-border;
 }

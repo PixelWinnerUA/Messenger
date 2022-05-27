@@ -1,13 +1,13 @@
 import React from 'react';
 import Settingsbar from "./settingsbar";
-import Chats from "./chats";
 import "../styles/SideBar.scss"
+import Chatscontainer from "./chatscontainer";
 
 const Sidebar = () => {
     return (
         <div className="SideBar">
             <Settingsbar></Settingsbar>
-            <Chats></Chats>
+            <Chatscontainer/>
         </div>
     );
 };
