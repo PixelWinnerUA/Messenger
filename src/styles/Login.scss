@@ -1,0 +1,128 @@
+@import "./variables";
+
+.Auth-box {
+  font-family: Segoe UI, sans-serif;
+  border-radius: 20px;
+  border: $block-border;
+  background: $background-light-color;
+  width: fit-content;
+  height: fit-content;
+  min-height: 350px;
+  min-width: 300px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr 1fr 1fr;
+  padding: 20px;
+
+
+  h1 {
+    color: $text-color;
+    text-align: center;
+  }
+
+  input, button {
+    font-family: Segoe UI, sans-serif;
+    font-size: 18px;
+    padding: 10px 5px 10px 5px;
+    border-radius: 5px;
+    border: $block-border;
+  }
+
+  input[type="password"]::-ms-reveal {
+    display: none;
+  }
+
+  button {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px;
+    position: relative;
+    max-width: fit-content;
+    margin: 0 auto;
+    border: $block-border;
+  }
+
+  button:hover {
+    transition: 0.5s ease;
+    box-shadow: 0 0 10px white;
+  }
+
+  button:active {
+    top: 2px;
+  }
+
+  input:focus {
+    transition: 0.5s ease;
+    box-shadow: 0 0 10px white;
+  }
+}
+
+.Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(-45deg, #08004e, #79091e, #da00ff);
+  background-size: 400% 400%;
+  -webkit-animation: GradientAnimation 20s ease infinite;
+  -moz-animation: GradientAnimation 20s ease infinite;
+  animation: GradientAnimation 20s ease infinite;
+
+  @-webkit-keyframes GradientAnimation {
+    0% {
+      background-position: 0 50%
+    }
+    50% {
+      background-position: 100% 50%
+    }
+    100% {
+      background-position: 0 50%
+    }
+  }
+
+  @-moz-keyframes GradientAnimation {
+    0% {
+      background-position: 0 50%
+    }
+    50% {
+      background-position: 100% 50%
+    }
+    100% {
+      background-position: 0 50%
+    }
+  }
+
+  @keyframes GradientAnimation {
+    0% {
+      background-position: 0 50%
+    }
+    50% {
+      background-position: 100% 50%
+    }
+    100% {
+      background-position: 0 50%
+    }
+  }
+}
+
+.Sign-Up-Link {
+  font-family: Segoe UI, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  color: $text-color;
+  padding: 10px;
+  border: $block-border;
+  background: $background-light-color;
+  border-radius: 5px;
+}
+.Sign-Up-Link:hover {
+  transition: 0.5s ease;
+  box-shadow: 0 0 10px white;
+}

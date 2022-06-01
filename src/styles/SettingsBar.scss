@@ -2,5 +2,8 @@
 
 .Settingsbar {
   height: $settings-bar-height;
-  border: $block-border;
+  border-top: $block-border;
+  border-bottom: $block-border;
+  border-left: none;
+  border-right: none;
 }

@@ -1,13 +1,13 @@
 import {GetUserList} from "../../api/RestApi"
 
-export const SendNewMessageActionCreator = (users) => ({
+export const SetUsersActionCreator = (users) => ({
     type: "SetUsers",
     users
 })
 export const GetUsers = () => async (dispatch) => {
     let response = await GetUserList();
     if (response) {
-        dispatch(SendNewMessageActionCreator(response))
+        dispatch(SetUsersActionCreator(response))
     }
 }
 

@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import chats from "./chats";
+import chats from "./Chats";
 import {GetUsers} from "../store/reducers/ChatsReducer";
 
 
