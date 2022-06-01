@@ -1,24 +1,22 @@
 import '../styles/App.scss';
-import {useState, useEffect} from "react";
+import {useEffect} from "react";
 import Login from "./Login";
 import Main from "./Main";
+import {Route, Routes, Navigate} from "react-router-dom";
 
 
-function App() {
-    const [Auth, setAuth] = useState(false);
-    const IsAuthenticated = () => {
-        if (localStorage.AUTH_TOKEN)
-            setAuth(true)
-    }
+function App(props) {
+
+    const {GetAuthStatus, AuthStatus} = props;
     useEffect(() => { //On Did Mount
-        IsAuthenticated()
+        GetAuthStatus()
     }, [])
 
     return (
-        Auth ?
-            <Main/>
-            :
-            <Login IsAuthenticated={IsAuthenticated}/>
+        <Routes>
+            <Route path="/" element={AuthStatus ? <Main/> : <Navigate to="/login"/>}/>
+            <Route path="/login" element={AuthStatus ? <Navigate to="/"/> : <Login IsAuthenticated={GetAuthStatus}/>}/>
+        </Routes>
     )
 }
 

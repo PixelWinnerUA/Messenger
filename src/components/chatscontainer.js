@@ -5,7 +5,7 @@ import {GetUsers} from "../store/reducers/ChatsReducer";
 
 const mapStateToProps = (state) => {
     return {
-        ChatsList: state.ChatsPage.users
+        ChatsList: state.ChatsComponent.users
     }
 }
 const mapDispatchToProps = (dispatch) => {

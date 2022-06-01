@@ -5,7 +5,7 @@ const Content = () => {
     return (
         <div className="Content-Background">
             <div className="Content">
-                dgfdg
+                Your messages
             </div>
         </div>
     );
