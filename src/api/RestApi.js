@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// export let AUTH_TOKEN;
 axios.defaults.baseURL = 'http://70.37.67.50:8080'; //API URL AND PORT
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'; // for all requests
 axios.defaults.headers.common['Content-Type'] = 'application/json';
