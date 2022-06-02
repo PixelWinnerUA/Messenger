@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import chats from "./Chats";
-import {GetUsers} from "../store/reducers/ChatsReducer";
+import {GetUsers} from "../../../../../store/reducers/ChatsReducer";
 
 
 const mapStateToProps = (state) => {

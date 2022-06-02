@@ -1,7 +1,7 @@
 import React from 'react';
-import "../styles/Main.scss"
-import Sidebar from "./sidebar";
-import Content from "./Content";
+import "../../styles/Main.scss"
+import Sidebar from "./Chats/SideBar/sidebar";
+import Content from "./Chats/Content/Content";
 
 const Main = () => {
     return (

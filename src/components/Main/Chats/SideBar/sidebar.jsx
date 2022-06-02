@@ -1,7 +1,7 @@
 import React from 'react';
-import Settingsbar from "./settingsbar";
-import "../styles/SideBar.scss"
-import Chatscontainer from "./chatscontainer";
+import Settingsbar from "./SettingsBar/settingsbar";
+import "../../../../styles/SideBar.scss"
+import Chatscontainer from "./Chats/chatscontainer";
 
 const Sidebar = () => {
     return (
