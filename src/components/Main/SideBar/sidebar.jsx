@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import Settingsbar from "./SettingsBar/settingsbar";
+import Settingsbar from "./Settings/settingsbar";
 import "../../../styles/SideBar.scss"
 import Users from "./Users/Users";
 import Chats from "./Chats/Chats";
-import SettingsPage from "./SettingsBar/settingsPage";
+import SettingsPage from "./Settings/settingsPage";
 
 
 const Sidebar = ({SearchUsers, GetAuthStatus, UsersList}) => {
