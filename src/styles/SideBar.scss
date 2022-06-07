@@ -1,13 +1,57 @@
 @import "./variables";
 
-.SideBar{
+.SideBar {
   grid-area: sidebar;
   height: 100%;
-  min-height: 100%;
   width: 300px;
   border: $block-border;
   background-color: $background-light-color;
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: 1fr;
+
+  .Scroll {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    height: calc(100vh - #{$settings-bar-height} - 4px);
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $background-color;
+    border-radius: 2px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  div {
+    animation: 0.5s show ease;
+  }
+
+  @keyframes show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
 }

@@ -6,19 +6,18 @@ import {Route, Routes, Navigate} from "react-router-dom";
 import SignUp from "../Auth/SignUp";
 
 
-function App(props) {
-
-    const {GetAuthStatus, AuthStatus} = props;
+function App({GetAuthStatus, AuthStatus}) {
     useEffect(() => { //On Did Mount
         GetAuthStatus()
-        console.log("Auth Status: " + AuthStatus)
     }, [])
+    console.log(AuthStatus)
 
     return (
         <Routes>
             <Route path="/" element={AuthStatus ? <Main/> : <Navigate to="/login"/>}/>
             <Route path="/login" element={AuthStatus ? <Navigate to="/"/> : <Login IsAuthenticated={GetAuthStatus}/>}/>
-            <Route path="/sign-up" element={AuthStatus ? <Navigate to="/"/> : <SignUp/>}/>
+            <Route path="/sign-up"
+                   element={AuthStatus ? <Navigate to="/"/> : <SignUp IsAuthenticated={GetAuthStatus}/>}/>
         </Routes>
     )
 }

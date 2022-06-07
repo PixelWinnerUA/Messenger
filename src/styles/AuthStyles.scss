@@ -50,13 +50,17 @@
   input, button {
     margin: 15px auto;
     font-family: Segoe UI, sans-serif;
-    font-size: 18px;
+    font-size: $text-size;
     padding: 10px 5px 10px 5px;
     border-radius: 5px;
     border: $block-border;
   }
 
   input[type="password"]::-ms-reveal {
+    display: none;
+  }
+
+  input[type="file"] {
     display: none;
   }
 
@@ -93,5 +97,15 @@
   width: 100vw;
 }
 
-
+.custom-file-input {
+  border: $block-border;
+  font-weight: bold;
+  margin: 10px auto;
+  display: block;
+  width: fit-content;
+  padding: 10px;
+  cursor: pointer;
+  background: white;
+  border-radius: 5px;
+}
 

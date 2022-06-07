@@ -8,6 +8,7 @@
     grid-area: content;
     width: 100%;
     height: 100%;
-    background: $background-image center center;
+    background: $background-image center center no-repeat;
+    background-size: cover;
   }
 }

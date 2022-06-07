@@ -1,0 +1,12 @@
+@import "./variables";
+
+.SettingsPage {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  div {
+    width: 100%;
+  }
+}
+

@@ -4,7 +4,7 @@ export const SetAuthActionCreator = (status) => ({
 })
 
 export const IsAuthenticated = () => (dispatch) => {
-    if (localStorage.AUTH_TOKEN) {
+    if (localStorage.user) {
         dispatch(SetAuthActionCreator(true))
     } else {
         dispatch(SetAuthActionCreator(false))

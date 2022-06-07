@@ -1,12 +1,12 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunkMiddleware from "redux-thunk";
-import ChatsReducer from "./reducers/ChatsReducer";
+import UsersReducer from "./reducers/UsersReducer";
 import AppReducer from "./reducers/AppReducer";
 
 
 
 let reducers = combineReducers({
-    ChatsComponent: ChatsReducer,
+    UsersComponent: UsersReducer,
     AppComponent: AppReducer
 })
 
