@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import {UploadImage} from "../../../../api/RestApi";
 import "../../../../styles/SettingsPage.scss"
+import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png";
+import {Button} from "@mui/material";
 
-const SettingsPage = ({IsAuthenticated}) => {
+
+const SettingsPage = ({UserPhoto, DeleteUser}) => {
     const [value, setValue] = useState({
         image: null,
     });
@@ -13,21 +16,78 @@ const SettingsPage = ({IsAuthenticated}) => {
 
     return (
         <div className="SettingsPage">
-            <div><label htmlFor="inputImage">Load new avatar</label>
-                <input id="inputImage" style={{display: "none"}}
-                       type="file"
-                       accept="image/png, image/gif, image/jpeg"
-                       onChange={OnInputFileLoad("image")}/>
+            <div className="item" style={{
+                display: "grid",
+                gridTemplateColumns: "auto 1fr",
+                alignItems: "center",
+                justifyItems: "center",
+            }}>
+                <img src={UserPhoto ? (`data:image/jpeg;base64,${UserPhoto}`) : (DefaultIcon)} alt={DefaultIcon}
+                     style={{
+                         objectPosition: "center center",
+                         objectFit: "cover",
+                         height: 50,
+                         width: 50,
+                         margin: "0 10px 0 0",
+                         borderRadius: "50%"
+                     }}/>
+                <div>
+                    {"@" + JSON.parse(localStorage.getItem("user")).userName}
+                </div>
             </div>
+
             <div>
-                <button style={{padding: 5}} onClick={() => UploadImage(value.image)}>send img</button>
+                <Button className="item" variant="contained" component="label">
+                    Upload a new picture
+                    <input id="inputImage" style={{display: "none"}}
+                           type="file"
+                           accept="image/png, image/gif, image/jpeg"
+                           onChange={OnInputFileLoad("image")}/>
+                </Button>
             </div>
+
             <div>
-                <button style={{padding: 5}} onClick={() => {
-                    localStorage.removeItem("user");
-                    IsAuthenticated();
-                }}> Log Out
-                </button>
+                <Button className="item" variant="contained" disabled={!value.image}
+                        onClick={() => UploadImage(value.image)}
+                        sx={{
+                            color: "#fff",
+                            '&:hover': {
+                                backgroundColor: "#0069d9",
+                                borderColor: "#0062cc",
+                                boxShadow: "none",
+                            },
+                            '&:active': {
+                                boxShadow: "none",
+                                backgroundColor: "#0062cc",
+                                borderColor: "#005cbf",
+                            },
+                            '&:focus': {
+                                boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+                            },
+                            '&:disabled': {
+                                backgroundColor: "#003983",
+                            }
+                        }}>Upload image</Button>
+            </div>
+
+            <div>
+                <Button className="item" variant="contained" onClick={() => DeleteUser()}
+                        sx={{
+                            color: "#fff",
+                            '&:hover': {
+                                backgroundColor: "#0069d9",
+                                borderColor: "#0062cc",
+                                boxShadow: "none",
+                            },
+                            '&:active': {
+                                boxShadow: "none",
+                                backgroundColor: "#0062cc",
+                                borderColor: "#005cbf",
+                            },
+                            '&:focus': {
+                                boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+                            },
+                        }}>Log Out</Button>
             </div>
         </div>
     );

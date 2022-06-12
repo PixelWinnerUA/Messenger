@@ -11,6 +11,11 @@ export const IsAuthenticated = () => (dispatch) => {
     }
 }
 
+export const DeleteUser = () => (dispatch) => {
+    localStorage.removeItem("user");
+    dispatch(SetAuthActionCreator(false))
+}
+
 let initialState = {
     AuthStatus: false
 }

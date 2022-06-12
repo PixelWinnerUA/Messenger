@@ -8,5 +8,18 @@
   div {
     width: 100%;
   }
+
+  .item {
+    margin: 10px;
+  }
+
+  .inputImage {
+    width: max-content;
+    cursor: pointer;
+    border: $block-border;
+    border-radius: 5px;
+    padding: 5px;
+    background: $background-color;
+  }
 }
 

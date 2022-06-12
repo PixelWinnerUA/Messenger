@@ -4,6 +4,8 @@ import Login from "../Auth/Login";
 import Main from "../Main/Main";
 import {Route, Routes, Navigate} from "react-router-dom";
 import SignUp from "../Auth/SignUp";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App({GetAuthStatus, AuthStatus}) {
@@ -12,13 +14,29 @@ function App({GetAuthStatus, AuthStatus}) {
     }, [])
     console.log(AuthStatus)
 
-    return (
-        <Routes>
-            <Route path="/" element={AuthStatus ? <Main/> : <Navigate to="/login"/>}/>
-            <Route path="/login" element={AuthStatus ? <Navigate to="/"/> : <Login IsAuthenticated={GetAuthStatus}/>}/>
-            <Route path="/sign-up"
-                   element={AuthStatus ? <Navigate to="/"/> : <SignUp IsAuthenticated={GetAuthStatus}/>}/>
-        </Routes>
+    return (<>
+            <Routes>
+                <Route path="/" element={AuthStatus ? <Main/> : <Navigate to="/login"/>}/>
+                <Route path="/login"
+                       element={AuthStatus ? <Navigate to="/"/> : <Login IsAuthenticated={GetAuthStatus}/>}/>
+                <Route path="/sign-up"
+                       element={AuthStatus ? <Navigate to="/"/> : <SignUp IsAuthenticated={GetAuthStatus}/>}/>
+            </Routes>
+
+            <ToastContainer
+                position="top-left"
+                theme="dark"
+                limit={1}
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover/>
+        </>
+
     )
 }
 
