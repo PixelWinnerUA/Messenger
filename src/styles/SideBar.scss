@@ -16,7 +16,6 @@
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-gutter: stable;
     height: calc(100vh - #{$settings-bar-height} - 4px);
   }
 

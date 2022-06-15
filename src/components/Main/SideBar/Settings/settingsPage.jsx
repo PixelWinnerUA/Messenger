@@ -14,7 +14,6 @@ const SettingsPage = ({UserPhoto, DeleteUser, GetUserPhoto}) => {
         [prop]: e.target.files[0]
     });
 
-
     return (
         <div className="SettingsPage">
             <div className="item" style={{
@@ -39,24 +38,42 @@ const SettingsPage = ({UserPhoto, DeleteUser, GetUserPhoto}) => {
 
             <div>
                 {value.image ?
-                    <Button className="item" variant="contained"
-                            onClick={() => UploadImage(value.image).then(() => GetUserPhoto())}
-                            sx={{
-                                color: "#fff",
-                                '&:hover': {
-                                    backgroundColor: "#0069d9",
-                                    borderColor: "#0062cc",
-                                    boxShadow: "none",
-                                },
-                                '&:active': {
-                                    boxShadow: "none",
-                                    backgroundColor: "#0062cc",
-                                    borderColor: "#005cbf",
-                                },
-                                '&:focus': {
-                                    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
-                                }
-                            }}>Upload image</Button>
+                    <div>
+                        <div className="item" style={{display: "grid", gridTemplateRows: "auto 1fr"}}>
+                            <p>Picture preview:</p>
+                            <img src={URL.createObjectURL(value.image)} style={{
+                                maxWidth: "100%",
+                                margin: "10px 0 0 0"
+                            }} alt="Picture preview"/>
+                        </div>
+                        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                            <Button className="item" variant="contained"
+                                    onClick={() => UploadImage(value.image).then(() => {
+                                        GetUserPhoto()
+                                        setValue({
+                                            ...value,
+                                            image: null
+                                        })
+                                    })}>
+                                Upload picture</Button>
+                            <Button className="item" variant="contained"
+                                    onClick={() => setValue({
+                                        ...value,
+                                        image: null
+                                    })}
+                                    sx={{
+                                        backgroundColor: "#bd0000",
+                                        color: "#fff",
+                                        '&:hover': {
+                                            backgroundColor: "#a20000",
+                                        },
+                                        '&:active': {
+                                            backgroundColor: "#a20000",
+                                        },
+                                    }}>
+                                Cancel</Button>
+                        </div>
+                    </div>
                     :
                     <Button className="item" variant="contained" component="label">
                         Choose a new picture
@@ -64,27 +81,12 @@ const SettingsPage = ({UserPhoto, DeleteUser, GetUserPhoto}) => {
                                type="file"
                                accept="image/png, image/gif, image/jpeg"
                                onChange={OnInputFileLoad("image")}/>
-                    </Button>}
+                    </Button>
+                }
             </div>
 
             <div>
-                <Button className="item" variant="contained" onClick={() => DeleteUser()}
-                        sx={{
-                            color: "#fff",
-                            '&:hover': {
-                                backgroundColor: "#0069d9",
-                                borderColor: "#0062cc",
-                                boxShadow: "none",
-                            },
-                            '&:active': {
-                                boxShadow: "none",
-                                backgroundColor: "#0062cc",
-                                borderColor: "#005cbf",
-                            },
-                            '&:focus': {
-                                boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
-                            },
-                        }}>Log Out</Button>
+                <Button className="item" variant="contained" onClick={() => DeleteUser()}>Log Out</Button>
             </div>
         </div>
     );
