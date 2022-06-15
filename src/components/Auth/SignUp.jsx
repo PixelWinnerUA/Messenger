@@ -222,7 +222,7 @@ const SignUp = ({IsAuthenticated}) => {
                             variant="outlined"
                             id="passwordConfirm"
                             label="Password"
-                            type="passwordConfirm"
+                            type="password"
                             value={formik.values.passwordConfirm}
                             onChange={formik.handleChange}
                             error={formik.touched.passwordConfirm && Boolean(formik.errors.passwordConfirm)}

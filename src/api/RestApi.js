@@ -37,6 +37,7 @@ export const SearchUsers = async (input) => {
 export const GetUserImage = async () => {
     return await axios.get('api/users/' + JSON.parse(localStorage.getItem("user")).userName + '/photo')
         .then(response => response.data.bytes)
+        .catch(error => console.log(error))
 }
 
 export const UploadImage = async (image) => {
@@ -48,6 +49,7 @@ export const UploadImage = async (image) => {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(() => toast.success("New profile picture uploaded!"))
+        .catch(error => console.log(error))
 }
 
 export const LoginAPI = async (userName, password) => {

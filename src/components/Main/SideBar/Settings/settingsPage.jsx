@@ -4,8 +4,8 @@ import "../../../../styles/SettingsPage.scss"
 import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png";
 import {Button} from "@mui/material";
 
+const SettingsPage = ({UserPhoto, DeleteUser, GetUserPhoto}) => {
 
-const SettingsPage = ({UserPhoto, DeleteUser}) => {
     const [value, setValue] = useState({
         image: null,
     });
@@ -13,6 +13,7 @@ const SettingsPage = ({UserPhoto, DeleteUser}) => {
         ...value,
         [prop]: e.target.files[0]
     });
+
 
     return (
         <div className="SettingsPage">
@@ -37,37 +38,33 @@ const SettingsPage = ({UserPhoto, DeleteUser}) => {
             </div>
 
             <div>
-                <Button className="item" variant="contained" component="label">
-                    Upload a new picture
-                    <input id="inputImage" style={{display: "none"}}
-                           type="file"
-                           accept="image/png, image/gif, image/jpeg"
-                           onChange={OnInputFileLoad("image")}/>
-                </Button>
-            </div>
-
-            <div>
-                <Button className="item" variant="contained" disabled={!value.image}
-                        onClick={() => UploadImage(value.image)}
-                        sx={{
-                            color: "#fff",
-                            '&:hover': {
-                                backgroundColor: "#0069d9",
-                                borderColor: "#0062cc",
-                                boxShadow: "none",
-                            },
-                            '&:active': {
-                                boxShadow: "none",
-                                backgroundColor: "#0062cc",
-                                borderColor: "#005cbf",
-                            },
-                            '&:focus': {
-                                boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
-                            },
-                            '&:disabled': {
-                                backgroundColor: "#003983",
-                            }
-                        }}>Upload image</Button>
+                {value.image ?
+                    <Button className="item" variant="contained"
+                            onClick={() => UploadImage(value.image).then(() => GetUserPhoto())}
+                            sx={{
+                                color: "#fff",
+                                '&:hover': {
+                                    backgroundColor: "#0069d9",
+                                    borderColor: "#0062cc",
+                                    boxShadow: "none",
+                                },
+                                '&:active': {
+                                    boxShadow: "none",
+                                    backgroundColor: "#0062cc",
+                                    borderColor: "#005cbf",
+                                },
+                                '&:focus': {
+                                    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+                                }
+                            }}>Upload image</Button>
+                    :
+                    <Button className="item" variant="contained" component="label">
+                        Choose a new picture
+                        <input id="inputImage" style={{display: "none"}}
+                               type="file"
+                               accept="image/png, image/gif, image/jpeg"
+                               onChange={OnInputFileLoad("image")}/>
+                    </Button>}
             </div>
 
             <div>
