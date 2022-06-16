@@ -1,7 +1,7 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 import store from "../store/redux-store";
-import {SetAuthActionCreator} from "../store/reducers/AppReducer";
+import {DeleteUser} from "../store/reducers/AppReducer";
 
 axios.defaults.baseURL = 'http://70.37.67.50:8080'; //API URL AND PORT
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'; // for all requests
@@ -12,9 +12,8 @@ axios.interceptors.response.use(
     error => {
         if (error.response?.status === 401) {
             toast.error(error.response.data.message);
-            localStorage.removeItem('user');
-            if (!error.response.data) {
-                store.dispatch(SetAuthActionCreator(false));
+            if (localStorage.AUTH_TOKEN) {
+                DeleteUser()(store.dispatch)
             }
         } else if (error.response?.status === 400) {
             toast.error(error.response.data.message);

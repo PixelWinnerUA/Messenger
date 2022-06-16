@@ -48,11 +48,11 @@ const Login = ({IsAuthenticated}) => {
                     justifyItems: "center",
                     gridTemplateRows: "auto auto auto auto"
                 }}>
-                    <h1 style={{margin: 20, color: "white"}}>Sign-In</h1>
+                    <h1 style={{margin: "1.5vh 0 1.5vh 0", color: "white"}}>Sign-In</h1>
                     <FormControl sx={{width: 250}}>
                         <TextField
                             sx={{
-                                marginBottom: 3,
+                                margin: "1.5vh 0 1.5vh 0",
                                 '& label': {
                                     color: "rgba(255, 255, 255, 0.7)",
                                 },
@@ -93,7 +93,7 @@ const Login = ({IsAuthenticated}) => {
                     <FormControl sx={{width: 250}}>
                         <TextField
                             sx={{
-                                marginBottom: 3,
+                                margin: "1.5vh 0 1.5vh 0",
                                 '& label': {
                                     color: "rgba(255, 255, 255, 0.7)",
                                 },
@@ -140,7 +140,9 @@ const Login = ({IsAuthenticated}) => {
                     </FormControl>
                     <Button variant="contained" type="submit" disabled={load}
                             sx={{
-                                width: 100, alignSelf: "center", marginBottom: 3,
+                                width: 100,
+                                alignSelf: "center",
+                                margin: "1.5vh 0 1.5vh 0",
                                 color: "#fff",
                                 '&:hover': {
                                     backgroundColor: "#0069d9",
@@ -152,17 +154,16 @@ const Login = ({IsAuthenticated}) => {
                                     backgroundColor: "#0062cc",
                                     borderColor: "#005cbf",
                                 },
-                                '&:focus': {
-                                    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
-                                },
                                 '&:disabled': {
                                     backgroundColor: "#003983",
                                 }
                             }}>Sign-In</Button>
                 </form>
+                <div style={{color: "white", textAlign: "center", margin: "0 0 1.5vh 0"}}>
+                    <span>Don't have an account?</span> <NavLink style={{color: "#1976d2", textDecoration: "none"}}
+                                                                 to={"/sign-up"}>Sign-Up</NavLink>
+                </div>
             </Box>
-            <div style={{position: "fixed", top: 20, right: 20, background: "#181818", borderRadius: 5, padding: 10}}>
-                <NavLink style={{textDecoration: "none", color: "white"}} to={"/sign-up"}>Sign-Up</NavLink></div>
         </div>
     );
 };

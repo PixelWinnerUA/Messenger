@@ -36,7 +36,7 @@ const Users = ({UsersList}) => {
 
             <div className="info">
                 <div className="name">
-                   <p>{item.name}</p>
+                    <p>{item.name}</p>
                 </div>
                 <div className="userName">
                     <p>@{item.userName}</p>
@@ -46,7 +46,6 @@ const Users = ({UsersList}) => {
 
         </div>
     </li>)
-
     return (
         <div className="Users">
             <ul>{Users}</ul>

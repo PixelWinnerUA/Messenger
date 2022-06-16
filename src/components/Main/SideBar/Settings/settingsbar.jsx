@@ -1,12 +1,11 @@
 import React from 'react';
 import "../../../../styles/SettingsBar.scss"
 
-
 const Settingsbar = ({SearchUsers, setSearchInput, isActive, setActive}) => {
     const handleChange = (input) => {
         setSearchInput(input)
-        if (input.trim()) {
-            SearchUsers(input.trim());
+        if (input) {
+            SearchUsers(input);
         }
     }
     return (
@@ -20,7 +19,7 @@ const Settingsbar = ({SearchUsers, setSearchInput, isActive, setActive}) => {
             </div>
 
             <input className="Search-Block" placeholder="Search"
-                   onChange={e => handleChange(e.target.value)}/>
+                   onChange={e => handleChange(e.target.value.trim())}/>
         </div>
     );
 };

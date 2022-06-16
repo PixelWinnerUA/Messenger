@@ -50,11 +50,11 @@ const SignUp = ({IsAuthenticated}) => {
                     justifyItems: "center",
                     gridTemplateRows: "auto auto auto auto auto"
                 }}>
-                    <h1 style={{margin: 20, color: "white"}}>Sign-Up</h1>
+                    <h1 style={{margin: "1.5vh 0 1.5vh 0", color: "white"}}>Sign-Up</h1>
                     <FormControl sx={{width: 250}}>
                         <TextField
                             sx={{
-                                marginBottom: 3,
+                                margin: "1.5vh 0 1.5vh 0",
                                 '& label': {
                                     color: "rgba(255, 255, 255, 0.7)",
                                 },
@@ -95,7 +95,7 @@ const SignUp = ({IsAuthenticated}) => {
                     <FormControl sx={{width: 250}}>
                         <TextField
                             sx={{
-                                marginBottom: 3,
+                                margin: "1.5vh 0 1.5vh 0",
                                 '& label': {
                                     color: "rgba(255, 255, 255, 0.7)",
                                 },
@@ -136,7 +136,7 @@ const SignUp = ({IsAuthenticated}) => {
                     <FormControl sx={{width: 250}}>
                         <TextField
                             sx={{
-                                marginBottom: 3,
+                                margin: "1.5vh 0 1.5vh 0",
                                 '& label': {
                                     color: "rgba(255, 255, 255, 0.7)",
                                 },
@@ -184,7 +184,7 @@ const SignUp = ({IsAuthenticated}) => {
                     <FormControl sx={{width: 250}}>
                         <TextField
                             sx={{
-                                marginBottom: 3,
+                                margin: "1.5vh 0 1.5vh 0",
                                 '& label': {
                                     color: "rgba(255, 255, 255, 0.7)",
                                 },
@@ -221,7 +221,7 @@ const SignUp = ({IsAuthenticated}) => {
                             }}
                             variant="outlined"
                             id="passwordConfirm"
-                            label="Password"
+                            label="Confirm Password"
                             type="password"
                             value={formik.values.passwordConfirm}
                             onChange={formik.handleChange}
@@ -231,7 +231,7 @@ const SignUp = ({IsAuthenticated}) => {
                     </FormControl>
                     <Button variant="contained" type="submit" disabled={load}
                             sx={{
-                                width: 100, alignSelf: "center", marginBottom: 3,
+                                width: 100, alignSelf: "center", margin: "1.5vh 0 1.5vh 0",
                                 color: "#fff",
                                 '&:hover': {
                                     backgroundColor: "#0069d9",
@@ -243,18 +243,17 @@ const SignUp = ({IsAuthenticated}) => {
                                     backgroundColor: "#0062cc",
                                     borderColor: "#005cbf",
                                 },
-                                '&:focus': {
-                                    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
-                                },
                                 '&:disabled': {
                                     backgroundColor: "#003983",
                                 }
                             }}>Sign-Up</Button>
                 </form>
+                <div style={{color: "white", textAlign: "center", margin: "0 0 1.5vh 0"}}>
+                    <span>Already registered?</span> <NavLink style={{color: "#1976d2", textDecoration: "none"}}
+                                                                 to={"/login"}>Sign-In</NavLink>
+                </div>
             </Box>
 
-            <div style={{position: "fixed", top: 20, right: 20, background: "#181818", borderRadius: 5, padding: 10}}>
-                <NavLink style={{textDecoration: "none", color: "white"}} to={"/login"}>Sign-In</NavLink></div>
         </div>
     );
 };
