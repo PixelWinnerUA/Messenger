@@ -4,7 +4,7 @@ import "../../../../styles/SettingsPage.scss"
 import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png";
 import {Button} from "@mui/material";
 
-const SettingsPage = ({UserPhoto, DeleteUser, GetUserPhoto}) => {
+const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
 
     const [value, setValue] = useState({
         image: null,
@@ -22,7 +22,8 @@ const SettingsPage = ({UserPhoto, DeleteUser, GetUserPhoto}) => {
                 alignItems: "center",
                 justifyItems: "center",
             }}>
-                <img src={UserPhoto ? (`data:image/jpeg;base64,${UserPhoto}`) : (DefaultIcon)} alt={DefaultIcon}
+                <img src={UserInfo.photo.bytes ? (`data:image/jpeg;base64,${UserInfo.photo.bytes}`) : (DefaultIcon)}
+                     alt={DefaultIcon}
                      style={{
                          objectPosition: "center center",
                          objectFit: "cover",
@@ -31,8 +32,9 @@ const SettingsPage = ({UserPhoto, DeleteUser, GetUserPhoto}) => {
                          margin: "0 10px 0 0",
                          borderRadius: "50%"
                      }}/>
-                <div>
-                    {"@" + JSON.parse(localStorage.getItem("user")).userName}
+                <div style={{display: "grid", gridTemplateRows: "1fr 1fr"}}>
+                    <div>{UserInfo.name}</div>
+                    <div style={{color: "gray"}}>{"@" + UserInfo.userName}</div>
                 </div>
             </div>
 
@@ -40,7 +42,7 @@ const SettingsPage = ({UserPhoto, DeleteUser, GetUserPhoto}) => {
                 {value.image ?
                     <div>
                         <div className="item" style={{display: "grid", gridTemplateRows: "auto 1fr"}}>
-                            <p>Picture preview:</p>
+                            Picture preview:
                             <img src={URL.createObjectURL(value.image)} style={{
                                 maxWidth: "100%",
                                 margin: "10px 0 0 0"
@@ -49,7 +51,7 @@ const SettingsPage = ({UserPhoto, DeleteUser, GetUserPhoto}) => {
                         <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                             <Button className="item" variant="contained"
                                     onClick={() => UploadImage(value.image).then(() => {
-                                        GetUserPhoto()
+                                        GetUserInfo()
                                         setValue({
                                             ...value,
                                             image: null

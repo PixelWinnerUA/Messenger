@@ -6,7 +6,7 @@ import {SetAuthActionCreator} from "../store/reducers/AppReducer";
 axios.defaults.baseURL = 'http://70.37.67.50:8080'; //API URL AND PORT
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'; // for all requests
 axios.defaults.headers.common['Content-Type'] = 'application/json'; //json content set by default
-axios.defaults.headers.common['Authorization'] = JSON.parse(localStorage.getItem("user"))?.token; //localStorage.AUTH_TOKEN
+axios.defaults.headers.common['Authorization'] = localStorage.AUTH_TOKEN; //localStorage.AUTH_TOKEN
 axios.interceptors.response.use(
     response => response,
     error => {
@@ -34,14 +34,14 @@ export const SearchUsers = async (input) => {
 }
 
 
-export const GetUserImage = async () => {
-    return await axios.get('api/users/' + JSON.parse(localStorage.getItem("user")).userName + '/photo')
-        .then(response => response.data.bytes)
+export const GetUser = async () => {
+    return await axios.get('api/users/info')
+        .then(response => response.data)
         .catch(error => console.log(error))
 }
 
 export const UploadImage = async (image) => {
-    return await axios.post('api/users/' + JSON.parse(localStorage.getItem("user")).userName + '/photo',
+    return await axios.post('api/users/photo',
         {
             image
         }, {
@@ -59,13 +59,9 @@ export const LoginAPI = async (userName, password) => {
             password
         })
         .then(response => {
-            let _user = {
-                userName: response.data.userName,
-                token: "Bearer " + response.data.jwtToken
-            }
-            localStorage.setItem('user', JSON.stringify(_user))
-            if (localStorage.user) {
-                axios.defaults.headers.common['Authorization'] = JSON.parse(localStorage.getItem("user")).token;
+            localStorage.AUTH_TOKEN = "Bearer " + response.data.jwtToken;
+            if (localStorage.AUTH_TOKEN) {
+                axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.jwtToken;
             }
         })
         .catch(error => console.log(error))
@@ -78,13 +74,9 @@ export const RegistrationAPI = async (name, userName, password) => {
             userName,
             password,
         }).then(response => {
-        let _user = {
-            userName: response.data.userName,
-            token: "Bearer " + response.data.jwtToken
-        }
-        localStorage.setItem('user', JSON.stringify(_user))
-        if (localStorage.user) {
-            axios.defaults.headers.common['Authorization'] = JSON.parse(localStorage.getItem("user")).token;
+        localStorage.AUTH_TOKEN = "Bearer " + response.data.jwtToken;
+        if (localStorage.AUTH_TOKEN) {
+            axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.jwtToken;
         }
     }).catch(error => console.log(error));
 }

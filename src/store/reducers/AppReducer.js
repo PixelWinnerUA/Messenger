@@ -4,7 +4,7 @@ export const SetAuthActionCreator = (status) => ({
 })
 
 export const IsAuthenticated = () => (dispatch) => {
-    if (localStorage.user) {
+    if (localStorage.AUTH_TOKEN) {
         dispatch(SetAuthActionCreator(true))
     } else {
         dispatch(SetAuthActionCreator(false))
@@ -12,7 +12,7 @@ export const IsAuthenticated = () => (dispatch) => {
 }
 
 export const DeleteUser = () => (dispatch) => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("AUTH_TOKEN");
     dispatch(SetAuthActionCreator(false))
 }
 

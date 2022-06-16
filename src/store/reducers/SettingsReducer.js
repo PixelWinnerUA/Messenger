@@ -1,28 +1,28 @@
-import {GetUserImage} from "../../api/RestApi";
+import {GetUser} from "../../api/RestApi";
 
-export const GetUserPhotoActionCreator = (photo) => ({
-    type: "GetUserPhoto",
-    photo
+export const GetUserInfoActionCreator = (userInfoObject) => ({
+    type: "GetUserInfo",
+    userInfoObject
 })
 
-export const GetPhoto = () => async (dispatch) => {
-    let response = await GetUserImage();
+export const GetUserInfo = () => async (dispatch) => {
+    let response = await GetUser();
     if (response) {
-        dispatch(GetUserPhotoActionCreator(response))
+        dispatch(GetUserInfoActionCreator(response))
     }
 }
 
 let initialState = {
-    UserPhoto: null
+    UserInfo: null
 }
 
 const SettingsReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case "GetUserPhoto":
+        case "GetUserInfo":
             return {
                 ...state,
-                UserPhoto: action.photo
+                UserInfo: action.userInfoObject
             }
 
         default:

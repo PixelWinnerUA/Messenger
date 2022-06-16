@@ -2,13 +2,13 @@ import {connect} from "react-redux";
 import sidebar from "./sidebar";
 import {GetUsers} from "../../../store/reducers/UsersReducer";
 import {DeleteUser} from "../../../store/reducers/AppReducer";
-import {GetPhoto} from "../../../store/reducers/SettingsReducer";
+import {GetUserInfo} from "../../../store/reducers/SettingsReducer";
 
 
 const mapStateToProps = (state) => {
     return {
         UsersList: state.UsersComponent.users,
-        UserPhoto: state.SettingsComponent.UserPhoto
+        UserInfo: state.SettingsComponent.UserInfo
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -19,8 +19,8 @@ const mapDispatchToProps = (dispatch) => {
         DeleteUser: () => {
             dispatch(DeleteUser())
         },
-        GetUserPhoto: () => {
-            dispatch(GetPhoto())
+        GetUserInfo: () => {
+            dispatch(GetUserInfo())
         }
     }
 }

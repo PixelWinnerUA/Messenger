@@ -5,13 +5,11 @@ import Users from "./Users/Users";
 import Chats from "./Chats/Chats";
 import SettingsPage from "./Settings/settingsPage";
 
-const Sidebar = ({SearchUsers, GetUserPhoto, UserPhoto, UsersList, DeleteUser}) => {
+const Sidebar = ({SearchUsers, GetUserInfo, UserInfo, UsersList, DeleteUser}) => {
     const [SearchInput, setSearchInput] = useState();
     const [isActive, setActive] = useState("false"); //burger menu state
     useEffect(() => {
-        if (!UserPhoto) {
-            GetUserPhoto();
-        }
+        GetUserInfo()
     }, [])
     let SideBarContent;
 
@@ -23,7 +21,7 @@ const Sidebar = ({SearchUsers, GetUserPhoto, UserPhoto, UsersList, DeleteUser}) 
     }
     if (!isActive) {
         SideBarContent =
-            <SettingsPage UserPhoto={UserPhoto} GetUserPhoto={GetUserPhoto} DeleteUser={DeleteUser}/>
+            <SettingsPage UserInfo={UserInfo} GetUserInfo={GetUserInfo} DeleteUser={DeleteUser}/>
     }
 
     return (
