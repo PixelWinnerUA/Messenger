@@ -8,7 +8,6 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
 
     const [image, setImage] = useState(null);
 
-
     return (
         <div className="SettingsPage">
 

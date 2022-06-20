@@ -10,9 +10,7 @@ export const SetSearchInputActionCreator = (input) => ({
 })
 
 export const SetSearchInput = (input) => (dispatch) => {
-    if (input){
-        dispatch(SetSearchInputActionCreator(input))
-    }
+    dispatch(SetSearchInputActionCreator(input))
 }
 
 export const GetUserInfo = () => async (dispatch) => {
