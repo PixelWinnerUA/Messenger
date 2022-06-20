@@ -7,7 +7,7 @@ import Chats from "./Chats/Chats";
 import SettingsPageContainer from "./Settings/settingsPageContainer";
 
 
-const Sidebar = ({GetUsers, GetUserInfo, UsersList, SetSearchInput, SearchInput}) => {
+const Sidebar = ({SearchUsers, GetUserInfo, UsersList, SetSearchInput, SearchInput}) => {
     const [isActive, setActive] = useState("false"); //burger menu state
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const Sidebar = ({GetUsers, GetUserInfo, UsersList, SetSearchInput, SearchInput}
 
     return (
         <div className="SideBar">
-            <Settingsbar GetUsers={GetUsers} SetSearchInput={SetSearchInput}
+            <Settingsbar SearchUsers={SearchUsers} SetSearchInput={SetSearchInput}
                          isActive={isActive}
                          setActive={setActive}
             />
