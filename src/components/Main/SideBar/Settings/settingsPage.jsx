@@ -19,7 +19,7 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
                     justifyItems: "center",
                 }}>
                     <img
-                        src={UserInfo?.photo.bytes ? (`data:image/jpeg;base64,${UserInfo.photo.bytes}`) : (DefaultIcon)}
+                        src={UserInfo.photo ? (`data:image/jpeg;base64,${UserInfo.photo.bytes}`) : (DefaultIcon)}
                         alt={DefaultIcon}
                         style={{
                             objectPosition: "center center",
