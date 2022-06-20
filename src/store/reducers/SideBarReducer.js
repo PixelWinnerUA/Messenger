@@ -21,8 +21,8 @@ export const GetUserInfo = () => async (dispatch) => {
 }
 
 let initialState = {
-    UserInfo: null,
-    SearchInput: null
+    UserInfo: null, //profile info object
+    SearchInput: null, //search input in settingsbar
 }
 
 const SideBarReducer = (state = initialState, action) => {
@@ -38,7 +38,6 @@ const SideBarReducer = (state = initialState, action) => {
                 ...state,
                 SearchInput: action.input
             }
-
         default:
             return state;
     }

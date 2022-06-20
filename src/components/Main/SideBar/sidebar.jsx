@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import Settingsbar from "./Settings/settingsbar";
 import "../../../styles/SideBar.scss"
-import Users from "./Users/Users";
 import Chats from "./Chats/Chats";
-
 import SettingsPageContainer from "./Settings/settingsPageContainer";
+import UsersContainer from "./Users/usersContainer";
 
 
-const Sidebar = ({SearchUsers, GetUserInfo, UsersList, SetSearchInput, SearchInput}) => {
+const Sidebar = ({SearchUsers, GetUserInfo, SetSearchInput, SearchInput}) => {
     const [isActive, setActive] = useState("false"); //burger menu state
 
     useEffect(() => {
@@ -20,7 +19,7 @@ const Sidebar = ({SearchUsers, GetUserInfo, UsersList, SetSearchInput, SearchInp
         SideBarContent = <Chats/>;
     }
     if (SearchInput) {
-        SideBarContent = <Users UsersList={UsersList}/>
+        SideBarContent = <UsersContainer/>
     }
     if (!isActive) {
         SideBarContent = <SettingsPageContainer/>

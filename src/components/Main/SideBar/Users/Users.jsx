@@ -1,8 +1,11 @@
 import React from 'react';
 import "../../../../styles/Users.scss";
 import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png"
+import {CircularProgress} from "@mui/material";
 
-const Users = ({UsersList}) => {
+
+const Users = ({UsersList, SearchStatus}) => {
+
     let Users = UsersList.map(item => <li key={item.userName}>
         <div className="User">{
             item.photo ?
@@ -43,12 +46,13 @@ const Users = ({UsersList}) => {
                 </div>
             </div>
 
-
         </div>
     </li>)
     return (
         <div className="Users">
-            <ul>{Users}</ul>
+            {SearchStatus ?
+                <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: "100%"}}>
+                    <CircularProgress/></div> : <ul>{Users}</ul>}
         </div>
     );
 };

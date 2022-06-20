@@ -10,7 +10,7 @@ const Settingsbar = ({SearchUsers, SetSearchInput, isActive, setActive}) => {
     }
     return (
         <div className="Settingsbar">
-            <div className={!isActive ? ("Burger-Settings open") : "Burger-Settings"}
+            <div className={isActive ? "Burger-Settings" : "Burger-Settings open"}
                  onClick={() => setActive(!isActive)}>
                 <span></span>
                 <span></span>

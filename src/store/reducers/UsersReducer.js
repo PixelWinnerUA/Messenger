@@ -5,15 +5,23 @@ export const SearchUsersActionCreator = (users) => ({
     users
 })
 
+export const SetSearchStatusActionCreator = (status) => ({
+    type: "SetSearchStatus",
+    status
+})
+
 export const GetUsers = (input) => async (dispatch) => {
-    let response = await SearchUsers(input);
+    dispatch(SetSearchStatusActionCreator(true))
+    let response = await SearchUsers(input)
     if (response) {
+        dispatch(SetSearchStatusActionCreator(false))
         dispatch(SearchUsersActionCreator(response))
     }
 }
 
 let initialState = {
     users: [],
+    SearchStatus: false //loading status of getting users
 }
 
 const UsersReducer = (state = initialState, action) => {
@@ -24,7 +32,11 @@ const UsersReducer = (state = initialState, action) => {
                 ...state,
                 users: action.users
             }
-
+        case "SetSearchStatus":
+            return {
+                ...state,
+                SearchStatus: action.status
+            }
         default:
             return state;
     }

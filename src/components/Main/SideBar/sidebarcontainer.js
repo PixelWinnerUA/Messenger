@@ -7,9 +7,8 @@ import {GetUserInfo, SetSearchInput} from "../../../store/reducers/SideBarReduce
 
 const mapStateToProps = (state) => {
     return {
-        UsersList: state.UsersComponent.users,
         UserInfo: state.SideBarComponent.UserInfo,
-        SearchInput: state.SideBarComponent.SearchInput
+        SearchInput: state.SideBarComponent.SearchInput,
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -23,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
         GetUserInfo: () => {
             dispatch(GetUserInfo())
         },
-        SetSearchInput: (input)=>{
+        SetSearchInput: (input) => {
             dispatch(SetSearchInput(input))
         }
 
