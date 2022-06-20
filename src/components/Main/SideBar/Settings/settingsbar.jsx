@@ -1,11 +1,11 @@
 import React from 'react';
 import "../../../../styles/SettingsBar.scss"
 
-const Settingsbar = ({SearchUsers, setSearchInput, isActive, setActive}) => {
+const Settingsbar = ({GetUsers, SetSearchInput, isActive, setActive}) => {
     const handleChange = (input) => {
-        setSearchInput(input)
+        SetSearchInput(input)
         if (input) {
-            SearchUsers(input);
+            GetUsers(input);
         }
     }
     return (

@@ -2,67 +2,63 @@ import React, {useState} from 'react';
 import {UploadImage} from "../../../../api/RestApi";
 import "../../../../styles/SettingsPage.scss"
 import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png";
-import {Button} from "@mui/material";
+import {Button, CircularProgress} from "@mui/material";
 
 const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
 
-    const [value, setValue] = useState({
-        image: null,
-    });
-    const OnInputFileLoad = prop => e => setValue({
-        ...value,
-        [prop]: e.target.files[0]
-    });
+    const [image, setImage] = useState(null);
+
 
     return (
         <div className="SettingsPage">
-            <div className="item" style={{
-                display: "grid",
-                gridTemplateColumns: "auto 1fr",
-                alignItems: "center",
-                justifyItems: "center",
-            }}>
-                <img src={UserInfo.photo.bytes ? (`data:image/jpeg;base64,${UserInfo.photo.bytes}`) : (DefaultIcon)}
-                     alt={DefaultIcon}
-                     style={{
-                         objectPosition: "center center",
-                         objectFit: "cover",
-                         height: 50,
-                         width: 50,
-                         margin: "0 10px 0 0",
-                         borderRadius: "50%"
-                     }}/>
-                <div style={{display: "grid", gridTemplateRows: "1fr 1fr"}}>
-                    <div>{UserInfo.name}</div>
-                    <div style={{color: "gray"}}>{"@" + UserInfo.userName}</div>
+
+            {UserInfo ?
+                <div className="item" style={{
+                    display: "grid",
+                    gridTemplateColumns: "auto 1fr",
+                    alignItems: "center",
+                    justifyItems: "center",
+                }}>
+                    <img
+                        src={UserInfo?.photo.bytes ? (`data:image/jpeg;base64,${UserInfo.photo.bytes}`) : (DefaultIcon)}
+                        alt={DefaultIcon}
+                        style={{
+                            objectPosition: "center center",
+                            objectFit: "cover",
+                            height: 50,
+                            width: 50,
+                            margin: "0 10px 0 0",
+                            borderRadius: "50%"
+                        }}/>
+                    <div style={{display: "grid", gridTemplateRows: "1fr 1fr"}}>
+                        <div>{UserInfo.name}</div>
+                        <div style={{color: "gray"}}>{"@" + UserInfo.userName}</div>
+                    </div>
                 </div>
-            </div>
+                :
+                <div className="item" style={{width: "100%", display: "flex", justifyContent: "center"}}>
+                    <CircularProgress/>
+                </div>}
 
             <div>
-                {value.image ?
+                {image ?
                     <div>
                         <div className="item" style={{display: "grid", gridTemplateRows: "auto 1fr"}}>
                             Picture preview:
-                            <img src={URL.createObjectURL(value.image)} style={{
+                            <img src={URL.createObjectURL(image)} style={{
                                 maxWidth: "100%",
                                 margin: "10px 0 0 0"
-                            }} alt="Picture preview"/>
+                            }} alt={DefaultIcon}/>
                         </div>
                         <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                             <Button className="item" variant="contained"
-                                    onClick={() => UploadImage(value.image).then(() => {
+                                    onClick={() => UploadImage(image).then(() => {
                                         GetUserInfo()
-                                        setValue({
-                                            ...value,
-                                            image: null
-                                        })
+                                        setImage(null)
                                     })}>
                                 Upload picture</Button>
                             <Button className="item" variant="contained"
-                                    onClick={() => setValue({
-                                        ...value,
-                                        image: null
-                                    })}
+                                    onClick={() => setImage(null)}
                                     sx={{
                                         backgroundColor: "#bd0000",
                                         color: "#fff",
@@ -73,7 +69,8 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
                                             backgroundColor: "#a20000",
                                         },
                                     }}>
-                                Cancel</Button>
+                                Cancel
+                            </Button>
                         </div>
                     </div>
                     :
@@ -82,7 +79,7 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
                         <input id="inputImage" style={{display: "none"}}
                                type="file"
                                accept="image/png, image/gif, image/jpeg"
-                               onChange={OnInputFileLoad("image")}/>
+                               onChange={e => setImage(e.target.files[0])}/>
                     </Button>
                 }
             </div>

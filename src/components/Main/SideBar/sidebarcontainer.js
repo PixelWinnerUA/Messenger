@@ -2,18 +2,19 @@ import {connect} from "react-redux";
 import sidebar from "./sidebar";
 import {GetUsers} from "../../../store/reducers/UsersReducer";
 import {DeleteUser} from "../../../store/reducers/AppReducer";
-import {GetUserInfo} from "../../../store/reducers/SettingsReducer";
+import {GetUserInfo, SetSearchInput} from "../../../store/reducers/SideBarReducer";
 
 
 const mapStateToProps = (state) => {
     return {
         UsersList: state.UsersComponent.users,
-        UserInfo: state.SettingsComponent.UserInfo
+        UserInfo: state.SideBarComponent.UserInfo,
+        SearchInput: state.SideBarComponent.SearchInput
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        SearchUsers: (input) => {
+        GetUsers: (input) => {
             dispatch(GetUsers(input))
         },
         DeleteUser: () => {
@@ -21,7 +22,11 @@ const mapDispatchToProps = (dispatch) => {
         },
         GetUserInfo: () => {
             dispatch(GetUserInfo())
+        },
+        SetSearchInput: (input)=>{
+            dispatch(SetSearchInput(input))
         }
+
     }
 }
 

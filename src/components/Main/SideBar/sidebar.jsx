@@ -3,14 +3,17 @@ import Settingsbar from "./Settings/settingsbar";
 import "../../../styles/SideBar.scss"
 import Users from "./Users/Users";
 import Chats from "./Chats/Chats";
-import SettingsPage from "./Settings/settingsPage";
 
-const Sidebar = ({SearchUsers, GetUserInfo, UserInfo, UsersList, DeleteUser}) => {
-    const [SearchInput, setSearchInput] = useState();
+import SettingsPageContainer from "./Settings/settingsPageContainer";
+
+
+const Sidebar = ({GetUsers, GetUserInfo, UsersList, SetSearchInput, SearchInput}) => {
     const [isActive, setActive] = useState("false"); //burger menu state
+
     useEffect(() => {
         GetUserInfo()
     }, [])
+
     let SideBarContent;
 
     if (!SearchInput || isActive) {
@@ -20,13 +23,12 @@ const Sidebar = ({SearchUsers, GetUserInfo, UserInfo, UsersList, DeleteUser}) =>
         SideBarContent = <Users UsersList={UsersList}/>
     }
     if (!isActive) {
-        SideBarContent =
-            <SettingsPage UserInfo={UserInfo} GetUserInfo={GetUserInfo} DeleteUser={DeleteUser}/>
+        SideBarContent = <SettingsPageContainer/>
     }
 
     return (
         <div className="SideBar">
-            <Settingsbar SearchUsers={SearchUsers} setSearchInput={setSearchInput}
+            <Settingsbar GetUsers={GetUsers} SetSearchInput={SetSearchInput}
                          isActive={isActive}
                          setActive={setActive}
             />

@@ -4,6 +4,16 @@ export const GetUserInfoActionCreator = (userInfoObject) => ({
     type: "GetUserInfo",
     userInfoObject
 })
+export const SetSearchInputActionCreator = (input) => ({
+    type: "SetSearchInput",
+    input
+})
+
+export const SetSearchInput = (input) => (dispatch) => {
+    if (input){
+        dispatch(SetSearchInputActionCreator(input))
+    }
+}
 
 export const GetUserInfo = () => async (dispatch) => {
     let response = await GetUser();
@@ -13,10 +23,11 @@ export const GetUserInfo = () => async (dispatch) => {
 }
 
 let initialState = {
-    UserInfo: null
+    UserInfo: null,
+    SearchInput: null
 }
 
-const SettingsReducer = (state = initialState, action) => {
+const SideBarReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case "GetUserInfo":
@@ -24,9 +35,14 @@ const SettingsReducer = (state = initialState, action) => {
                 ...state,
                 UserInfo: action.userInfoObject
             }
+        case "SetSearchInput":
+            return {
+                ...state,
+                SearchInput: action.input
+            }
 
         default:
             return state;
     }
 };
-export default SettingsReducer;
+export default SideBarReducer;
