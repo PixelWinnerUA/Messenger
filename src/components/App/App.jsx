@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App({GetAuthStatus, AuthStatus}) {
     useEffect(() => { //On Did Mount
         GetAuthStatus()
-    }, [])
+    }, [GetAuthStatus])
     console.log(AuthStatus)
 
     return (<>
@@ -26,7 +26,7 @@ function App({GetAuthStatus, AuthStatus}) {
             <ToastContainer
                 position="top-left"
                 theme="dark"
-                limit={1}
+                limit={2}
                 autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}

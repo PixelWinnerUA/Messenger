@@ -11,12 +11,17 @@ axios.interceptors.response.use(
     response => response,
     error => {
         if (error.response?.status === 401) {
-            toast.error(error.response.data.message);
+            if (!toast.isActive(error.response.data.message)) {
+                toast.error(error.response.data.message, {toastId: error.response.data.message});
+            }
             if (localStorage.AUTH_TOKEN) {
                 DeleteUser()(store.dispatch)
             }
         } else if (error.response?.status === 400) {
-            toast.error(error.response.data.message);
+            if (!toast.isActive(error.response.data.message)) {
+                toast.error(error.response.data.message, {toastId: error.response.data.message});
+            }
+
         }
     });
 
