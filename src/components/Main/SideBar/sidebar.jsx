@@ -12,7 +12,7 @@ const Sidebar = ({SearchUsers, GetUserInfo, UsersList, SetSearchInput, SearchInp
 
     useEffect(() => {
         GetUserInfo()
-    }, [])
+    }, [GetUserInfo])
 
     let SideBarContent;
 
