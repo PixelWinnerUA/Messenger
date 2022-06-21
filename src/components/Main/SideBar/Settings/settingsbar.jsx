@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import "../../../../styles/SettingsBar.scss"
 
-const Settingsbar = ({SearchUsers, setSearchInput, SearchInput, isActive, setActive}) => {
-    
+const Settingsbar = ({SearchUsers, SearchInput, setSearchInput, isActive, setActive}) => {
+
     useEffect(() => {
         if (SearchInput) {
             SearchUsers(SearchInput);
