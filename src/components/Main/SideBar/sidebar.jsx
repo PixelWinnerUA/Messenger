@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import Settingsbar from "./Settings/settingsbar";
 import "../../../styles/SideBar.scss"
 import Chats from "./Chats/Chats";
+import Users from "./Users/Users";
+import Settingsbar from "./Settings/settingsbar";
 import SettingsPageContainer from "./Settings/settingsPageContainer";
-import UsersContainer from "./Users/usersContainer";
 
 
-const Sidebar = ({SearchUsers, GetUserInfo, SetSearchInput, SearchInput}) => {
-    const [isActive, setActive] = useState("false"); //burger menu state
+const Sidebar = ({GetUserInfo, UsersList, SearchStatus, SearchUsers}) => {
+    const [isActive, setActive] = useState(false); //burger menu state
+    const [SearchInput, setSearchInput] = useState();
 
     useEffect(() => {
         GetUserInfo()
@@ -19,18 +20,16 @@ const Sidebar = ({SearchUsers, GetUserInfo, SetSearchInput, SearchInput}) => {
         SideBarContent = <Chats/>;
     }
     if (SearchInput) {
-        SideBarContent = <UsersContainer/>
+        SideBarContent = <Users UsersList={UsersList} SearchStatus={SearchStatus}/>
     }
-    if (!isActive) {
+    if (isActive) {
         SideBarContent = <SettingsPageContainer/>
     }
 
     return (
         <div className="SideBar">
-            <Settingsbar SearchUsers={SearchUsers} SetSearchInput={SetSearchInput}
-                         isActive={isActive}
-                         setActive={setActive}
-            />
+            <Settingsbar SearchUsers={SearchUsers} SearchInput={SearchInput} setSearchInput={setSearchInput}
+                         isActive={isActive} setActive={setActive}/>
             <div className="Scroll">
                 {SideBarContent}
             </div>

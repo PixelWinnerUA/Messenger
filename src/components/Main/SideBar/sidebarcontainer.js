@@ -1,34 +1,24 @@
 import {connect} from "react-redux";
 import sidebar from "./sidebar";
+import {GetUserInfo} from "../../../store/reducers/SideBarReducer";
 import {GetUsers} from "../../../store/reducers/UsersReducer";
-import {DeleteUser} from "../../../store/reducers/AppReducer";
-import {GetUserInfo, SetSearchInput} from "../../../store/reducers/SideBarReducer";
-
 
 const mapStateToProps = (state) => {
     return {
-        UserInfo: state.SideBarComponent.UserInfo,
-        SearchInput: state.SideBarComponent.SearchInput,
+        UsersList: state.UsersComponent.users,
+        SearchStatus: state.UsersComponent.SearchStatus
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        SearchUsers: (input) => {
-            dispatch(GetUsers(input))
-        },
-        DeleteUser: () => {
-            dispatch(DeleteUser())
-        },
         GetUserInfo: () => {
             dispatch(GetUserInfo())
         },
-        SetSearchInput: (input) => {
-            dispatch(SetSearchInput(input))
+        SearchUsers: (input) => {
+            dispatch(GetUsers(input))
         }
-
     }
 }
-
 
 const SideBarContainer = connect(mapStateToProps, mapDispatchToProps)(sidebar);
 

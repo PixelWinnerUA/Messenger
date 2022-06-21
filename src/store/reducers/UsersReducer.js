@@ -21,7 +21,7 @@ export const GetUsers = (input) => async (dispatch) => {
 
 let initialState = {
     users: [],
-    SearchStatus: false //loading status of getting users
+    SearchStatus: false, //loading status of getting users
 }
 
 const UsersReducer = (state = initialState, action) => {

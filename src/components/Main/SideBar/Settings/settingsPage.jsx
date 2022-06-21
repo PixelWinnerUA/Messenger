@@ -5,7 +5,6 @@ import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png";
 import {Button, CircularProgress} from "@mui/material";
 
 const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
-
     const [image, setImage] = useState(null);
 
     return (
@@ -18,17 +17,15 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
                     alignItems: "center",
                     justifyItems: "center",
                 }}>
-                    <img
-                        src={UserInfo.photo ? (`data:image/jpeg;base64,${UserInfo.photo.bytes}`) : (DefaultIcon)}
-                        alt={DefaultIcon}
-                        style={{
-                            objectPosition: "center center",
-                            objectFit: "cover",
-                            height: 50,
-                            width: 50,
-                            margin: "0 10px 0 0",
-                            borderRadius: "50%"
-                        }}/>
+                    <img src={UserInfo.photo ? (`data:image/jpeg;base64,${UserInfo.photo.bytes}`) : (DefaultIcon)}
+                         alt={DefaultIcon} style={{
+                        objectPosition: "center center",
+                        objectFit: "cover",
+                        height: 50,
+                        width: 50,
+                        margin: "0 10px 0 0",
+                        borderRadius: "50%"
+                    }}/>
                     <div style={{display: "grid", gridTemplateRows: "1fr 1fr"}}>
                         <div>{UserInfo.name}</div>
                         <div style={{color: "gray"}}>{"@" + UserInfo.userName}</div>
