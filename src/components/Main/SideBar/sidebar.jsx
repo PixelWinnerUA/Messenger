@@ -3,10 +3,10 @@ import "../../../styles/SideBar.scss"
 import Chats from "./Chats/Chats";
 import Users from "./Users/Users";
 import Settingsbar from "./Settings/settingsbar";
-import SettingsPageContainer from "./Settings/settingsPageContainer";
+import SettingsPage from "./Settings/settingsPage";
 
 
-const Sidebar = ({GetUserInfo, UsersList, SearchStatus, SearchUsers}) => {
+const Sidebar = ({GetUserInfo, UserInfo, SearchUsers, UsersList, SearchStatus}) => {
     const [isActive, setActive] = useState(false); //burger menu state
     const [SearchInput, setSearchInput] = useState();
 
@@ -23,7 +23,7 @@ const Sidebar = ({GetUserInfo, UsersList, SearchStatus, SearchUsers}) => {
         SideBarContent = <Users UsersList={UsersList} SearchStatus={SearchStatus}/>
     }
     if (isActive) {
-        SideBarContent = <SettingsPageContainer/>
+        SideBarContent = <SettingsPage GetUserInfo={GetUserInfo} UserInfo={UserInfo}/>
     }
 
     return (
