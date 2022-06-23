@@ -34,31 +34,10 @@ const SignUp = ({IsAuthenticated}) => {
     });
 
     return (
-        <div className="Gradient-Background"
-             style={{
-                 width: "100vw",
-                 height: "100vh",
-                 display: "flex",
-                 alignItems: "center",
-                 justifyContent: "center",
-                 flexDirection: "column"
-             }}>
-            <Box sx={{
-                width: "fit-content",
-                height: "fit-content",
-                minWidth: 300,
-                minHeight: 300,
-                background: "#181818", //$background-color
-                border: "#0f0f0f 1px solid", //$block-border
-                borderRadius: 5,
-            }}>
-                <form onSubmit={formik.handleSubmit} style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexDirection: "column"
-                }}>
-                    <h1 style={{margin: "10px 0", color: "white"}}>Sign-Up</h1>
+        <div className="Auth-Wrapper Gradient-Background">
+            <Box className="Custom-Box">
+                <form onSubmit={formik.handleSubmit}>
+                    <h1 className="Auth-Header">Sign-Up</h1>
                     <FormControl sx={{width: 250}}>
                         <TextField className="Custom-TextField"
                                    sx={{margin: "15px 0"}}
@@ -115,20 +94,9 @@ const SignUp = ({IsAuthenticated}) => {
                             type="submit" disabled={load}>Sign-Up</Button>
                 </form>
             </Box>
-            <div style={{
-                color: "white",
-                textAlign: "center",
-                margin: "15px 0 15px 0",
-                background: "#181818", //$background-color
-                border: "#0f0f0f 1px solid", //$block-border
-                padding: 15,
-                borderRadius: 15,
-                width: "fit-content",
-                height: "fit-content",
-                minWidth: 300,
-            }}>
-                <span>Already registered?</span> <NavLink style={{color: "#1976d2", textDecoration: "none"}}
-                                                          to={"/login"}>Sign-In</NavLink>
+            <div className="Auth-link">
+                <span>Already registered? </span>
+                <NavLink to={"/login"}>Sign-In</NavLink>
             </div>
         </div>
     );

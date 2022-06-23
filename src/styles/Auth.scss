@@ -1,6 +1,55 @@
 @import "./variables";
 
 
+.Auth-Wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Auth-Header {
+  margin: 10px 0;
+  color: white;
+}
+
+.Auth-link {
+  color: white;
+  text-align: center;
+  margin: 15px 0 15px 0;
+  background: #181818; //$background-color
+  border: #0f0f0f 1px solid; //$block-border
+  padding: 15px;
+  border-radius: 15px;
+  width: fit-content;
+  height: fit-content;
+  min-width: $Auth-Min-Size;
+
+  a {
+    color: #1976d2;
+    text-decoration: none;
+  }
+}
+
+.Custom-Box {
+  width: fit-content;
+  height: fit-content;
+  min-width: $Auth-Min-Size;
+  min-height: $Auth-Min-Size;
+  background: $background-color; //$background-color
+  border: $block-border; //$block-border
+  border-radius: 15px;
+
+  & form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
 .Custom-TextField {
   & input {
     font-size: 18px;
