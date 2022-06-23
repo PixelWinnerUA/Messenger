@@ -7,10 +7,12 @@ const Chats = ({sidebarStatus, setSideBarStatus}) => {
     return (
         <div>
             <p>Your chats</p>
-            <Button className="Sidebar-Toggle" variant="contained" onClick={() => {
-                setSideBarStatus(!sidebarStatus)
-                console.log(sidebarStatus)
-            }}>Sidebar Toggle</Button>
+            <div className="Sidebar-Toggle">
+                <Button variant="contained" onClick={() => {
+                    setSideBarStatus(!sidebarStatus)
+                    console.log(sidebarStatus)
+                }}>Sidebar Toggle</Button>
+            </div>
         </div>
     );
 };

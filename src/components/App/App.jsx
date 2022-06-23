@@ -1,11 +1,14 @@
 import '../../styles/App.scss';
-import {useEffect} from "react";
-import Login from "../Auth/Login";
-import Main from "../Main/Main";
+import {lazy, Suspense, useEffect} from "react";
 import {Route, Routes, Navigate} from "react-router-dom";
-import SignUp from "../Auth/SignUp";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Preloader from "../Preloader/Preloader";
+
+const SignUp = lazy(() => import ("../Auth/SignUp"));
+const Login = lazy(() => import ("../Auth/Login"));
+const Main = lazy(() => import ("../Main/Main"));
+const Error404 = lazy(() => import ("../Error404/Error404"));
 
 
 function App({GetAuthStatus, AuthStatus}) {
@@ -14,13 +17,16 @@ function App({GetAuthStatus, AuthStatus}) {
     }, [AuthStatus, GetAuthStatus])
 
     return (<div className="App">
-            <Routes>
-                <Route path="/" element={AuthStatus ? <Main/> : <Navigate to="/login"/>}/>
-                <Route path="/login"
-                       element={AuthStatus ? <Navigate to="/"/> : <Login IsAuthenticated={GetAuthStatus}/>}/>
-                <Route path="/sign-up"
-                       element={AuthStatus ? <Navigate to="/"/> : <SignUp IsAuthenticated={GetAuthStatus}/>}/>
-            </Routes>
+            <Suspense fallback={<Preloader/>}>
+                <Routes>
+                    <Route path="*" element={<Error404/>}/>
+                    <Route path="/" element={AuthStatus ? <Main/> : <Navigate to="/login"/>}/>
+                    <Route path="/login"
+                           element={AuthStatus ? <Navigate to="/"/> : <Login IsAuthenticated={GetAuthStatus}/>}/>
+                    <Route path="/sign-up"
+                           element={AuthStatus ? <Navigate to="/"/> : <SignUp IsAuthenticated={GetAuthStatus}/>}/>
+                </Routes>
+            </Suspense>
 
             <ToastContainer
                 position="top-left"
