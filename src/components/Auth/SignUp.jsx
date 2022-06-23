@@ -53,14 +53,15 @@ const SignUp = ({IsAuthenticated}) => {
                 borderRadius: 5,
             }}>
                 <form onSubmit={formik.handleSubmit} style={{
-                    display: "grid",
+                    display: "flex",
                     alignItems: "center",
-                    justifyItems: "center",
-                    gridTemplateRows: "auto auto auto auto auto"
+                    justifyContent: "center",
+                    flexDirection: "column"
                 }}>
-                    <h1 style={{margin: "1.5vh 0 1.5vh 0", color: "white"}}>Sign-Up</h1>
+                    <h1 style={{margin: "10px 0", color: "white"}}>Sign-Up</h1>
                     <FormControl sx={{width: 250}}>
                         <TextField className="Custom-TextField"
+                                   sx={{margin: "15px 0"}}
                                    variant="outlined"
                                    id="name"
                                    name="name"
@@ -73,6 +74,7 @@ const SignUp = ({IsAuthenticated}) => {
                     </FormControl>
                     <FormControl sx={{width: 250}}>
                         <TextField className="Custom-TextField"
+                                   sx={{margin: "15px 0"}}
                                    variant="outlined"
                                    id="login"
                                    name="login"
@@ -85,6 +87,7 @@ const SignUp = ({IsAuthenticated}) => {
                     </FormControl>
                     <FormControl sx={{width: 250}}>
                         <TextField className="Custom-TextField"
+                                   sx={{margin: "15px 0"}}
                                    variant="outlined"
                                    id="password"
                                    label="Password"
@@ -97,6 +100,7 @@ const SignUp = ({IsAuthenticated}) => {
                     </FormControl>
                     <FormControl sx={{width: 250}}>
                         <TextField className="Custom-TextField"
+                                   sx={{margin: "15px 0"}}
                                    variant="outlined"
                                    id="passwordConfirm"
                                    label="Confirm Password"
@@ -107,14 +111,14 @@ const SignUp = ({IsAuthenticated}) => {
                                    helperText={formik.touched.passwordConfirm && formik.errors.passwordConfirm}
                         />
                     </FormControl>
-                    <Button className="Custom-Auth-Button" variant="contained" type="submit" disabled={load}
-                    >Sign-Up</Button>
+                    <Button className="Custom-Auth-Button" sx={{margin: "10px 0 20px 0"}} variant="contained"
+                            type="submit" disabled={load}>Sign-Up</Button>
                 </form>
             </Box>
             <div style={{
                 color: "white",
                 textAlign: "center",
-                margin: "1.5vh 0 1.5vh 0",
+                margin: "15px 0 15px 0",
                 background: "#181818", //$background-color
                 border: "#0f0f0f 1px solid", //$block-border
                 padding: 15,
