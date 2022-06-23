@@ -14,7 +14,7 @@ function App({GetAuthStatus, AuthStatus}) {
     }, [GetAuthStatus])
     console.log(AuthStatus)
 
-    return (<>
+    return (<div className="App">
             <Routes>
                 <Route path="/" element={AuthStatus ? <Main/> : <Navigate to="/login"/>}/>
                 <Route path="/login"
@@ -35,7 +35,7 @@ function App({GetAuthStatus, AuthStatus}) {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover/>
-        </>
+        </div>
 
     )
 }

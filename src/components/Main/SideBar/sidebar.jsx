@@ -6,7 +6,7 @@ import Settingsbar from "./Settings/settingsbar";
 import SettingsPage from "./Settings/settingsPage";
 
 
-const Sidebar = ({GetUserInfo, UserInfo, SearchUsers, UsersList, SearchStatus}) => {
+const Sidebar = ({GetUserInfo, UserInfo, DeleteUser, SearchUsers, UsersList, SearchStatus, sidebarStatus, setSideBarStatus}) => {
     const [isActive, setActive] = useState(false); //burger menu state
     const [SearchInput, setSearchInput] = useState();
 
@@ -17,17 +17,17 @@ const Sidebar = ({GetUserInfo, UserInfo, SearchUsers, UsersList, SearchStatus}) 
     let SideBarContent;
 
     if (!SearchInput || isActive) {
-        SideBarContent = <Chats/>;
+        SideBarContent = <Chats sidebarStatus={sidebarStatus} setSideBarStatus={setSideBarStatus}/>;
     }
     if (SearchInput) {
         SideBarContent = <Users UsersList={UsersList} SearchStatus={SearchStatus}/>
     }
     if (isActive) {
-        SideBarContent = <SettingsPage GetUserInfo={GetUserInfo} UserInfo={UserInfo}/>
+        SideBarContent = <SettingsPage GetUserInfo={GetUserInfo} UserInfo={UserInfo} DeleteUser={DeleteUser}/>
     }
 
     return (
-        <div className="SideBar">
+        <div className={sidebarStatus ? "SideBar close" : "SideBar"}>
             <Settingsbar SearchUsers={SearchUsers} SearchInput={SearchInput} setSearchInput={setSearchInput}
                          isActive={isActive} setActive={setActive}/>
             <div className="Scroll">

@@ -15,7 +15,7 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
                     display: "grid",
                     gridTemplateColumns: "auto 1fr",
                     alignItems: "center",
-                    justifyItems: "center",
+                    justifyItems: "start",
                 }}>
                     <img src={UserInfo.photo ? (`data:image/jpeg;base64,${UserInfo.photo.bytes}`) : (DefaultIcon)}
                          alt={DefaultIcon} style={{
@@ -40,43 +40,74 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
                 {image ?
                     <div>
                         <div className="item" style={{display: "grid", gridTemplateRows: "auto 1fr"}}>
-                            Picture preview:
-                            <img src={URL.createObjectURL(image)} style={{
-                                maxWidth: "100%",
-                                margin: "10px 0 0 0"
-                            }} alt={DefaultIcon}/>
+                            Profile changes preview:
+                            {UserInfo ?
+                                <div style={{
+                                    background: "#12569a",
+                                    borderRadius: 10,
+                                    padding: 10,
+                                    margin: " 10px 0 0 0",
+                                    display: "grid",
+                                    gridTemplateColumns: "auto 1fr",
+                                    alignItems: "center",
+                                    justifyItems: "start",
+                                }}>
+                                    <img src={URL.createObjectURL(image)} style={{
+                                        objectPosition: "center center",
+                                        objectFit: "cover",
+                                        height: 50,
+                                        width: 50,
+                                        margin: "0 10px 0 0",
+                                        borderRadius: "50%"
+                                    }} alt={DefaultIcon}/>
+                                    <div style={{display: "grid", gridTemplateRows: "1fr 1fr"}}>
+                                        <div>{UserInfo.name}</div>
+                                        <div style={{color: "darkgrey"}}>{"@" + UserInfo.userName}</div>
+                                    </div>
+                                </div>
+                                :
+                                <div className="item"
+                                     style={{width: "100%", display: "flex", justifyContent: "center"}}>
+                                    <CircularProgress/>
+                                </div>}
                         </div>
                         <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-                            <Button className="item" variant="contained"
-                                    onClick={() => UploadImage(image).then(() => {
-                                        GetUserInfo()
-                                        setImage(null)
-                                    })}>
-                                Upload picture</Button>
-                            <Button className="item" variant="contained"
-                                    onClick={() => setImage(null)}
-                                    sx={{
-                                        backgroundColor: "#bd0000",
-                                        color: "#fff",
-                                        '&:hover': {
-                                            backgroundColor: "#a20000",
-                                        },
-                                        '&:active': {
-                                            backgroundColor: "#a20000",
-                                        },
-                                    }}>
-                                Cancel
-                            </Button>
+                            <div className="item">
+                                <Button variant="contained"
+                                        onClick={() => UploadImage(image).then(() => {
+                                            GetUserInfo()
+                                            setImage(null)
+                                        })}>
+                                    Upload picture</Button>
+                            </div>
+                            <div className="item">
+                                <Button variant="contained"
+                                        onClick={() => setImage(null)}
+                                        sx={{
+                                            backgroundColor: "#bd0000",
+                                            color: "#fff",
+                                            '&:hover': {
+                                                backgroundColor: "#a20000",
+                                            },
+                                            '&:active': {
+                                                backgroundColor: "#a20000",
+                                            },
+                                        }}>
+                                    Cancel
+                                </Button>
+                            </div>
                         </div>
                     </div>
                     :
-                    <Button className="item" variant="contained" component="label">
-                        Choose a new picture
-                        <input id="inputImage" style={{display: "none"}}
-                               type="file"
-                               accept="image/png, image/gif, image/jpeg"
-                               onChange={e => setImage(e.target.files[0])}/>
-                    </Button>
+                    <div className="item">
+                        <Button variant="contained" component="label">
+                            Choose a new picture
+                            <input id="inputImage" style={{display: "none"}}
+                                   type="file"
+                                   accept="image/png, image/gif, image/jpeg"
+                                   onChange={e => setImage(e.target.files[0])}/>
+                        </Button>
+                    </div>
                 }
             </div>
 

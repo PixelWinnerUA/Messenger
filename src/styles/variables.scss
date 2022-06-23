@@ -5,6 +5,11 @@ $text-size: 18px;
 $text-color: white;
 $dark-text-color: gray;
 $block-border: #0f0f0f 1px solid;
-$settings-bar-height: 60px;
-
+$settings-bar-height: 70px;
+$Search-Block-Width: calc(100% - 10px);
+$SideBar-Width: 300px;
+$SideBar-Scroll-Height: calc(100vh - #{$settings-bar-height} - 2px); //2px is border
+$font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+              'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+              sans-serif;
 

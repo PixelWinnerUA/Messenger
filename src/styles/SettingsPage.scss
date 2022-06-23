@@ -4,18 +4,11 @@
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-start;
 
   .item {
     margin: 10px;
-  }
-
-  .inputImage {
-    width: max-content;
-    cursor: pointer;
-    border: $block-border;
-    border-radius: 5px;
-    padding: 5px;
-    background: $background-color;
   }
 }
 

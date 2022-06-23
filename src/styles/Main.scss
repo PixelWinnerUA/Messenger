@@ -2,25 +2,10 @@
 
 .Main {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
   height: 100vh;
   width: 100vw;
-  background-color: $background-color;
-  font-size: $text-size;
-  color: $text-color;
-}
-
-.container {
-  border: $block-border;
-  margin: 0 auto;
-  width: 100%;
   max-width: 1680px;
-  height: 100%;
-  display: grid;
-  align-items: center;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto;
-  grid-template-areas: "sidebar content";
+  border: $block-border;
 }
-

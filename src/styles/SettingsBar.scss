@@ -1,7 +1,6 @@
 @import "./variables";
 
 .Settingsbar {
-  font-family: Segoe UI, sans-serif;
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: auto 1fr;
@@ -10,32 +9,26 @@
   width: 100%;
   font-size: $text-size;
   height: $settings-bar-height;
-  border-top: $block-border;
   border-bottom: $block-border;
-  border-left: none;
-  border-right: none;
 }
 
 .Search-Block {
   background: #181818;
   color: $text-color;
   font-size: $text-size;
-  font-family: Segoe UI, sans-serif;
-  padding: 5px;
-  border-radius: 5px;
+  font-family: $font-family;
+  padding: 7px;
+  border-radius: 10px;
   border: $block-border;
-  width: 230px;
+  width: $Search-Block-Width;
 }
 
 .Burger-Settings {
   margin: auto 10px;
-  width: 35px;
+  width: 30px;
   height: 23px;
   position: relative;
   transform: rotate(0deg);
-  -webkit-transition: .5s ease-in-out;
-  -moz-transition: .5s ease-in-out;
-  -o-transition: .5s ease-in-out;
   transition: .5s ease-in-out;
   cursor: pointer;
 }
@@ -49,11 +42,7 @@
   border-radius: 9px;
   opacity: 1;
   left: 0;
-
   transform: rotate(0deg);
-  -webkit-transition: .25s ease-in-out;
-  -moz-transition: .25s ease-in-out;
-  -o-transition: .25s ease-in-out;
   transition: .25s ease-in-out;
 }
 

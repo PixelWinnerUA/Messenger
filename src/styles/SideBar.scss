@@ -1,14 +1,15 @@
 @import "./variables";
 
 .SideBar {
-  grid-area: sidebar;
   height: 100%;
-  width: 300px;
+  width: $SideBar-Width;
+  min-width: $SideBar-Width;
   border: $block-border;
   background-color: $background-light-color;
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: 1fr;
+  transition: all 0.2s linear;
 
   .Scroll {
     display: flex;
@@ -16,11 +17,11 @@
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
-    height: calc(100vh - #{$settings-bar-height} - 4px);
+    height: $SideBar-Scroll-Height;
   }
 
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
@@ -29,7 +30,7 @@
 
   ::-webkit-scrollbar-thumb {
     background: $background-color;
-    border-radius: 2px;
+    border-radius: 5px;
   }
 
   ul {
@@ -51,6 +52,22 @@
     to {
       opacity: 1;
     }
+  }
+}
+
+@media (max-width: 600px) {
+  .App{
+    overflow: hidden;
+  }
+  .SideBar.close{
+    display: none;
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  .SideBar{
+    opacity: 1;
+    width: 100%;
+    min-width: 100%;
   }
 }
 
