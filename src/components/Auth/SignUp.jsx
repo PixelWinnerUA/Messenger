@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {RegistrationAPI} from "../../api/RestApi";
+import "../../styles/Auth.scss";
 import {Box, Button, FormControl, TextField} from "@mui/material";
 import * as yup from "yup";
 import {useFormik} from "formik";
@@ -34,7 +35,14 @@ const SignUp = ({IsAuthenticated}) => {
 
     return (
         <div className="Gradient-Background"
-             style={{width: "100vw", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center"}}>
+             style={{
+                 width: "100vw",
+                 height: "100vh",
+                 display: "flex",
+                 alignItems: "center",
+                 justifyContent: "center",
+                 flexDirection: "column"
+             }}>
             <Box sx={{
                 width: "fit-content",
                 height: "fit-content",
@@ -52,208 +60,72 @@ const SignUp = ({IsAuthenticated}) => {
                 }}>
                     <h1 style={{margin: "1.5vh 0 1.5vh 0", color: "white"}}>Sign-Up</h1>
                     <FormControl sx={{width: 250}}>
-                        <TextField
-                            sx={{
-                                margin: "1.5vh 0 1.5vh 0",
-                                '& label': {
-                                    color: "rgba(255, 255, 255, 0.7)",
-                                },
-                                '&:hover label': {
-                                    color: "#006ac0",
-                                },
-                                '& label.Mui-focused': {
-                                    color: "#006ac0",
-                                },
-                                '& .MuiInput-underline:after': {
-                                    borderBottomColor: "#006ac0",
-                                },
-                                '& .MuiOutlinedInput-root': {
-                                    color: "#fff",
-                                    '& fieldset': {
-                                        borderColor: 'rgba(255, 255, 255, 0.7)',
-                                        borderWidth: 2
-                                    },
-                                    '&:hover fieldset': {
-                                        borderColor: "#006ac0",
-                                        borderWidth: 2
-                                    },
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: "#006ac0",
-                                    },
-                                },
-                            }}
-                            variant="outlined"
-                            id="name"
-                            name="name"
-                            label="Name"
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                            error={formik.touched.name && Boolean(formik.errors.name)}
-                            helperText={formik.touched.name && formik.errors.name}
+                        <TextField className="Custom-TextField"
+                                   variant="outlined"
+                                   id="name"
+                                   name="name"
+                                   label="Name"
+                                   value={formik.values.name}
+                                   onChange={formik.handleChange}
+                                   error={formik.touched.name && Boolean(formik.errors.name)}
+                                   helperText={formik.touched.name && formik.errors.name}
                         />
                     </FormControl>
                     <FormControl sx={{width: 250}}>
-                        <TextField
-                            sx={{
-                                margin: "1.5vh 0 1.5vh 0",
-                                '& label': {
-                                    color: "rgba(255, 255, 255, 0.7)",
-                                },
-                                '&:hover label': {
-                                    color: "#006ac0",
-                                },
-                                '& label.Mui-focused': {
-                                    color: "#006ac0",
-                                },
-                                '& .MuiInput-underline:after': {
-                                    borderBottomColor: "#006ac0",
-                                },
-                                '& .MuiOutlinedInput-root': {
-                                    color: "#fff",
-                                    '& fieldset': {
-                                        borderColor: 'rgba(255, 255, 255, 0.7)',
-                                        borderWidth: 2
-                                    },
-                                    '&:hover fieldset': {
-                                        borderColor: "#006ac0",
-                                        borderWidth: 2
-                                    },
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: "#006ac0",
-                                    },
-                                },
-                            }}
-                            variant="outlined"
-                            id="login"
-                            name="login"
-                            label="Login"
-                            value={formik.values.login}
-                            onChange={formik.handleChange}
-                            error={formik.touched.login && Boolean(formik.errors.login)}
-                            helperText={formik.touched.login && formik.errors.login}
+                        <TextField className="Custom-TextField"
+                                   variant="outlined"
+                                   id="login"
+                                   name="login"
+                                   label="Login"
+                                   value={formik.values.login}
+                                   onChange={formik.handleChange}
+                                   error={formik.touched.login && Boolean(formik.errors.login)}
+                                   helperText={formik.touched.login && formik.errors.login}
                         />
                     </FormControl>
                     <FormControl sx={{width: 250}}>
-                        <TextField
-                            sx={{
-                                margin: "1.5vh 0 1.5vh 0",
-                                '& label': {
-                                    color: "rgba(255, 255, 255, 0.7)",
-                                },
-                                '&:hover label': {
-                                    color: "#006ac0",
-                                },
-                                '& label.Mui-focused': {
-                                    color: "#006ac0",
-                                },
-                                '& .MuiInput-underline:after': {
-                                    borderBottomColor: " '#006ac0'",
-                                },
-                                '& .MuiOutlinedInput-root': {
-                                    color: "#fff",
-                                    '& fieldset': {
-                                        borderColor: 'rgba(255, 255, 255, 0.7)',
-                                        borderWidth: 2
-                                    },
-                                    '&:hover fieldset': {
-                                        borderColor: "#006ac0",
-                                        borderWidth: 2
-                                    },
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: "#006ac0",
-                                    },
-                                    'input::-ms-reveal': {
-                                        display: "none"
-                                    },
-                                    'input::-ms-clear': {
-                                        display: "none"
-                                    },
-
-                                },
-                            }}
-                            variant="outlined"
-                            id="password"
-                            label="Password"
-                            type="password"
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password}
+                        <TextField className="Custom-TextField"
+                                   variant="outlined"
+                                   id="password"
+                                   label="Password"
+                                   type="password"
+                                   value={formik.values.password}
+                                   onChange={formik.handleChange}
+                                   error={formik.touched.password && Boolean(formik.errors.password)}
+                                   helperText={formik.touched.password && formik.errors.password}
                         />
                     </FormControl>
                     <FormControl sx={{width: 250}}>
-                        <TextField
-                            sx={{
-                                margin: "1.5vh 0 1.5vh 0",
-                                '& label': {
-                                    color: "rgba(255, 255, 255, 0.7)",
-                                },
-                                '&:hover label': {
-                                    color: "#006ac0",
-                                },
-                                '& label.Mui-focused': {
-                                    color: "#006ac0",
-                                },
-                                '& .MuiInput-underline:after': {
-                                    borderBottomColor: " '#006ac0'",
-                                },
-                                '& .MuiOutlinedInput-root': {
-                                    color: "#fff",
-                                    '& fieldset': {
-                                        borderColor: 'rgba(255, 255, 255, 0.7)',
-                                        borderWidth: 2
-                                    },
-                                    '&:hover fieldset': {
-                                        borderColor: "#006ac0",
-                                        borderWidth: 2
-                                    },
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: "#006ac0",
-                                    },
-                                    'input::-ms-reveal': {
-                                        display: "none"
-                                    },
-                                    'input::-ms-clear': {
-                                        display: "none"
-                                    },
-
-                                },
-                            }}
-                            variant="outlined"
-                            id="passwordConfirm"
-                            label="Confirm Password"
-                            type="password"
-                            value={formik.values.passwordConfirm}
-                            onChange={formik.handleChange}
-                            error={formik.touched.passwordConfirm && Boolean(formik.errors.passwordConfirm)}
-                            helperText={formik.touched.passwordConfirm && formik.errors.passwordConfirm}
+                        <TextField className="Custom-TextField"
+                                   variant="outlined"
+                                   id="passwordConfirm"
+                                   label="Confirm Password"
+                                   type="password"
+                                   value={formik.values.passwordConfirm}
+                                   onChange={formik.handleChange}
+                                   error={formik.touched.passwordConfirm && Boolean(formik.errors.passwordConfirm)}
+                                   helperText={formik.touched.passwordConfirm && formik.errors.passwordConfirm}
                         />
                     </FormControl>
-                    <Button variant="contained" type="submit" disabled={load}
-                            sx={{
-                                width: 100, alignSelf: "center", margin: "1.5vh 0 1.5vh 0",
-                                color: "#fff",
-                                '&:hover': {
-                                    backgroundColor: "#0069d9",
-                                    borderColor: "#0062cc",
-                                    boxShadow: "none",
-                                },
-                                '&:active': {
-                                    boxShadow: "none",
-                                    backgroundColor: "#0062cc",
-                                    borderColor: "#005cbf",
-                                },
-                                '&:disabled': {
-                                    backgroundColor: "#003983",
-                                }
-                            }}>Sign-Up</Button>
+                    <Button className="Custom-Auth-Button" variant="contained" type="submit" disabled={load}
+                    >Sign-Up</Button>
                 </form>
-                <div style={{color: "white", textAlign: "center", margin: "0 0 1.5vh 0"}}>
-                    <span>Already registered?</span> <NavLink style={{color: "#1976d2", textDecoration: "none"}}
-                                                                 to={"/login"}>Sign-In</NavLink>
-                </div>
             </Box>
-
+            <div style={{
+                color: "white",
+                textAlign: "center",
+                margin: "1.5vh 0 1.5vh 0",
+                background: "#181818", //$background-color
+                border: "#0f0f0f 1px solid", //$block-border
+                padding: 15,
+                borderRadius: 15,
+                width: "fit-content",
+                height: "fit-content",
+                minWidth: 300,
+            }}>
+                <span>Already registered?</span> <NavLink style={{color: "#1976d2", textDecoration: "none"}}
+                                                          to={"/login"}>Sign-In</NavLink>
+            </div>
         </div>
     );
 };

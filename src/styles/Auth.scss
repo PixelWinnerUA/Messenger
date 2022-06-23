@@ -1,0 +1,67 @@
+@import "./variables";
+
+.Custom-TextField {
+  margin: 1.5vh 0 1.5vh 0;
+
+  & input {
+    font-size: 18px;
+  }
+
+  & label {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &:hover label {
+    color: #006ac0;
+  }
+
+  & label.Mui-focused {
+    color: #006ac0;
+  }
+
+  & .MuiInput-underline:after {
+    border-bottom-color: #006ac0;
+  }
+
+  & .MuiOutlinedInput-root {
+    color: #fff;
+
+    & fieldset {
+      border-color: rgba(255, 255, 255, 0.7);
+      border-width: 2px;
+    }
+
+    &:hover fieldset {
+      border-color: #006ac0;
+      border-width: 2px;
+    }
+
+    &.Mui-focused fieldset {
+      border-color: #006ac0;
+    }
+  }
+}
+
+.Custom-Auth-Button {
+  width: 100px;
+  align-self: center;
+  margin: 10px 0 20px 0;
+  color: #fff;
+
+  &:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+    box-shadow: none;
+  }
+
+  &:active {
+    box-shadow: none;
+    background-color: #0062cc;
+    border-color: #005cbf;
+  }
+
+  &:disabled {
+    background-color: #003983;
+  }
+}
