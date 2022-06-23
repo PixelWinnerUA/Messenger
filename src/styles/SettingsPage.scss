@@ -10,5 +10,81 @@
   .item {
     margin: 10px;
   }
+
+  .UserInfo {
+    display: flex;
+    align-items: center;
+    justify-items: flex-start;
+    margin: 10px;
+
+    .UserInfo-Text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .Name {
+      color: $text-color;
+    }
+
+    .UserName {
+      color: $dark-text-color;
+    }
+
+    img {
+      object-position: center center;
+      object-fit: cover;
+      height: 50px;
+      width: 50px;
+      margin: 0 10px 0 0;
+      border-radius: 50%;
+    }
+  }
+
+  .Preview-Changes-UserInfo {
+    background: #12569a;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-items: flex-start;
+  }
+
+  .Preview-Changes {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  p {
+    margin: 0 0 10px 5px;
+  }
+
+  .UserInfo-Preloader {
+    margin: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .Uploading-Tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .Cancel-Button {
+    background-color: #bd0000;
+    color: #fff;
+
+    &:hover {
+      background-color: #a20000;
+    }
+
+    &:active {
+      background-color: #a20000;
+    }
+  }
+
+
 }
 

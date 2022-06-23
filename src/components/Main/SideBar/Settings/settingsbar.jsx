@@ -7,7 +7,7 @@ const Settingsbar = ({SearchUsers, SearchInput, setSearchInput, isActive, setAct
         if (SearchInput) {
             SearchUsers(SearchInput);
         }
-    }, [SearchInput])
+    }, [SearchUsers, SearchInput])
 
     return (
         <div className="Settingsbar">

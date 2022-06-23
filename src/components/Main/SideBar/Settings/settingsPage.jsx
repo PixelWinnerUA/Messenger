@@ -11,47 +11,26 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
         <div className="SettingsPage">
 
             {UserInfo ?
-                <div className="item" style={{
-                    display: "grid",
-                    gridTemplateColumns: "auto 1fr",
-                    alignItems: "center",
-                    justifyItems: "start",
-                }}>
+                <div className="UserInfo">
                     <img src={UserInfo.photo ? (`data:image/jpeg;base64,${UserInfo.photo.bytes}`) : (DefaultIcon)}
-                         alt={DefaultIcon} style={{
-                        objectPosition: "center center",
-                        objectFit: "cover",
-                        height: 50,
-                        width: 50,
-                        margin: "0 10px 0 0",
-                        borderRadius: "50%"
-                    }}/>
-                    <div style={{display: "grid", gridTemplateRows: "1fr 1fr"}}>
-                        <div>{UserInfo.name}</div>
-                        <div style={{color: "gray"}}>{"@" + UserInfo.userName}</div>
+                         alt={DefaultIcon}/>
+                    <div className="UsersInfo-Text">
+                        <div className="Name">{UserInfo.name}</div>
+                        <div className="UserName">{"@" + UserInfo.userName}</div>
                     </div>
                 </div>
                 :
-                <div className="item" style={{width: "100%", display: "flex", justifyContent: "center"}}>
+                <div className="UserInfo-Preloader">
                     <CircularProgress/>
                 </div>}
 
             <div>
                 {image ?
                     <div>
-                        <div className="item" style={{display: "grid", gridTemplateRows: "auto 1fr"}}>
-                            Profile changes preview:
+                        <div className="Preview-Changes">
+                            <p>Profile changes preview:</p>
                             {UserInfo ?
-                                <div style={{
-                                    background: "#12569a",
-                                    borderRadius: 10,
-                                    padding: 10,
-                                    margin: " 10px 0 0 0",
-                                    display: "grid",
-                                    gridTemplateColumns: "auto 1fr",
-                                    alignItems: "center",
-                                    justifyItems: "start",
-                                }}>
+                                <div className="Preview-Changes-UserInfo">
                                     <img src={URL.createObjectURL(image)} style={{
                                         objectPosition: "center center",
                                         objectFit: "cover",
@@ -66,12 +45,11 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
                                     </div>
                                 </div>
                                 :
-                                <div className="item"
-                                     style={{width: "100%", display: "flex", justifyContent: "center"}}>
+                                <div className="UserInfo-Preloader">
                                     <CircularProgress/>
                                 </div>}
                         </div>
-                        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                        <div className="Uploading-Tools">
                             <div className="item">
                                 <Button variant="contained"
                                         onClick={() => UploadImage(image).then(() => {
@@ -81,18 +59,8 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
                                     Upload picture</Button>
                             </div>
                             <div className="item">
-                                <Button variant="contained"
-                                        onClick={() => setImage(null)}
-                                        sx={{
-                                            backgroundColor: "#bd0000",
-                                            color: "#fff",
-                                            '&:hover': {
-                                                backgroundColor: "#a20000",
-                                            },
-                                            '&:active': {
-                                                backgroundColor: "#a20000",
-                                            },
-                                        }}>
+                                <Button className="Cancel-Button" variant="contained"
+                                        onClick={() => setImage(null)}>
                                     Cancel
                                 </Button>
                             </div>

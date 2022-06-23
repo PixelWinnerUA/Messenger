@@ -12,24 +12,15 @@ const Users = ({UsersList, SearchStatus}) => {
         UsersList.map(item => <li key={item.userName}>
             <div className="User">
                 <img src={item.photo ? (`data:image/jpeg;base64,${item.photo.bytes}`) : (DefaultIcon)}
-                     alt={DefaultIcon} style={{
-                    objectPosition: "center center",
-                    objectFit: "cover",
-                    height: 50,
-                    width: 50,
-                    margin: "0 10px",
-                    borderRadius: "50%"
-                }}/>
-
+                     alt={DefaultIcon}/>
                 <div className="info">
-                    <div className="name">
+                    <div className="Name">
                         <p>{item.name}</p>
                     </div>
-                    <div className="userName">
+                    <div className="UserName">
                         <p>@{item.userName}</p>
                     </div>
                 </div>
-
             </div>
         </li>)
 
