@@ -27,7 +27,7 @@ const Sidebar = ({GetUserInfo, UserInfo, DeleteUser, SearchUsers, UsersList, Sea
     }
 
     return (
-        <div className={sidebarStatus ? "SideBar close" : "SideBar"}>
+        <div className="SideBar">
             <Settingsbar SearchUsers={SearchUsers} SearchInput={SearchInput} setSearchInput={setSearchInput}
                          isActive={isActive} setActive={setActive}/>
             <div className="Scroll">

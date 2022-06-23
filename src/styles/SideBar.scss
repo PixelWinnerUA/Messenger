@@ -4,12 +4,12 @@
   height: 100%;
   width: $SideBar-Width;
   min-width: $SideBar-Width;
-  border: $block-border;
+  border-right: $block-border;
   background-color: $background-light-color;
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: 1fr;
-  transition: all 0.2s linear;
+  transition: all 0.2s ease;
 
   .Scroll {
     display: flex;
@@ -55,19 +55,32 @@
   }
 }
 
+.Sidebar-Toggle{
+  display: none;
+}
 @media (max-width: 600px) {
-  .App{
-    overflow: hidden;
+  .App {
+    overflow-x: hidden;
   }
-  .SideBar.close{
-    display: none;
-    transform: translateX(-100%);
-    opacity: 0;
+  .Sidebar-Toggle{
+    display: block;
   }
-  .SideBar{
-    opacity: 1;
-    width: 100%;
-    min-width: 100%;
+  .Main.active {
+    transition: 0.2s ease;
+    transform: translateX(calc(-100vw));
+  }
+  .Main {
+    transition: 0.2s ease;
+    transform: translateX(0);
+
+    .SideBar {
+      width: calc(100vw - 1px);
+      min-width: calc(100vw - 1px);
+    }
+
+    .Messages {
+      min-width: 100vw;
+    }
   }
 }
 

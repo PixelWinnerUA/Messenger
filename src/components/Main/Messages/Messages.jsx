@@ -7,7 +7,7 @@ const Messages = ({sidebarStatus, setSideBarStatus}) => {
         <div className="Messages Gradient-Background">
             <div className="Messages-Content">
                 <p>Your messages</p>
-                <Button variant="contained" onClick={() => {
+                <Button className="Sidebar-Toggle" variant="contained" onClick={() => {
                     setSideBarStatus(!sidebarStatus)
                     console.log(sidebarStatus)
                 }}>Sidebar Toggle</Button>

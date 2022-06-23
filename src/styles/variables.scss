@@ -8,8 +8,8 @@ $block-border: #0f0f0f 1px solid;
 $settings-bar-height: 70px;
 $Search-Block-Width: calc(100% - 10px);
 $SideBar-Width: 300px;
-$SideBar-Scroll-Height: calc(100vh - #{$settings-bar-height} - 2px); //2px is border
+$SideBar-Scroll-Height: calc(100vh - #{$settings-bar-height} - 2px); //2px = 1px top + 1px bot is border
 $font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-              'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-              sans-serif;
+'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+sans-serif;
 
