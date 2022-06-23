@@ -11,8 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App({GetAuthStatus, AuthStatus}) {
     useEffect(() => { //On Did Mount
         GetAuthStatus()
-    }, [GetAuthStatus])
-    console.log(AuthStatus)
+    }, [AuthStatus, GetAuthStatus])
 
     return (<div className="App">
             <Routes>

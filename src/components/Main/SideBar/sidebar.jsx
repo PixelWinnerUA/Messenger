@@ -1,18 +1,29 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState,useEffect} from 'react';
 import "../../../styles/SideBar.scss"
 import Chats from "./Chats/Chats";
 import Users from "./Users/Users";
 import Settingsbar from "./Settings/settingsbar";
 import SettingsPage from "./Settings/settingsPage";
 
+const Sidebar = ({
+                     GetUserInfo,
+                     UserInfo,
+                     DeleteUser,
+                     SearchUsers,
+                     UsersList,
+                     SearchStatus,
+                     sidebarStatus,
+                     setSideBarStatus
+                 }) => {
 
-const Sidebar = ({GetUserInfo, UserInfo, DeleteUser, SearchUsers, UsersList, SearchStatus, sidebarStatus, setSideBarStatus}) => {
     const [isActive, setActive] = useState(false); //burger menu state
     const [SearchInput, setSearchInput] = useState();
 
     useEffect(() => {
-        GetUserInfo()
-    }, [GetUserInfo])
+        if (!UserInfo) {
+            GetUserInfo()
+        }
+    }, [GetUserInfo, UserInfo])
 
     let SideBarContent;
 

@@ -10,35 +10,16 @@ const Users = ({UsersList, SearchStatus}) => {
         <li style={{margin: "10px"}}>User is not found</li>
         :
         UsersList.map(item => <li key={item.userName}>
-            <div className="User">{
-                item.photo ?
-                    <div style={{
-                        gridArea: "icon",
-                        background: `url(data:image/jpeg;base64,${item.photo.bytes})`, // img src ={`data:image/jpeg;base64,${item.photo.bytes}`}
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center center",
-                        height: 50,
-                        width: 50,
-                        overflow: "hidden",
-                        outline: "none",
-                        margin: "0 10px",
-                        borderRadius: "50%"
-                    }}/>
-                    :
-                    <div style={{
-                        gridArea: "icon",
-                        background: "url(" + DefaultIcon + ")",
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center center",
-                        height: 50,
-                        width: 50,
-                        overflow: "hidden",
-                        outline: "none",
-                        margin: "0 10px",
-                        borderRadius: "50%"
-                    }}/>}
+            <div className="User">
+                <img src={item.photo ? (`data:image/jpeg;base64,${item.photo.bytes}`) : (DefaultIcon)}
+                     alt={DefaultIcon} style={{
+                    objectPosition: "center center",
+                    objectFit: "cover",
+                    height: 50,
+                    width: 50,
+                    margin: "0 10px",
+                    borderRadius: "50%"
+                }}/>
 
                 <div className="info">
                     <div className="name">
