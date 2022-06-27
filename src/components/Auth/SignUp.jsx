@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {RegistrationAPI} from "../../api/RestApi";
+import "../../styles/GradientBackground.scss"
 import "../../styles/Auth.scss";
 import {Box, Button, FormControl, TextField} from "@mui/material";
 import * as yup from "yup";
@@ -11,6 +12,7 @@ const SignUp = ({IsAuthenticated}) => {
     let schema = yup.object().shape({
         name: yup.string("Invalid name format").required("Name is Required").max(20, "The length of the name should not exceed 20 characters!"),
         login: yup.string("Invalid login format").required("Login is Required").max(20, "The length of the login should not exceed 20 characters!"),
+        email: yup.string("Invalid email format").email("Invalid email format").required("Email is Required"),
         password: yup.string().required("Password is Required").min(8, "Invalid password length"),
         passwordConfirm: yup.string().required("Confirm the password").min(8, "Invalid password length")
             .oneOf([yup.ref('password'), null], 'Passwords must match')
@@ -19,13 +21,14 @@ const SignUp = ({IsAuthenticated}) => {
         initialValues: {
             name: "",
             login: "",
+            email: "",
             password: "",
             passwordConfirm: "",
         },
         validationSchema: schema,
         onSubmit: values => {
             setLoad(true);
-            RegistrationAPI(values.name, values.login, values.password) //Auth
+            RegistrationAPI(values.name, values.login, values.email, values.password) //Auth
                 .then(() => {
                     setLoad(false);
                     IsAuthenticated()
@@ -68,6 +71,19 @@ const SignUp = ({IsAuthenticated}) => {
                         <TextField className="Custom-TextField"
                                    sx={{margin: "15px 0"}}
                                    variant="outlined"
+                                   id="email"
+                                   name="email"
+                                   label="Email"
+                                   value={formik.values.email}
+                                   onChange={formik.handleChange}
+                                   error={formik.touched.email && Boolean(formik.errors.email)}
+                                   helperText={formik.touched.email && formik.errors.email}
+                        />
+                    </FormControl>
+                    <FormControl sx={{width: 250}}>
+                        <TextField className="Custom-TextField"
+                                   sx={{margin: "15px 0"}}
+                                   variant="outlined"
                                    id="password"
                                    label="Password"
                                    type="password"
@@ -95,7 +111,7 @@ const SignUp = ({IsAuthenticated}) => {
                 </form>
             </Box>
             <div className="Auth-link">
-                <span>Already registered? </span>
+                <span>Already have an account? </span>
                 <NavLink to={"/login"}>Sign-In</NavLink>
             </div>
         </div>

@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import "../../../styles/SideBar.scss"
 import Chats from "./Chats/Chats";
 import Users from "./Users/Users";
-import Settingsbar from "./Settings/settingsbar";
+import SettingsBar from "./Settings/settingsBar";
 import SettingsPage from "./Settings/settingsPage";
 
 const Sidebar = ({
@@ -39,7 +39,7 @@ const Sidebar = ({
 
     return (
         <div className="SideBar">
-            <Settingsbar SearchUsers={SearchUsers} SearchInput={SearchInput} setSearchInput={setSearchInput}
+            <SettingsBar SearchUsers={SearchUsers} SearchInput={SearchInput} setSearchInput={setSearchInput}
                          isActive={isActive} setActive={setActive}/>
             <div className="Scroll">
                 {SideBarContent}

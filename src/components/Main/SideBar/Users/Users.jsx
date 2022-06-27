@@ -11,8 +11,8 @@ const Users = ({UsersList, SearchStatus}) => {
         :
         UsersList.map(item => <li key={item.userName}>
             <div className="User">
-                <img src={item.photo ? (`data:image/jpeg;base64,${item.photo.bytes}`) : (DefaultIcon)}
-                     alt={DefaultIcon}/>
+                <img src={item.profileImage ? (item.profileImage.url) : (DefaultIcon)}
+                     alt={DefaultIcon} loading="lazy"/>
                 <div className="info">
                     <div className="Name">
                         <p>{item.name}</p>

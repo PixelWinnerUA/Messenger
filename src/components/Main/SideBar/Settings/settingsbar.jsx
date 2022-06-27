@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import "../../../../styles/SettingsBar.scss"
 
-const Settingsbar = ({SearchUsers, SearchInput, setSearchInput, isActive, setActive}) => {
+const SettingsBar = ({SearchUsers, SearchInput, setSearchInput, isActive, setActive}) => {
 
     useEffect(() => {
         if (SearchInput) {
@@ -10,7 +10,7 @@ const Settingsbar = ({SearchUsers, SearchInput, setSearchInput, isActive, setAct
     }, [SearchUsers, SearchInput])
 
     return (
-        <div className="Settingsbar">
+        <div className="SettingsBar">
             <div className={isActive ? "Burger-Settings open" : "Burger-Settings"}
                  onClick={() => setActive(!isActive)}>
                 <span></span>
@@ -20,9 +20,12 @@ const Settingsbar = ({SearchUsers, SearchInput, setSearchInput, isActive, setAct
             </div>
 
             <input className="Search-Block" placeholder="Search"
-                   onChange={e => setSearchInput(e.target.value.trim())}/>
+                   onChange={e => {
+                       setSearchInput(e.target.value.trim())
+                       setActive(false)
+                   }}/>
         </div>
     );
 };
 
-export default Settingsbar;
+export default SettingsBar;
