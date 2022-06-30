@@ -1,7 +1,7 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 import store from "../store/redux-store";
-import {DeleteUser} from "../store/reducers/AppReducer";
+import {DeleteUser} from "../store/reducers/appReducer";
 
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'; // for all requests
 axios.defaults.headers.common['Content-Type'] = 'application/json'; //json content set by default

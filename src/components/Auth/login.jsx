@@ -6,9 +6,12 @@ import {useFormik} from 'formik';
 import {NavLink} from "react-router-dom";
 import * as yup from 'yup';
 import {Box, Button, FormControl, TextField} from "@mui/material";
+import {useDispatch} from "react-redux";
+import {IsAuthenticated} from "../../store/reducers/appReducer";
 
 
-const Login = ({IsAuthenticated}) => {
+const Login = () => {
+    const dispatch = useDispatch();
     const [load, setLoad] = useState(false);
     let schema = yup.object().shape({
         login: yup.string("Invalid login format").required("Login is Required").max(20, "The length of the login should not exceed 20 characters!"),
@@ -25,7 +28,7 @@ const Login = ({IsAuthenticated}) => {
             LoginAPI(values.login, values.password) //Auth
                 .then(() => {
                     setLoad(false);
-                    IsAuthenticated()
+                    dispatch(IsAuthenticated())
                 })
         },
     });

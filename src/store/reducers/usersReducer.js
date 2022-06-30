@@ -10,7 +10,7 @@ export const SetSearchStatusActionCreator = (status) => ({
     status
 })
 
-export const GetUsers = (input) => async (dispatch) => {
+export const fetchUsers = (input) => async (dispatch) => {
     dispatch(SetSearchStatusActionCreator(true))
     let response = await SearchUsers(input)
     if (response) {

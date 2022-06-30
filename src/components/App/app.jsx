@@ -4,17 +4,22 @@ import {Route, Routes, Navigate} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Preloader from "../Preloader/Preloader";
+import {useDispatch, useSelector} from "react-redux";
+import {IsAuthenticated} from "../../store/reducers/appReducer";
+import {getAuthStatus} from "../../store/reducers/appSelector";
 
-const SignUp = lazy(() => import ("../Auth/SignUp"));
-const Login = lazy(() => import ("../Auth/Login"));
-const Main = lazy(() => import ("../Main/Main"));
-const Error404 = lazy(() => import ("../Error404/Error404"));
+const SignUp = lazy(() => import ("../Auth/registration"));
+const Login = lazy(() => import ("../Auth/login"));
+const Main = lazy(() => import ("../Main/main"));
+const Error404 = lazy(() => import ("../Error404/error404"));
 
 
-function App({GetAuthStatus, AuthStatus}) {
-    useEffect(() => { //On Did Mount
-        GetAuthStatus()
-    }, [AuthStatus, GetAuthStatus])
+const App = () => {
+    const dispatch = useDispatch();
+    const AuthStatus = useSelector(getAuthStatus)
+    useEffect(() => {
+        dispatch(IsAuthenticated())
+    }, [AuthStatus])
 
     return (<div className="App">
             <Suspense fallback={<Preloader/>}>
@@ -22,9 +27,9 @@ function App({GetAuthStatus, AuthStatus}) {
                     <Route path="*" element={<Error404/>}/>
                     <Route path="/" element={AuthStatus ? <Main/> : <Navigate to="/login"/>}/>
                     <Route path="/login"
-                           element={AuthStatus ? <Navigate to="/"/> : <Login IsAuthenticated={GetAuthStatus}/>}/>
+                           element={AuthStatus ? <Navigate to="/"/> : <Login/>}/>
                     <Route path="/sign-up"
-                           element={AuthStatus ? <Navigate to="/"/> : <SignUp IsAuthenticated={GetAuthStatus}/>}/>
+                           element={AuthStatus ? <Navigate to="/"/> : <SignUp/>}/>
                 </Routes>
             </Suspense>
 

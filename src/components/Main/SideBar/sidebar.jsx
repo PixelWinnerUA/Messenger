@@ -1,29 +1,26 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import "../../../styles/SideBar.scss"
-import Chats from "./Chats/Chats";
-import Users from "./Users/Users";
+import Chats from "./Chats/chats";
+import Users from "./Users/users";
 import SettingsBar from "./Settings/settingsBar";
 import SettingsPage from "./Settings/settingsPage";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchUserInfo} from "../../../store/reducers/sidebarReducer";
+import {getUserInfo} from "../../../store/reducers/sidebarSelector";
 
-const Sidebar = ({
-                     GetUserInfo,
-                     UserInfo,
-                     DeleteUser,
-                     SearchUsers,
-                     UsersList,
-                     SearchStatus,
-                     sidebarStatus,
-                     setSideBarStatus
-                 }) => {
+const Sidebar = ({sidebarStatus, setSideBarStatus}) => {
 
     const [isActive, setActive] = useState(false); //burger menu state
     const [SearchInput, setSearchInput] = useState();
 
+    const dispatch = useDispatch();
+    const UserInfo = useSelector(getUserInfo)
+
     useEffect(() => {
         if (!UserInfo) {
-            GetUserInfo()
+            dispatch(fetchUserInfo())
         }
-    }, [GetUserInfo, UserInfo])
+    }, [UserInfo])
 
     let SideBarContent;
 
@@ -31,16 +28,16 @@ const Sidebar = ({
         SideBarContent = <Chats sidebarStatus={sidebarStatus} setSideBarStatus={setSideBarStatus}/>;
     }
     if (SearchInput) {
-        SideBarContent = <Users UsersList={UsersList} SearchStatus={SearchStatus}/>
+        SideBarContent = <Users/>
     }
     if (isActive) {
-        SideBarContent = <SettingsPage GetUserInfo={GetUserInfo} UserInfo={UserInfo} DeleteUser={DeleteUser}/>
+        SideBarContent = <SettingsPage/>
     }
 
     return (
         <div className="SideBar">
-            <SettingsBar SearchUsers={SearchUsers} SearchInput={SearchInput} setSearchInput={setSearchInput}
-                         isActive={isActive} setActive={setActive}/>
+            <SettingsBar SearchInput={SearchInput} setSearchInput={setSearchInput} isActive={isActive}
+                         setActive={setActive}/>
             <div className="Scroll">
                 {SideBarContent}
             </div>

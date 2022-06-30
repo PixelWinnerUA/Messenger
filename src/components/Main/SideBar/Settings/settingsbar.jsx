@@ -1,13 +1,18 @@
 import React, {useEffect} from 'react';
 import "../../../../styles/SettingsBar.scss"
+import {useDispatch} from "react-redux";
+import {fetchUsers} from "../../../../store/reducers/usersReducer";
 
-const SettingsBar = ({SearchUsers, SearchInput, setSearchInput, isActive, setActive}) => {
+const SettingsBar = ({SearchInput, setSearchInput, isActive, setActive}) => {
+
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (SearchInput) {
-            SearchUsers(SearchInput);
+           dispatch(fetchUsers(SearchInput))
         }
-    }, [SearchUsers, SearchInput])
+    }, [SearchInput])
 
     return (
         <div className="SettingsBar">
@@ -21,8 +26,8 @@ const SettingsBar = ({SearchUsers, SearchInput, setSearchInput, isActive, setAct
 
             <input className="Search-Block" placeholder="Search"
                    onChange={e => {
-                       setSearchInput(e.target.value.trim())
-                       setActive(false)
+                       setSearchInput(e.target.value.trim());
+                       setActive(false);
                    }}/>
         </div>
     );

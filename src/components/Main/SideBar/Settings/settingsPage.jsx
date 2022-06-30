@@ -6,8 +6,16 @@ import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png";
 import {Button, CircularProgress, FormControl, TextField} from "@mui/material";
 import * as yup from "yup";
 import {useFormik} from "formik";
+import {useDispatch, useSelector} from "react-redux";
+import {getUserInfo} from "../../../../store/reducers/sidebarSelector";
+import {fetchUserInfo} from "../../../../store/reducers/sidebarReducer";
+import {DeleteUser} from "../../../../store/reducers/appReducer";
 
-const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
+const SettingsPage = () => {
+
+    const dispatch = useDispatch();
+    const UserInfo = useSelector(getUserInfo)
+
 
     const [values, setValues] = useState({
         image: null,
@@ -32,8 +40,8 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
         validationSchema: schema,
         onSubmit: values => {
             ChangeUserInfo(values.name, values.email, values.password).then(() => {
-                GetUserInfo()
-                changeLocalState("changes")(false)
+                dispatch(fetchUserInfo());
+                changeLocalState("changes")(false);
             })
         },
     });
@@ -88,7 +96,7 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
                                             onClick={() => {
                                                 changeLocalState("load")(true)
                                                 UploadImage(values.image).then(() => {
-                                                    GetUserInfo();
+                                                    dispatch(fetchUserInfo());
                                                     changeLocalState("load")(false);
                                                     changeLocalState("image")(null);
                                                 })
@@ -168,7 +176,7 @@ const SettingsPage = ({UserInfo, DeleteUser, GetUserInfo}) => {
             }
 
             <div>
-                <Button className="item" variant="contained" onClick={DeleteUser}>Log Out</Button>
+                <Button className="item" variant="contained" onClick={() => dispatch(DeleteUser())}>Log Out</Button>
             </div>
         </div>
     );

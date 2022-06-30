@@ -6,8 +6,11 @@ import "../../styles/Auth.scss";
 import {Box, Button, FormControl, TextField} from "@mui/material";
 import * as yup from "yup";
 import {useFormik} from "formik";
+import {IsAuthenticated} from "../../store/reducers/appReducer";
+import {useDispatch} from "react-redux";
 
-const SignUp = ({IsAuthenticated}) => {
+const Registration = () => {
+    const dispatch = useDispatch();
     const [load, setLoad] = useState(false);
     let schema = yup.object().shape({
         name: yup.string("Invalid name format").required("Name is Required").max(20, "The length of the name should not exceed 20 characters!"),
@@ -31,7 +34,7 @@ const SignUp = ({IsAuthenticated}) => {
             RegistrationAPI(values.name, values.login, values.email, values.password) //Auth
                 .then(() => {
                     setLoad(false);
-                    IsAuthenticated()
+                    dispatch(IsAuthenticated())
                 })
         },
     });
@@ -118,4 +121,4 @@ const SignUp = ({IsAuthenticated}) => {
     );
 };
 
-export default SignUp;
+export default Registration;

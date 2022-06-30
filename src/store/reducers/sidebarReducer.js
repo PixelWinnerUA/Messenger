@@ -5,7 +5,7 @@ export const GetUserInfoActionCreator = (userInfoObject) => ({
     userInfoObject
 })
 
-export const GetUserInfo = () => async (dispatch) => {
+export const fetchUserInfo = () => async (dispatch) => {
     let response = await GetUser();
     if (response) {
         dispatch(GetUserInfoActionCreator(response))
@@ -16,7 +16,7 @@ let initialState = {
     UserInfo: null, //profile info object
 }
 
-const SideBarReducer = (state = initialState, action) => {
+const SidebarReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case "GetUserInfo":
@@ -28,4 +28,4 @@ const SideBarReducer = (state = initialState, action) => {
             return state;
     }
 };
-export default SideBarReducer;
+export default SidebarReducer;
