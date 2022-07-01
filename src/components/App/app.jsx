@@ -19,7 +19,7 @@ const App = () => {
     const AuthStatus = useSelector(getAuthStatus)
     useEffect(() => {
         dispatch(IsAuthenticated())
-    }, [AuthStatus])
+    }, [AuthStatus, dispatch])
 
     return (<div className="App">
             <Suspense fallback={<Preloader/>}>

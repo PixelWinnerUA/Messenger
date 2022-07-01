@@ -20,7 +20,7 @@ const Sidebar = ({sidebarStatus, setSideBarStatus}) => {
         if (!UserInfo) {
             dispatch(fetchUserInfo())
         }
-    }, [UserInfo])
+    }, [UserInfo, dispatch])
 
     let SideBarContent;
 
