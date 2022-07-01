@@ -3,13 +3,11 @@ import "../../../../styles/Users.scss";
 import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png"
 import {CircularProgress} from "@mui/material";
 import {useSelector} from "react-redux";
-import {getUserList} from "../../../../store/reducers/usersSelector";
-import {getAuthStatus} from "../../../../store/reducers/appSelector";
-
+import {getSearchStatus, getUserList} from "../../../../store/reducers/usersSelector";
 
 const Users = () => {
     const UsersList = useSelector(getUserList)
-    const SearchStatus = useSelector(getAuthStatus)
+    const SearchStatus = useSelector(getSearchStatus)
 
     let Users = UsersList.length === 0 ?
         <li style={{margin: "10px"}}>User is not found</li>
