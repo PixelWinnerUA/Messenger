@@ -9,7 +9,7 @@ const Error404 = () => {
         setTimeout(() => {
             history("/");
         }, 10000)
-    },[])
+    },[history])
     return (
         <div className="Page-404">
             <div className="Message-Error">
