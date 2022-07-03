@@ -36,7 +36,7 @@ export const SearchUsers = async (input) => {
 }
 
 
-export const GetUser = async () => {
+export const FetchCurrentUser = async () => {
     return await axios.get('api/users/current/info')
         .then(response => response.data)
         .catch(error => console.log(error))
@@ -54,9 +54,9 @@ export const UploadImage = async (image) => {
         .catch(error => console.log(error))
 }
 
-export const ChangeUserInfo = async (userName, email, password) => {
+export const ChangeUserInfo = async (name, email, password) => {
     return await axios.put('api/users/current/edit', {
-        userName,
+        name,
         email,
         password
     }).then(response => response.status === 204 && toast.success("Profile changes uploaded!"))

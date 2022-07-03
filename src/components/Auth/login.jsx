@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {LoginAPI} from "../../api/RestApi";
 import "../../styles/GradientBackground.scss"
 import "../../styles/Auth.scss";
@@ -8,11 +8,16 @@ import * as yup from 'yup';
 import {Box, Button, FormControl, TextField} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {IsAuthenticated} from "../../store/reducers/appReducer";
+import {useMutation} from "react-query";
 
 
 const Login = () => {
     const dispatch = useDispatch();
-    const [load, setLoad] = useState(false);
+
+    const {mutate: fetchLogIn, isLoading} = useMutation(({
+                                                             login,
+                                                             password
+                                                         }) => LoginAPI(login, password), {onSuccess: () => dispatch(IsAuthenticated())});
     let schema = yup.object().shape({
         login: yup.string("Invalid login format").required("Login is Required").max(20, "The length of the login should not exceed 20 characters!"),
         password: yup.string().required("Password is Required").min(8, "Invalid password length"),
@@ -24,14 +29,10 @@ const Login = () => {
         },
         validationSchema: schema,
         onSubmit: values => {
-            setLoad(true);
-            LoginAPI(values.login, values.password) //Auth
-                .then(() => {
-                    setLoad(false);
-                    dispatch(IsAuthenticated())
-                })
+            fetchLogIn({login: values.login, password: values.password})
         },
     });
+
 
     return (
         <div className="Auth-Wrapper Gradient-Background">
@@ -66,7 +67,7 @@ const Login = () => {
                     </FormControl>
                     <Button className="Custom-Auth-Button" sx={{margin: "10px 0 20px 0"}} variant="contained"
                             type="submit"
-                            disabled={load}
+                            disabled={isLoading}
                     >Sign-In</Button>
                 </form>
             </Box>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavLink} from "react-router-dom";
 import {RegistrationAPI} from "../../api/RestApi";
 import "../../styles/GradientBackground.scss"
@@ -8,10 +8,16 @@ import * as yup from "yup";
 import {useFormik} from "formik";
 import {IsAuthenticated} from "../../store/reducers/appReducer";
 import {useDispatch} from "react-redux";
+import {useMutation} from "react-query";
 
 const Registration = () => {
     const dispatch = useDispatch();
-    const [load, setLoad] = useState(false);
+    const {mutate: fetchSignIn, isLoading} = useMutation(({
+                                                              name,
+                                                              login,
+                                                              email,
+                                                              password
+                                                          }) => RegistrationAPI(name, login, email, password), {onSuccess: () => dispatch(IsAuthenticated())});
     let schema = yup.object().shape({
         name: yup.string("Invalid name format").required("Name is Required").max(20, "The length of the name should not exceed 20 characters!"),
         login: yup.string("Invalid login format").required("Login is Required").max(20, "The length of the login should not exceed 20 characters!"),
@@ -30,12 +36,7 @@ const Registration = () => {
         },
         validationSchema: schema,
         onSubmit: values => {
-            setLoad(true);
-            RegistrationAPI(values.name, values.login, values.email, values.password) //Auth
-                .then(() => {
-                    setLoad(false);
-                    dispatch(IsAuthenticated())
-                })
+            fetchSignIn({name: values.name, login: values.login, email: values.email, password: values.password})
         },
     });
 
@@ -110,7 +111,7 @@ const Registration = () => {
                         />
                     </FormControl>
                     <Button className="Custom-Auth-Button" sx={{margin: "10px 0 20px 0"}} variant="contained"
-                            type="submit" disabled={load}>Sign-Up</Button>
+                            type="submit" disabled={isLoading}>Sign-Up</Button>
                 </form>
             </Box>
             <div className="Auth-link">
