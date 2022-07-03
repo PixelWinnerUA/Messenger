@@ -13,7 +13,6 @@ import {useMutation} from "react-query";
 
 const Login = () => {
     const dispatch = useDispatch();
-
     const {mutate: fetchLogIn, isLoading} = useMutation(({
                                                              login,
                                                              password

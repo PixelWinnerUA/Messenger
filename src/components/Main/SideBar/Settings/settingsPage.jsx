@@ -9,19 +9,20 @@ import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserInfo} from "../../../../store/reducers/sidebarSelector";
 import {fetchUserInfo} from "../../../../store/reducers/sidebarReducer";
-import {DeleteUser} from "../../../../store/reducers/appReducer";
+import {DeleteUser} from "../../../../store/reducers/sidebarReducer";
 
 const SettingsPage = () => {
 
     const dispatch = useDispatch();
     const UserInfo = useSelector(getUserInfo)
 
-
+    //Values for edit profile form
     const [values, setValues] = useState({
         image: null,
         changes: false,
         load: false,
     })
+    //Function for edit profile form variables
     const changeLocalState = (prop) => (value) => {
         setValues({...values, [prop]: value})
     }

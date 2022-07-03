@@ -1,15 +1,25 @@
-import {GetUser} from "../../api/RestApi";
+import {FetchCurrentUser} from "../../api/RestApi";
+import {SetAuthActionCreator} from "./appReducer";
 
 export const GetUserInfoActionCreator = (userInfoObject) => ({
     type: "GetUserInfo",
     userInfoObject
 })
+export const DeleteUserInfoActionCreator = () => ({
+    type: "DeleteUserInfo"
+})
 
 export const fetchUserInfo = () => async (dispatch) => {
-    let response = await GetUser();
+    let response = await FetchCurrentUser();
     if (response) {
         dispatch(GetUserInfoActionCreator(response))
     }
+}
+
+export const DeleteUser = () => (dispatch) => {
+    localStorage.removeItem("AUTH_TOKEN");
+    dispatch(DeleteUserInfoActionCreator())
+    dispatch(SetAuthActionCreator(false))
 }
 
 let initialState = {
@@ -23,6 +33,11 @@ const SidebarReducer = (state = initialState, action) => {
             return {
                 ...state,
                 UserInfo: action.userInfoObject
+            }
+        case "DeleteUserInfo":
+            return {
+                ...state,
+                UserInfo: null
             }
         default:
             return state;
