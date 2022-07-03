@@ -1,18 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import "../../../../styles/SettingsBar.scss"
-import {useDispatch} from "react-redux";
-import {fetchUsers} from "../../../../store/reducers/usersReducer";
 
-const SettingsBar = ({SearchInput, setSearchInput, isActive, setActive}) => {
-
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (SearchInput) {
-           dispatch(fetchUsers(SearchInput))
-        }
-    }, [SearchInput])
+const SettingsBar = ({setSearchInput, isActive, setActive}) => {
 
     return (
         <div className="SettingsBar">
