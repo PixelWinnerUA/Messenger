@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "../../../../styles/SettingsBar.scss"
 
-const SettingsBar = ({setSearchInput, isActive, setActive}) => {
+const SettingsBar = ({fetchSearch, SearchInput, setSearchInput, isActive, setActive}) => {
+
+    useEffect(() => {
+        if (SearchInput) {
+            fetchSearch({input: SearchInput})
+        }
+    }, [SearchInput, fetchSearch])
 
     return (
         <div className="SettingsBar">
