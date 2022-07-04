@@ -4,11 +4,11 @@ import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png"
 import {CircularProgress} from "@mui/material";
 
 
-const Users = ({isLoading, data}) => {
-        let Users = data ? ((data.length === 0) ?
+const Users = ({isLoading, usersList}) => {
+        let Users = usersList ? ((usersList.length === 0) ?
             <li style={{margin: "10px"}}>User is not found</li>
             :
-            data.map(item => <li key={item.userName}>
+            usersList.map(item => <li key={item.userName}>
                 <div className="User">
                     <img src={item.profileImage ? (item.profileImage.url) : (DefaultIcon)}
                          alt={DefaultIcon} loading="lazy"/>

@@ -5,15 +5,13 @@ import Users from "./Users/users";
 import SettingsBar from "./Settings/settingsBar";
 import SettingsPage from "./Settings/settingsPage";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchUserInfo} from "../../../store/reducers/sidebarReducer";
-import {getUserInfo} from "../../../store/reducers/sidebarSelector";
+import { SetUserInfoActionCreator} from "../../../store/reducers/sidebarReducer";
 import * as signalR from "@microsoft/signalr";
 import {getAuthStatus} from "../../../store/reducers/appSelector";
-import {useMutation} from "react-query";
-import {SearchUsers} from "../../../api/RestApi";
+import {useMutation, useQuery} from "react-query";
+import {FetchCurrentUser, SearchUsers} from "../../../api/RestApi";
 
 const Sidebar = ({sidebarStatus, setSideBarStatus}) => {
-
     //SignalR socket connection
     const [connection, setConnection] = useState(null);
     const [chats, setChats] = useState([]);
@@ -41,25 +39,18 @@ const Sidebar = ({sidebarStatus, setSideBarStatus}) => {
     const [SearchInput, setSearchInput] = useState(""); //Search bar state
 
     const dispatch = useDispatch();
-    const UserInfo = useSelector(getUserInfo) //Profile info of current user
     const AuthStatus = useSelector(getAuthStatus)
 
-
-    const {mutate: fetchSearch, isLoading, data} = useMutation(({input}) => SearchUsers(input));
-
-    //useEffect for search users
-    useEffect(() => {
-        if (SearchInput) {
-            fetchSearch({input:SearchInput})
-        }
-    }, [SearchInput, fetchSearch])
+    const {mutate: fetchSearch, isLoading, data: usersList} = useMutation(({input}) => SearchUsers(input));
+    const {data: fetchedUserInfo, refetch: refetchUserInfo} =
+        useQuery("FetchCurrentUser", FetchCurrentUser, {enabled: false})
 
     //Fetch onMount profileData
-    useEffect(() => { //On load fetch profile info
-        if (!UserInfo && AuthStatus) {
-            dispatch(fetchUserInfo()) //Переделать на query
+    useEffect(() => {
+        if (AuthStatus) {
+            fetchedUserInfo ? dispatch(SetUserInfoActionCreator(fetchedUserInfo)) : refetchUserInfo()
         }
-    }, [UserInfo, AuthStatus, dispatch])
+    }, [AuthStatus, dispatch, fetchedUserInfo, refetchUserInfo])
 
     let SideBarContent;
 
@@ -67,15 +58,16 @@ const Sidebar = ({sidebarStatus, setSideBarStatus}) => {
         SideBarContent = <Chats chats={chats} sidebarStatus={sidebarStatus} setSideBarStatus={setSideBarStatus}/>;
     }
     if (SearchInput) {
-        SideBarContent = <Users isLoading={isLoading} data={data}/>
+        SideBarContent = <Users isLoading={isLoading} usersList={usersList}/>
     }
     if (isActive) {
-        SideBarContent = <SettingsPage/>
+        SideBarContent = <SettingsPage refetchUserInfo={refetchUserInfo}/>
     }
 
     return (
         <div className="SideBar">
-            <SettingsBar setSearchInput={setSearchInput} isActive={isActive} setActive={setActive}/>
+            <SettingsBar fetchSearch={fetchSearch} SearchInput={SearchInput} setSearchInput={setSearchInput}
+                         isActive={isActive} setActive={setActive}/>
             <div className="Scroll">
                 {SideBarContent}
             </div>

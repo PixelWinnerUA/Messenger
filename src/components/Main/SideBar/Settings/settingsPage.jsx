@@ -8,10 +8,10 @@ import * as yup from "yup";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserInfo} from "../../../../store/reducers/sidebarSelector";
-import {fetchUserInfo} from "../../../../store/reducers/sidebarReducer";
 import {DeleteUser} from "../../../../store/reducers/sidebarReducer";
+import {useMutation} from "react-query";
 
-const SettingsPage = () => {
+const SettingsPage = ({refetchUserInfo}) => {
 
     const dispatch = useDispatch();
     const UserInfo = useSelector(getUserInfo)
@@ -20,12 +20,27 @@ const SettingsPage = () => {
     const [values, setValues] = useState({
         image: null,
         changes: false,
-        load: false,
     })
     //Function for edit profile form variables
     const changeLocalState = (prop) => (value) => {
         setValues({...values, [prop]: value})
     }
+
+    const {mutate: fetchNewImage, isLoading: newImageIsLoading} =
+        useMutation(({image}) => UploadImage(image), {
+            onSuccess: () => {
+                refetchUserInfo()
+                changeLocalState("image")(null);
+            }
+        })
+
+    const {mutate: fetchNewUserInfo, isLoading: newUserInfoIsLoading} =
+        useMutation(({name, email, password}) => ChangeUserInfo(name, email, password), {
+            onSuccess: () => {
+                refetchUserInfo()
+                changeLocalState("changes")(false)
+            }
+        })
 
     let schema = yup.object().shape({
         name: yup.string("Invalid name format").required("Name is Required").max(20, "The length of the name should not exceed 20 characters!"),
@@ -40,10 +55,7 @@ const SettingsPage = () => {
         },
         validationSchema: schema,
         onSubmit: values => {
-            ChangeUserInfo(values.name, values.email, values.password).then(() => {
-                dispatch(fetchUserInfo());
-                changeLocalState("changes")(false);
-            })
+            fetchNewUserInfo({name: values.name, email: values.email, password: values.password})
         },
     });
 
@@ -93,14 +105,9 @@ const SettingsPage = () => {
                             </div>
                             <div className="Uploading-Tools">
                                 <div className="item">
-                                    <Button variant="contained" disabled={values.load}
+                                    <Button variant="contained" disabled={newImageIsLoading}
                                             onClick={() => {
-                                                changeLocalState("load")(true)
-                                                UploadImage(values.image).then(() => {
-                                                    dispatch(fetchUserInfo());
-                                                    changeLocalState("load")(false);
-                                                    changeLocalState("image")(null);
-                                                })
+                                                fetchNewImage({image: values.image})
                                             }}>
                                         Upload picture</Button>
                                 </div>
@@ -169,7 +176,8 @@ const SettingsPage = () => {
                         />
                     </FormControl>
                     <div>
-                        <Button className="item" variant="contained" type="submit">Set changes</Button>
+                        <Button className="item" variant="contained" type="submit" disabled={newUserInfoIsLoading}>
+                            Set changes</Button>
                         <Button className="Cancel-Button item" variant="contained"
                                 onClick={() => changeLocalState("changes")(!values.changes)}>Cancel</Button>
                     </div>
