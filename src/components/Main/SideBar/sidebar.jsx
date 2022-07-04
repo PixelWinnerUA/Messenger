@@ -67,7 +67,7 @@ const Sidebar = ({sidebarStatus, setSideBarStatus}) => {
         SideBarContent = <Chats chats={chats} sidebarStatus={sidebarStatus} setSideBarStatus={setSideBarStatus}/>;
     }
     if (SearchInput) {
-        SideBarContent = <Users isFetching={isLoading} data={data}/>
+        SideBarContent = <Users isLoading={isLoading} data={data}/>
     }
     if (isActive) {
         SideBarContent = <SettingsPage/>

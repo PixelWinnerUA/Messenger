@@ -4,7 +4,7 @@ import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png"
 import {CircularProgress} from "@mui/material";
 
 
-const Users = ({isFetching, data}) => {
+const Users = ({isLoading, data}) => {
         let Users = data ? ((data.length === 0) ?
             <li style={{margin: "10px"}}>User is not found</li>
             :
@@ -25,7 +25,7 @@ const Users = ({isFetching, data}) => {
 
         return (
             <div className="Users">
-                {isFetching ?
+                {isLoading ?
                     <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: "100%"}}>
                         <CircularProgress/></div> : <ul>{Users}</ul>}
             </div>
