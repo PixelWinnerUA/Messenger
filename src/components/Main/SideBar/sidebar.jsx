@@ -9,7 +9,7 @@ import {fetchUserInfo} from "../../../store/reducers/sidebarReducer";
 import {getUserInfo} from "../../../store/reducers/sidebarSelector";
 import * as signalR from "@microsoft/signalr";
 import {getAuthStatus} from "../../../store/reducers/appSelector";
-import {useQuery} from "react-query";
+import {useMutation} from "react-query";
 import {SearchUsers} from "../../../api/RestApi";
 
 const Sidebar = ({sidebarStatus, setSideBarStatus}) => {
@@ -44,16 +44,15 @@ const Sidebar = ({sidebarStatus, setSideBarStatus}) => {
     const UserInfo = useSelector(getUserInfo) //Profile info of current user
     const AuthStatus = useSelector(getAuthStatus)
 
-    const {isFetching, data, refetch} = useQuery('searchUsers', () => SearchUsers(SearchInput), {
-        enabled: false,
-    })
+
+    const {mutate: fetchSearch, isLoading, data} = useMutation(({input}) => SearchUsers(input));
 
     //useEffect for search users
     useEffect(() => {
         if (SearchInput) {
-            refetch()
+            fetchSearch({input:SearchInput})
         }
-    }, [SearchInput, refetch])
+    }, [SearchInput, fetchSearch])
 
     //Fetch onMount profileData
     useEffect(() => { //On load fetch profile info
@@ -68,7 +67,7 @@ const Sidebar = ({sidebarStatus, setSideBarStatus}) => {
         SideBarContent = <Chats chats={chats} sidebarStatus={sidebarStatus} setSideBarStatus={setSideBarStatus}/>;
     }
     if (SearchInput) {
-        SideBarContent = <Users isFetching={isFetching} data={data}/>
+        SideBarContent = <Users isFetching={isLoading} data={data}/>
     }
     if (isActive) {
         SideBarContent = <SettingsPage/>
