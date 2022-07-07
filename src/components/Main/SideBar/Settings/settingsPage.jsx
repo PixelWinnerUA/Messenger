@@ -1,20 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {ChangeUserInfo, UploadImage} from "../../../../api/RestApi";
 import "../../../../styles/Auth.scss"
 import "../../../../styles/SettingsPage.scss"
 import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png";
-import {Button, CircularProgress, FormControl, TextField} from "@mui/material";
+import {Button, CircularProgress, FormControl, Switch, TextField} from "@mui/material";
 import * as yup from "yup";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserInfo} from "../../../../store/reducers/sidebarSelector";
 import {DeleteUser} from "../../../../store/reducers/sidebarReducer";
 import {useMutation} from "react-query";
+import {ThemeContext} from "../../../../context/ThemeContext";
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 
 const SettingsPage = ({refetchUserInfo}) => {
 
     const dispatch = useDispatch();
     const UserInfo = useSelector(getUserInfo)
+    const {theme, changeTheme} = useContext(ThemeContext)
 
     //Values for edit profile form
     const [values, setValues] = useState({
@@ -76,6 +80,13 @@ const SettingsPage = ({refetchUserInfo}) => {
                     <CircularProgress/>
                 </div>}
 
+            <div className="Theme-Switch">
+                <div className="Theme-Switch-Icon"> {theme === "theme-dark" ? <Brightness4Icon/> : <BrightnessHighIcon/>}</div>
+                <div className="Theme-Switch-Label">Night mode</div>
+                <Switch
+                    checked={theme === "theme-dark"}
+                    onChange={() => changeTheme(theme === "theme-dark" ? "theme-light" : "theme-dark")}/>
+            </div>
 
             {(!values.changes && UserInfo) &&
                 <div>

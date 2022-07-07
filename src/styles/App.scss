@@ -16,32 +16,13 @@ body {
 }
 
 .App {
+  animation: 0.5s show ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $background-color;
+  @include themify($themes) {
+    background-color: themed('background-color');
+    color: themed('text-color');
+  }
   font-size: $text-size;
-  color: $text-color;
-}
-
-
-input:-webkit-autofill, //Fix yellow/white background when user use autofill
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  border: none;
-  -webkit-text-fill-color: #fff;
-  transition: background-color 50000s ease-in-out 0s;
-}
-
-input:-webkit-autofill:hover, //For text fields Material UI
-input:-webkit-autofill:focus {
-  border: none;
-  -webkit-text-fill-color: #006ac0;
-  transition: background-color 50000s ease-in-out 0s;
 }

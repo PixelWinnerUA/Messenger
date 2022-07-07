@@ -1,5 +1,9 @@
+@import "./variables";
 .Preloader {
-  background-color: #181818;
+  @include themify($themes) {
+    background-color: themed('background-color');
+    color: themed('text-color');
+  }
   width: 100vw;
   height: 100vh;
   display: flex;

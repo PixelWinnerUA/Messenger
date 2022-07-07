@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import {RegistrationAPI} from "../../api/RestApi";
-import "../../styles/GradientBackground.scss"
+import "../../styles/Space-Background.scss"
 import "../../styles/Auth.scss";
 import {Box, Button, FormControl, TextField} from "@mui/material";
 import * as yup from "yup";
@@ -41,7 +41,10 @@ const Registration = () => {
     });
 
     return (
-        <div className="Auth-Wrapper Gradient-Background">
+        <div className="Auth-Wrapper background-container">
+            <div className="stars"></div>
+            <div className="twinkling"></div>
+
             <Box className="Custom-Box">
                 <form onSubmit={formik.handleSubmit}>
                     <h1 className="Auth-Header">Sign-Up</h1>

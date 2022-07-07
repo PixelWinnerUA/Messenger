@@ -5,74 +5,55 @@ import Users from "./Users/users";
 import SettingsBar from "./Settings/settingsBar";
 import SettingsPage from "./Settings/settingsPage";
 import {useDispatch, useSelector} from "react-redux";
-import { SetUserInfoActionCreator} from "../../../store/reducers/sidebarReducer";
-import * as signalR from "@microsoft/signalr";
+import {SetUserInfoActionCreator} from "../../../store/reducers/sidebarReducer";
 import {getAuthStatus} from "../../../store/reducers/appSelector";
 import {useMutation, useQuery} from "react-query";
 import {FetchCurrentUser, SearchUsers} from "../../../api/RestApi";
+import {getUserInfo} from "../../../store/reducers/sidebarSelector";
 
-const Sidebar = ({sidebarStatus, setSideBarStatus}) => {
-    //SignalR socket connection
-    const [connection, setConnection] = useState(null);
-    const [chats, setChats] = useState([]);
+const Sidebar = ({sidebarStatus, setSideBarStatus, chats}) => {
 
-    useEffect(() => {
-        (async () => {
-            const newConnection = new signalR.HubConnectionBuilder()
-                .withUrl('/hubs/chat', {
-                    accessTokenFactory: () => localStorage.AUTH_TOKEN.split(" ")[1]
-                }) // Ensure same as BE
-                .withAutomaticReconnect()
-                .build();
+        const [isActive, setActive] = useState(false); //Burger menu state
+        const [SearchInput, setSearchInput] = useState(""); //Search bar state
 
-            await newConnection.start();
-            newConnection.on('GetChats', (data) => {
-                console.log(data)
-                setChats(data)
-            });
-            setConnection(newConnection);
-        })();
-    }, [])
-    //SignalR socket connection
+        const dispatch = useDispatch();
+        const AuthStatus = useSelector(getAuthStatus)
+        const UserInfo = useSelector(getUserInfo)
 
-    const [isActive, setActive] = useState(false); //Burger menu state
-    const [SearchInput, setSearchInput] = useState(""); //Search bar state
+        const {mutate: fetchSearch, isLoading, data: usersList} = useMutation(({input}) => SearchUsers(input));
+        const {data: fetchedUserInfo, refetch: refetchUserInfo} =
+            useQuery("FetchCurrentUser", FetchCurrentUser, {enabled: false})
 
-    const dispatch = useDispatch();
-    const AuthStatus = useSelector(getAuthStatus)
+        //Fetch onMount profileData
+        useEffect(() => {
+            if (AuthStatus) {
+                //loaded userinfo !== current userInfo in global state
+                fetchedUserInfo !== UserInfo ? dispatch(SetUserInfoActionCreator(fetchedUserInfo)) : refetchUserInfo();
+            }
+        }, [AuthStatus, UserInfo, dispatch, fetchedUserInfo, refetchUserInfo])
 
-    const {mutate: fetchSearch, isLoading, data: usersList} = useMutation(({input}) => SearchUsers(input));
-    const {data: fetchedUserInfo, refetch: refetchUserInfo} =
-        useQuery("FetchCurrentUser", FetchCurrentUser, {enabled: false})
+        let SideBarContent;
 
-    //Fetch onMount profileData
-    useEffect(() => {
-        if (AuthStatus) {
-            fetchedUserInfo ? dispatch(SetUserInfoActionCreator(fetchedUserInfo)) : refetchUserInfo()
+        if (!SearchInput || isActive) {
+            SideBarContent = <Chats chats={chats} sidebarStatus={sidebarStatus} setSideBarStatus={setSideBarStatus}/>;
         }
-    }, [AuthStatus, dispatch, fetchedUserInfo, refetchUserInfo])
+        if (SearchInput) {
+            SideBarContent = <Users isLoading={isLoading} usersList={usersList}/>
+        }
+        if (isActive) {
+            SideBarContent = <SettingsPage refetchUserInfo={refetchUserInfo}/>
+        }
 
-    let SideBarContent;
-
-    if (!SearchInput || isActive) {
-        SideBarContent = <Chats chats={chats} sidebarStatus={sidebarStatus} setSideBarStatus={setSideBarStatus}/>;
-    }
-    if (SearchInput) {
-        SideBarContent = <Users isLoading={isLoading} usersList={usersList}/>
-    }
-    if (isActive) {
-        SideBarContent = <SettingsPage refetchUserInfo={refetchUserInfo}/>
-    }
-
-    return (
-        <div className="SideBar">
-            <SettingsBar fetchSearch={fetchSearch} SearchInput={SearchInput} setSearchInput={setSearchInput}
-                         isActive={isActive} setActive={setActive}/>
-            <div className="Scroll">
-                {SideBarContent}
+        return (
+            <div className="SideBar">
+                <SettingsBar fetchSearch={fetchSearch} SearchInput={SearchInput} setSearchInput={setSearchInput}
+                             isActive={isActive} setActive={setActive}/>
+                <div className="Scroll">
+                    {SideBarContent}
+                </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
+;
 
 export default Sidebar;

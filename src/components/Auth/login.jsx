@@ -1,6 +1,6 @@
 import React from 'react';
 import {LoginAPI} from "../../api/RestApi";
-import "../../styles/GradientBackground.scss"
+import "../../styles/Space-Background.scss"
 import "../../styles/Auth.scss";
 import {useFormik} from 'formik';
 import {NavLink} from "react-router-dom";
@@ -34,7 +34,10 @@ const Login = () => {
 
 
     return (
-        <div className="Auth-Wrapper Gradient-Background">
+        <div className="Auth-Wrapper background-container">
+            <div className="stars"></div>
+            <div className="twinkling"></div>
+
             <Box className="Custom-Box">
                 <form onSubmit={formik.handleSubmit}>
                     <h1 className="Auth-Header">Sign-In</h1>

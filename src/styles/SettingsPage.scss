@@ -11,6 +11,30 @@
     margin: 10px;
   }
 
+  .Theme-Switch {
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 7px;
+    @include themify($themes) {
+      color: themed('theme-switch-text-color');
+      background: themed('theme-switch-background-color');
+    }
+    border-radius: 5px;
+
+    .Theme-Switch-Icon{
+      @include themify($themes) {
+        color: themed('theme-switch-icon-color');
+      }
+      width: 25px;
+      height: 25px;
+    }
+    .Theme-Switch-Label {
+      margin: 0 10px 0 5px;
+    }
+  }
+
   .UserInfo {
     display: flex;
     align-items: center;
@@ -23,11 +47,15 @@
     }
 
     .Name {
-      color: $text-color;
+      @include themify($themes) {
+        color: themed('text-color');
+      }
     }
 
     .UserName {
-      color: $dark-text-color;
+      @include themify($themes) {
+        color: themed('dark-text-color');
+      }
     }
 
     img {
@@ -41,7 +69,9 @@
   }
 
   .Preview-Changes-UserInfo {
-    background: #12569a;
+    @include themify($themes) {
+      background: themed('preview-changes-background-color');
+    }
     border-radius: 10px;
     padding: 10px;
     display: flex;

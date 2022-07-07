@@ -9,17 +9,18 @@
   width: 100%;
   font-size: $text-size;
   height: $settings-bar-height;
-  border-bottom: $block-border;
 }
 
 .Search-Block {
-  background: #181818;
-  color: $text-color;
+  @include themify($themes) {
+    color: themed('text-color');
+    background: themed('background-color');
+    border: themed('block-border');
+  }
   font-size: $text-size;
   font-family: $font-family;
   padding: 10px;
   border-radius: 10px;
-  border: $block-border;
   width: $Search-Block-Width;
 }
 

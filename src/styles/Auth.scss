@@ -1,6 +1,5 @@
 @import "./variables";
 
-
 .Auth-Wrapper {
   width: 100vw;
   height: 100vh;
@@ -12,15 +11,19 @@
 
 .Auth-Header {
   margin: 10px 0;
-  color: white;
+  @include themify($themes) {
+    color: themed('text-color')
+  }
 }
 
 .Auth-link {
-  color: white;
   text-align: center;
   margin: 15px 0 15px 0;
-  background: #181818; //$background-color
-  border: #0f0f0f 1px solid; //$block-border
+  @include themify($themes) {
+    color: themed('text-color');
+    background: themed('background-color');
+    border: themed('block-border');
+  }
   padding: 15px;
   border-radius: 15px;
   width: fit-content;
@@ -38,8 +41,10 @@
   height: fit-content;
   min-width: $Auth-Min-Size;
   min-height: $Auth-Min-Size;
-  background: $background-color; //$background-color
-  border: $block-border; //$block-border
+  @include themify($themes) {
+    background: themed('background-color');
+    border: themed('block-border');
+  }
   border-radius: 15px;
 
   & form {
@@ -56,7 +61,9 @@
   }
 
   & label {
-    color: rgba(255, 255, 255, 0.7);
+    @include themify($themes) {
+      color: themed("custom-textfield-label");
+    }
   }
 
   &:hover label {
@@ -72,10 +79,14 @@
   }
 
   & .MuiOutlinedInput-root {
-    color: #fff;
+    @include themify($themes) {
+      color: themed('text-color')
+    }
 
     & fieldset {
-      border-color: rgba(255, 255, 255, 0.7);
+      @include themify($themes) {
+        border-color: themed('custom-textfield-fieldset-border-color');
+      }
       border-width: 2px;
     }
 
@@ -109,4 +120,25 @@
   &:disabled {
     background-color: #003983;
   }
+}
+
+input:-webkit-autofill, //Fix yellow/white background when user use autofill
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: #fff;
+  transition: background-color 50000s ease-in-out 0s;
+}
+
+input:-webkit-autofill:hover, //For text fields Material UI
+input:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: #006ac0;
+  transition: background-color 50000s ease-in-out 0s;
 }

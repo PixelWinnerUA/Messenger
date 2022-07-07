@@ -4,8 +4,13 @@
   height: 100%;
   width: $SideBar-Width;
   min-width: $SideBar-Width;
-  border-right: $block-border;
-  background-color: $background-light-color;
+
+  @include themify($themes) {
+    border-right: themed('block-border');
+    background-color: themed('background-light-color');
+  }
+
+
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: 1fr;
@@ -29,7 +34,9 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: $background-color;
+    @include themify($themes) {
+      background-color: themed('background-color');
+    }
     border-radius: 5px;
   }
 
@@ -55,14 +62,15 @@
   }
 }
 
-.Sidebar-Toggle{
+.Sidebar-Toggle {
   display: none;
 }
+
 @media (max-width: 600px) {
   .App {
     overflow-x: hidden;
   }
-  .Sidebar-Toggle{
+  .Sidebar-Toggle {
     display: block;
   }
   .Main.active {
