@@ -9,7 +9,8 @@
 .Messages-Content {
   width: 100%;
   height: 100%;
-  background: $background-image center center no-repeat;
+  background: black url("../assets/img/stars.png") repeat;
+  //background: $background-image center center no-repeat;
   background-size: cover;
 
   .Messages-Header {
@@ -36,7 +37,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        p{
+
+        p {
           margin: 0 0 0 15px;
         }
       }

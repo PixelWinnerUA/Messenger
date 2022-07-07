@@ -12,9 +12,8 @@ const Messages = ({sidebarStatus, setSideBarStatus, connection}) => {
     const [input, setInput] = useState("")
 
     return (
-        <div className="Messages Gradient-Background">
+        <div className="Messages">
             <div className="Messages-Content">
-
                 {Chat ? <div className="Messages-Header">
                     <div className="Messages-Header-Content">
                         <div className="Back-Button" onClick={() => setSideBarStatus(!sidebarStatus)}>
