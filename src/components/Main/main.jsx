@@ -55,8 +55,7 @@ const Main = () => {
             }
         }
     }, [UserInfo, ChatsList, Chat])
-
-
+    
     // SignalR socket connection
     useEffect(() => {
         let Connection;
@@ -69,9 +68,10 @@ const Main = () => {
                     .configureLogging(signalR.LogLevel.Information)
                     .withAutomaticReconnect([1000, 3000, 5000, null])
                     .build();
-                Connection.on('GetChats', (data) => {
-                    dispatch(SetChatsListActionCreator(data))
-                    console.log('GetChats')
+
+                Connection.on('GetMessages', (data) => {
+                    dispatch(SetCurrentChatMessagesActionCreator(data))
+                    console.log('GetMessages')
                     console.log(data)
                 });
                 Connection.on('GetMessage', (data) => {
@@ -79,9 +79,9 @@ const Main = () => {
                     console.log('GetMessage')
                     console.log(data)
                 });
-                Connection.on('GetMessages', (data) => {
-                    dispatch(SetCurrentChatMessagesActionCreator(data))
-                    console.log('GetMessages')
+                Connection.on('GetChats', (data) => {
+                    dispatch(SetChatsListActionCreator(data))
+                    console.log('GetChats')
                     console.log(data)
                 });
 
@@ -89,16 +89,15 @@ const Main = () => {
                 dispatch(SetChatsConnectionActionCreator(Connection));
             }
         })();
-
         return () => {
             (async () => {
-                await Connection.stop()
+                // await Connection.stop()
                 dispatch(SetCurrentChatActionCreator(null))
             })();
         }
     }, [])
     // SignalR socket connection
-
+    
     useEffect(() => {
         ChatsConnection?.on('UpdateChat', (data) => {
             dispatch(UpdateChatsActionCreator(data))
@@ -108,6 +107,7 @@ const Main = () => {
             console.log(data)
         });
     }, [ChatsConnection, dispatch, makePushNotification])
+
 
     return (
         <div className={SideBarStatus ? "Main active" : "Main"}>

@@ -54,6 +54,12 @@ const Messages = ({Chat, ChatsConnection, CurrentChatMessages, UserInfo}) => {
     }
 
     useEffect(() => {
+        return () => {
+            dispatch(SetSideBarStatusActionCreator(false))
+        }
+    }, [])
+
+    useEffect(() => {
         if (localStorage.AUTH_TOKEN && Chat) {
             ChatsConnection.invoke("LoadMessages", Chat.otherUserName)
         }
