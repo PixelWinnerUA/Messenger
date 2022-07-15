@@ -1,10 +1,10 @@
 # Pixel Messenger
 
-This my main pet project, Messenger.
+This is my main pet project, Messenger.
 
-Stack of technology: React, Redux, Reac-Router-Dom, Material UI, SASS, Fromik, yup, SignalR, Axios
+Stack of technology: React, Redux, React-Router-Dom, Material UI, SASS, Formik, yup, SignalR, Axios
 
-Realesed features: 
+Released features: 
 * Sign Up
 * Sign In 
 * Edit profile
