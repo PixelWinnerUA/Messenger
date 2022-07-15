@@ -11,3 +11,4 @@ Released features:
 * Create chats
 * Search users
 * Profile and chats customization
+* Push Notifications
