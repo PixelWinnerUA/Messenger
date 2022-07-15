@@ -57,7 +57,10 @@
 
 .Custom-TextField {
   & input {
-    font-size: 18px;
+    @include themify($themes) {
+      color: themed('text-color')
+    }
+    font-size: $text-size;
   }
 
   & label {
@@ -132,7 +135,9 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   border: none;
-  -webkit-text-fill-color: #fff;
+  @include themify($themes) {
+    -webkit-text-fill-color: themed('text-color')
+  }
   transition: background-color 50000s ease-in-out 0s;
 }
 

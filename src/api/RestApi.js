@@ -2,7 +2,10 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import store from "../store/redux-store";
 import {DeleteUser} from "../store/reducers/sidebarReducer";
+import platform from "platform"
 
+// axios.defaults.baseURL = 'http://70.37.67.50/';
+axios.defaults.baseURL = 'https://bsite.net/PixelMessenger';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'; // for all requests
 axios.defaults.headers.common['Content-Type'] = 'application/json'; //json content set by default
 axios.defaults.headers.common['Authorization'] = localStorage.AUTH_TOKEN; //localStorage.AUTH_TOKEN
@@ -35,9 +38,10 @@ export const SearchUsers = async (input) => {
         .catch(error => console.log(error))
 }
 
+const fingerPrint = localStorage.fingerPrint ? localStorage.fingerPrint : platform.name + " " + platform.os;
 
 export const FetchCurrentUser = async () => {
-    return await axios.get('api/users/current/info')
+    return await axios.get('api/users/current/info/' + fingerPrint)
         .then(response => response.data)
         .catch(error => console.log(error))
 }
@@ -51,6 +55,18 @@ export const UploadImage = async (image) => {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(response => response.status === 200 && toast.success("New profile picture uploaded!"))
+        .catch(error => console.log(error))
+}
+
+export const UploadBackgroundImage = async (image) => {
+    return await axios.post('api/users/current/edit/background/' + fingerPrint,
+        {
+            image
+        }, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => response.status === 200 && toast.success("New background uploaded!"))
         .catch(error => console.log(error))
 }
 

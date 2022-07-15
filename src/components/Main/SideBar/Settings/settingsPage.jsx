@@ -1,28 +1,26 @@
 import React, {useState, useContext} from 'react';
-import {ChangeUserInfo, UploadImage} from "../../../../api/RestApi";
+import {ChangeUserInfo, UploadBackgroundImage, UploadImage} from "../../../../api/RestApi";
 import "../../../../styles/Auth.scss"
 import "../../../../styles/SettingsPage.scss"
 import DefaultIcon from "../../../../assets/img/Default-Profile-Icon.png";
 import {Button, CircularProgress, FormControl, Switch, TextField} from "@mui/material";
 import * as yup from "yup";
 import {useFormik} from "formik";
-import {useDispatch, useSelector} from "react-redux";
-import {getUserInfo} from "../../../../store/reducers/sidebarSelector";
+import {useDispatch} from "react-redux";
 import {DeleteUser} from "../../../../store/reducers/sidebarReducer";
 import {useMutation} from "react-query";
 import {ThemeContext} from "../../../../context/ThemeContext";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 
-const SettingsPage = ({refetchUserInfo}) => {
+const SettingsPage = ({refetchUserInfo, UserInfo}) => {
 
     const dispatch = useDispatch();
-    const UserInfo = useSelector(getUserInfo)
-    const {theme, changeTheme} = useContext(ThemeContext)
-
+    const {theme, changeTheme} = useContext(ThemeContext);
     //Values for edit profile form
     const [values, setValues] = useState({
         image: null,
+        backgroundImage: null,
         changes: false,
     })
     //Function for edit profile form variables
@@ -37,12 +35,18 @@ const SettingsPage = ({refetchUserInfo}) => {
                 changeLocalState("image")(null);
             }
         })
-
     const {mutate: fetchNewUserInfo, isLoading: newUserInfoIsLoading} =
         useMutation(({name, email, password}) => ChangeUserInfo(name, email, password), {
             onSuccess: () => {
                 refetchUserInfo()
                 changeLocalState("changes")(false)
+            }
+        })
+    const {mutate: fetchNewBackgroundImage, isLoading: newBackgroundImageIsLoading} =
+        useMutation(({backgroundImage}) => UploadBackgroundImage(backgroundImage), {
+            onSuccess: () => {
+                refetchUserInfo()
+                changeLocalState("backgroundImage")(null)
             }
         })
 
@@ -62,15 +66,17 @@ const SettingsPage = ({refetchUserInfo}) => {
             fetchNewUserInfo({name: values.name, email: values.email, password: values.password})
         },
     });
-
+    //Попробуй оптимизировать через мемо
     return (
         <div className="SettingsPage">
 
             {UserInfo ?
-                <div className="UserInfo">
+                <div className="UserInfo" style={UserInfo.backgroundImage && {
+                    background: `url(${UserInfo.backgroundImage.url}) no-repeat center center / cover`,
+                }}>
                     <img src={UserInfo.profileImage ? (UserInfo.profileImage.url) : (DefaultIcon)}
                          alt={DefaultIcon}/>
-                    <div className="UsersInfo-Text">
+                    <div className="UserInfo-Text">
                         <div className="Name">{UserInfo.name}</div>
                         <div className="UserName">{"@" + UserInfo.userName}</div>
                     </div>
@@ -81,7 +87,8 @@ const SettingsPage = ({refetchUserInfo}) => {
                 </div>}
 
             <div className="Theme-Switch">
-                <div className="Theme-Switch-Icon"> {theme === "theme-dark" ? <Brightness4Icon/> : <BrightnessHighIcon/>}</div>
+                <div className="Theme-Switch-Icon"> {theme === "theme-dark" ? <Brightness4Icon/> :
+                    <BrightnessHighIcon/>}</div>
                 <div className="Theme-Switch-Label">Night mode</div>
                 <Switch
                     checked={theme === "theme-dark"}
@@ -145,6 +152,16 @@ const SettingsPage = ({refetchUserInfo}) => {
                         <Button variant="contained" onClick={() => changeLocalState("changes")(!values.changes)}>
                             Change profile info</Button>
                     </div>
+
+                    <div className="item">
+                        <Button variant="contained" component="label">
+                            Choose a new background
+                            <input id="inputImage" style={{display: "none"}}
+                                   type="file"
+                                   accept="image/png, image/gif, image/jpeg"
+                                   onChange={e => changeLocalState("backgroundImage")(e.target.files[0])}/>
+                        </Button>
+                    </div>
                 </div>}
 
             {(values.changes && UserInfo) &&
@@ -195,6 +212,37 @@ const SettingsPage = ({refetchUserInfo}) => {
                 </form>
             }
 
+            {(UserInfo && values.backgroundImage) &&
+                <div>
+                    <div className="New-Background-Tools">
+                        <p>Background preview:</p>
+                        <img className="New-Background-Preview" src={URL.createObjectURL(values.backgroundImage)}
+                             style={{
+                                 objectPosition: "no-repeat center center",
+                                 objectFit: "cover"
+                             }} alt="backgroundImage"/>
+                        <div style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            width: "100%"
+                        }}>
+                            <div className="item">
+                                <Button variant="contained"
+                                        disabled={newBackgroundImageIsLoading}
+                                        onClick={() => fetchNewBackgroundImage({backgroundImage: values.backgroundImage})}>Upload</Button>
+                            </div>
+
+                            <div className="item">
+                                <Button className="Cancel-Button" variant="contained"
+                                        onClick={() => changeLocalState("backgroundImage")(null)}>
+                                    Cancel
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+
             <div>
                 <Button className="item" variant="contained" onClick={() => dispatch(DeleteUser())}>Log Out</Button>
             </div>
@@ -202,4 +250,4 @@ const SettingsPage = ({refetchUserInfo}) => {
     );
 };
 
-export default SettingsPage;
+export default React.memo(SettingsPage);

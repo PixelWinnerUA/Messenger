@@ -14,9 +14,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
 .App {
   animation: 0.5s show ease;
+  transition: 0.2s all ease;
   display: flex;
   align-items: center;
   justify-content: center;

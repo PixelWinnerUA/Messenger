@@ -1,6 +1,7 @@
 @import "./variables";
 
 .SettingsPage {
+  width: 100%;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -23,36 +24,48 @@
     }
     border-radius: 5px;
 
-    .Theme-Switch-Icon{
+    .Theme-Switch-Icon {
       @include themify($themes) {
         color: themed('theme-switch-icon-color');
       }
       width: 25px;
       height: 25px;
     }
+
     .Theme-Switch-Label {
       margin: 0 10px 0 5px;
     }
   }
 
   .UserInfo {
+    width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-items: flex-start;
-    margin: 10px;
+    flex-direction: column;
+    height: 130px;
+    margin: 0 0 10px 0;
+    @include themify($themes) {
+      border-bottom: themed('block-border');
+      border-top: themed('block-border');
+    }
 
     .UserInfo-Text {
       display: flex;
       flex-direction: column;
+      width: max-content;
     }
 
     .Name {
+      margin: 0 10px;
+      font-weight: 500;
       @include themify($themes) {
         color: themed('text-color');
       }
     }
 
     .UserName {
+      margin: 0 10px;
       @include themify($themes) {
         color: themed('dark-text-color');
       }
@@ -63,7 +76,7 @@
       object-fit: cover;
       height: 50px;
       width: 50px;
-      margin: 0 10px 0 0;
+      margin: 10px;
       border-radius: 50%;
     }
   }
@@ -128,5 +141,28 @@
     }
   }
 
+  .New-Background-Tools {
+    width: $SideBar-Width;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    p{
+      margin: 0 10px 10px 10px;
+    }
+  }
+
+  .New-Background-Preview {
+    width: 100%;
+    max-height: 130px;
+  }
+}
+
+@media (max-width: 600px) {
+  .SettingsPage {
+    .New-Background-Tools {
+      width: calc(100vw - 1px);
+    }
+  }
 }
 

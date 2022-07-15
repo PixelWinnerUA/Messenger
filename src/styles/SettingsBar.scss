@@ -17,11 +17,16 @@
     background: themed('background-color');
     border: themed('block-border');
   }
+  outline: none;
   font-size: $text-size;
   font-family: $font-family;
   padding: 10px;
   border-radius: 10px;
   width: $Search-Block-Width;
+}
+
+.Search-Block:focus {
+  outline: none;
 }
 
 .Burger-Settings {

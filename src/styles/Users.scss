@@ -5,11 +5,12 @@
   height: 100%;
 
   .User {
-    display: grid;
+    display: flex;
     align-items: center;
-    justify-items: start;
-    grid-template-columns: auto 1fr;
-    grid-template-areas: "icon info";
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    cursor: pointer;
     width: 100%;
     height: 72px;
 
@@ -20,10 +21,6 @@
       width: 50px;
       margin: 0 10px;
       border-radius: 50%;
-    }
-
-    .info {
-      grid-area: info;
     }
 
     .Name {
@@ -40,5 +37,10 @@
     }
   }
 
+  .User:hover {
+    @include themify($themes) {
+      background: themed('background-color');
+    }
+  }
 }
 

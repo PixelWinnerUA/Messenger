@@ -1,11 +1,11 @@
 @import "./variables";
 
 .Chat-Item {
-  display: grid;
+  display: flex;
   align-items: center;
-  justify-items: start;
-  grid-template-columns: auto 1fr;
-  grid-template-areas: "icon chatinfo";
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
   cursor: pointer;
   width: 100%;
   height: 72px;
@@ -22,7 +22,6 @@
 
   .Chat-Info {
     width: 100%;
-    grid-area: chatinfo;
 
     .Chat-UserName {
       width: 100%;
@@ -49,4 +48,11 @@
     }
   }
 }
+
+.Chat-Item:hover {
+  @include themify($themes) {
+    background: themed('background-color');
+  }
+}
+
 

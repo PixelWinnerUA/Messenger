@@ -19,6 +19,7 @@ const App = () => {
     const {theme} = useContext(ThemeContext)
     const dispatch = useDispatch();
     const AuthStatus = useSelector(getAuthStatus)
+
     useEffect(() => {
         dispatch(IsAuthenticated())
     }, [AuthStatus, dispatch])

@@ -1,11 +1,11 @@
 import {SetAuthActionCreator} from "./appReducer";
 
 export const SetUserInfoActionCreator = (userInfoObject) => ({
-    type: "SetUserInfo",
+    type: "SET-USER-INFO",
     userInfoObject
 })
 export const DeleteUserInfoActionCreator = () => ({
-    type: "DeleteUserInfo"
+    type: "DELETE-USER-INFO"
 })
 
 export const DeleteUser = () => (dispatch) => {
@@ -21,12 +21,12 @@ let initialState = {
 const SidebarReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case "SetUserInfo":
+        case "SET-USER-INFO":
             return {
                 ...state,
                 UserInfo: action.userInfoObject
             }
-        case "DeleteUserInfo":
+        case "DELETE-USER-INFO":
             return {
                 ...state,
                 UserInfo: null

@@ -28,4 +28,4 @@ const SettingsBar = ({fetchSearch, SearchInput, setSearchInput, isActive, setAct
     );
 };
 
-export default SettingsBar;
+export default React.memo(SettingsBar);

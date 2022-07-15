@@ -14,7 +14,7 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <QueryClientProvider client={queryClient}>
-                <BrowserRouter>
+                <BrowserRouter basename={"PixelMessenger"}>
                     <ThemeProvider>
                         <App/>
                     </ThemeProvider>

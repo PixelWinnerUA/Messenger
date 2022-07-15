@@ -4,17 +4,13 @@
   height: 100%;
   width: $SideBar-Width;
   min-width: $SideBar-Width;
-
   @include themify($themes) {
     border-right: themed('block-border');
     background-color: themed('background-light-color');
   }
-
-
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: 1fr;
-  transition: all 0.2s ease;
 
   .Scroll {
     display: flex;
@@ -50,6 +46,7 @@
 
   div {
     animation: 0.5s show ease;
+    transition: 0.2s all ease;
   }
 
   @keyframes show {
@@ -62,16 +59,9 @@
   }
 }
 
-.Sidebar-Toggle {
-  display: none;
-}
-
 @media (max-width: 600px) {
   .App {
     overflow-x: hidden;
-  }
-  .Sidebar-Toggle {
-    display: block;
   }
   .Main.active {
     transition: 0.2s ease;
