@@ -1,32 +1,27 @@
-import React, {useState, useEffect, useRef, useMemo} from 'react';
+import React, {useState, useEffect, useRef, useMemo, useCallback} from 'react';
 import "../../../styles/Messages.scss"
-import "../../../styles/Space-Background.scss"
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import SendIcon from '@mui/icons-material/Send';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import DefaultIcon from "../../../assets/img/Default-Profile-Icon.png";
-import {useDispatch, useSelector} from "react-redux";
-import {getSideBarStatus} from "../../../store/reducers/appSelector";
-import {SetSideBarStatusActionCreator} from "../../../store/reducers/appReducer";
-import {TextareaAutosize} from "@mui/material";
+import {Route, Routes, Navigate} from "react-router-dom";
+import MessagesContent from "./messagesContent";
 import {SetCurrentChatMessagesActionCreator} from "../../../store/reducers/chatsReducer";
+import {useDispatch} from "react-redux";
 
 const Messages = ({Chat, ChatsConnection, CurrentChatMessages, UserInfo}) => {
-    const dispatch = useDispatch();
-    const SideBarStatus = useSelector(getSideBarStatus);
 
+    const dispatch = useDispatch();
     const [input, setInput] = useState("");
     const [scrollValues, setScrollValues] = useState({
         scrollTop: false,
         scrollButton: false,
         scrollBottom: false
     });
-
-    const FirstMessage = useRef(null);
-    const FirstScroll = useRef(false);
     const ScrollRef = useRef(null)
 
-    const handleSubmit = () => {
+    const changeScrollValues = useCallback((prop) => (value) => {
+        setScrollValues({...scrollValues, [prop]: value})
+    }, [scrollValues])
+
+    const handleSubmit = useCallback(() => {
         if (ChatsConnection && input.trim()) {
             changeScrollValues("scrollButton")(false);
             ScrollRef.current.scrollTop = ScrollRef.current.scrollHeight;
@@ -36,8 +31,9 @@ const Messages = ({Chat, ChatsConnection, CurrentChatMessages, UserInfo}) => {
             });
         }
         setInput("")
-    }
-    const handleScroll = (event) => {
+    }, [Chat, ChatsConnection, changeScrollValues, input])
+
+    const handleScroll = useCallback((event) => {
         // console.log(event.currentTarget.scrollTop + " " + event.currentTarget.scrollHeight + " " + event.currentTarget.clientHeight)
         if (scrollValues.scrollTop !== (event.currentTarget.scrollTop === 0)) {
             changeScrollValues("scrollTop")(event.currentTarget.scrollTop === 0);
@@ -48,16 +44,7 @@ const Messages = ({Chat, ChatsConnection, CurrentChatMessages, UserInfo}) => {
         if (scrollValues.scrollBottom !== (event.currentTarget.scrollHeight - event.currentTarget.scrollTop === event.currentTarget.clientHeight)) {
             changeScrollValues("scrollBottom")(event.currentTarget.scrollHeight - event.currentTarget.scrollTop === event.currentTarget.clientHeight);
         }
-    }
-    const changeScrollValues = (prop) => (value) => {
-        setScrollValues({...scrollValues, [prop]: value})
-    }
-
-    useEffect(() => {
-        return () => {
-            dispatch(SetSideBarStatusActionCreator(false))
-        }
-    }, [])
+    }, [changeScrollValues, scrollValues.scrollBottom, scrollValues.scrollButton, scrollValues.scrollTop])
 
     useEffect(() => {
         if (localStorage.AUTH_TOKEN && Chat) {
@@ -68,19 +55,8 @@ const Messages = ({Chat, ChatsConnection, CurrentChatMessages, UserInfo}) => {
         }
     }, [Chat])
 
-    useEffect(() => {
-        if (CurrentChatMessages && Chat) {
-            if (CurrentChatMessages.length !== 0 && !FirstScroll.current) {
-                FirstScroll.current = true;
-                ScrollRef.current.scrollTop = ScrollRef.current.scrollHeight;
-            } else if (CurrentChatMessages.length !== 0 && !scrollValues.scrollButton) {
-                ScrollRef.current.scrollTop = ScrollRef.current.scrollHeight;
-            }
-        }
-    }, [Chat, CurrentChatMessages])
-
     let messagesList = useMemo(() => CurrentChatMessages ? (CurrentChatMessages.length !== 0 && CurrentChatMessages.map(item => item.senderUserName === UserInfo.userName ?
-        <li className="Messages-Item" style={{alignSelf: "flex-end"}}>
+        <li className="Messages-Item" style={{alignSelf: "flex-end"}} key={item.text + item.sent}>
             <div className="Messages-Item-Content">
                 <img className="Messages-Item-Image"
                      src={UserInfo.profileImage ? (UserInfo.profileImage.url) : (DefaultIcon)}
@@ -94,7 +70,7 @@ const Messages = ({Chat, ChatsConnection, CurrentChatMessages, UserInfo}) => {
             </div>
         </li>
         :
-        <li className="Messages-Item" style={{alignSelf: "flex-start"}}>
+        <li className="Messages-Item" style={{alignSelf: "flex-start"}} key={item.text + item.sent}>
             <div className="Messages-Item-Content">
                 <img className="Messages-Item-Image"
                      src={Chat?.otherProfileImage ? (Chat.otherProfileImage?.url) : (DefaultIcon)}
@@ -110,59 +86,16 @@ const Messages = ({Chat, ChatsConnection, CurrentChatMessages, UserInfo}) => {
         <div className="Messages" style={UserInfo?.backgroundImage && {
             background: `url(${UserInfo.backgroundImage.url}) no-repeat center center / cover`,
         }}>
-            {Chat ?
-                <div className="Messages-Content">
-                    <div className="Messages-Header">
-                        <div className="Messages-Header-Content">
-                            <div className="Back-Button"
-                                 onClick={() => dispatch(SetSideBarStatusActionCreator(!SideBarStatus))}>
-                                <ArrowBackIcon/>
-                            </div>
-                            <div className="profile-info">
-                                <img src={Chat.otherProfileImage ? (Chat.otherProfileImage.url) : (DefaultIcon)}
-                                     alt={DefaultIcon} loading="lazy"/>
-                                <p>{Chat.otherName}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="Messages-Content-Scroll" onScroll={handleScroll} ref={ScrollRef}
-                         style={UserInfo?.backgroundImage && {
-                             background: `url(${UserInfo.backgroundImage.url}) no-repeat center center / cover`,
-                         }}>
-                        <ul className="Messages-List">
-                            {messagesList}
-                            <li style={{width: 0, height: 0}} ref={FirstMessage}></li>
-                        </ul>
-                    </div>
-
-                    <div className="Messages-Tools">
-                        <TextareaAutosize className="Messages-Tools-Textarea" value={input}
-                                          autoComplete="off"
-                                          maxRows={3}
-                                          placeholder="Type here..."
-                                          onKeyDown={(e) => {
-                                              if (e.key === "Enter" && !e.shiftKey) {
-                                                  e.preventDefault();
-                                                  handleSubmit()
-                                              }
-                                          }}
-                                          onChange={e => setInput(e.target.value)}
-                                          onClick={() => console.log(ScrollRef.current.clientHeight)}
-                        />
-                        <button className="Messages-Tools-Button" onClick={handleSubmit}>
-                            <SendIcon/>
-                        </button>
-                        <div className="Messages-Tools-Downward-Button"
-                             style={!scrollValues.scrollButton ? {display: "none"} : {display: "flex"}}
-                             onClick={() => {
-                                 ScrollRef.current.scrollTop = ScrollRef.current.scrollHeight;
-                                 changeScrollValues("scrollButton")(false);
-                             }}>
-                            <ArrowDownwardIcon/>
-                        </div>
-                    </div>
-                </div>
-                : null}
+            <Routes>
+                <Route path={"/chat"}
+                       element={Chat ?
+                           <MessagesContent scrollValues={scrollValues} changeScrollValues={changeScrollValues}
+                                            Chat={Chat} input={input} setInput={setInput} ScrollRef={ScrollRef}
+                                            UserInfo={UserInfo} messagesList={messagesList}
+                                            handleScroll={handleScroll} handleSubmit={handleSubmit}
+                                            CurrentChatMessages={CurrentChatMessages}/> :
+                           <Navigate to="/"/>}/>
+            </Routes>
         </div>);
 };
 

@@ -30,7 +30,7 @@ const App = () => {
                 <Suspense fallback={<Preloader/>}>
                     <Routes>
                         <Route path="*" element={<Error404/>}/>
-                        <Route path="/" element={AuthStatus ? <Main/> : <Navigate to="/login"/>}/>
+                        <Route path="/*" index element={AuthStatus ? <Main/> : <Navigate to="/login"/>}/>
                         <Route path="/login"
                                element={AuthStatus ? <Navigate to="/"/> : <Login/>}/>
                         <Route path="/sign-up"
