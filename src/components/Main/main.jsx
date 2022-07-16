@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect} from 'react';
 import "../../styles/Main.scss"
 import Messages from "./Messages/messages";
 import SideBar from "./SideBar/sidebar";
@@ -25,44 +25,44 @@ const Main = () => {
     const Chat = useSelector(getCurrentChat);
     const UserInfo = useSelector(getUserInfo);
     const CurrentChatMessages = useSelector(getCurrentChatMessages);
-    const makePushNotification = useCallback((data) => {
+
+    const makePushNotification = useCallback(async (data) => {
         if (ChatsList.length !== 0 && UserInfo?.userName) {
             if (document.hasFocus() === false) {
                 if (UserInfo?.userName !== data?.senderUserName) {
-                    push.create(data.otherUserName, {
+                    await push.create(data.otherUserName, {
                         tag: data.lastMessage + data.otherUserName,
                         body: data.lastMessage,
                         icon: data.otherProfileImage?.url,
                         onClick: () => {
                             window.focus();
-                            this.close(data.lastMessage + data.otherUserName);
+                            this.close();
                         }
                     })
                 }
-            } else if (document.hasFocus() && Chat?.otherUserName !== data.senderUserName) {
+            } else if (document.hasFocus() && Chat && Chat?.otherUserName !== data.senderUserName) {
                 if (UserInfo?.userName !== data.senderUserName) {
-                    console.log("pushing")
-                    push.create(data.otherUserName, {
+                    await push.create(data.otherUserName, {
                         tag: data.lastMessage + data.otherUserName,
                         body: data.lastMessage,
                         icon: data.otherProfileImage?.url,
                         onClick: () => {
                             window.focus();
-                            this.close(data.lastMessage + data.otherUserName);
+                            this.close();
                         }
                     })
                 }
             }
         }
-    }, [UserInfo, ChatsList, Chat])
-    
+    }, [Chat, ChatsList, UserInfo])
+
     // SignalR socket connection
-    useEffect(() => {
+    useLayoutEffect(() => {
         let Connection;
         (async () => {
             if (localStorage.AUTH_TOKEN) {
                 Connection = new signalR.HubConnectionBuilder()
-                    .withUrl('/PixelMessenger/hubs/chat', {
+                    .withUrl('https://bsite.net/PixelMessenger/hubs/chat', {
                         accessTokenFactory: () => localStorage.AUTH_TOKEN.split(" ")[1]
                     }) // Ensure same as BE
                     .configureLogging(signalR.LogLevel.Information)
@@ -91,22 +91,24 @@ const Main = () => {
         })();
         return () => {
             (async () => {
-                // await Connection.stop()
+                await Connection?.stop()
                 dispatch(SetCurrentChatActionCreator(null))
             })();
         }
     }, [])
     // SignalR socket connection
-    
+
     useEffect(() => {
-        ChatsConnection?.on('UpdateChat', (data) => {
-            dispatch(UpdateChatsActionCreator(data))
-            dispatch(UpdateChatUserImageActionCreator(data))
-            makePushNotification(data)
-            console.log('UpdateChat')
-            console.log(data)
-        });
-    }, [ChatsConnection, dispatch, makePushNotification])
+        (async () => {
+            ChatsConnection?.on('UpdateChat', (data) => {
+                dispatch(UpdateChatsActionCreator(data))
+                dispatch(UpdateChatUserImageActionCreator(data))
+                makePushNotification(data)
+                console.log('UpdateChat')
+                console.log(data)
+            });
+        })();
+    }, [makePushNotification])
 
 
     return (

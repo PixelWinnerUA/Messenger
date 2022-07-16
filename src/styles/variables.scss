@@ -12,14 +12,13 @@ $Auth-Min-Size: 300px;
 $background-color: #181818;
 $background-light-color: #212121;
 $text-color: white;
-$dark-text-color: gray;
 
 $themes: (
         light: (
                 background-color: whitesmoke,
                 background-light-color: white,
                 text-color: #000000,
-                dark-text-color: #6e6e6e,
+                dark-text-color: "darkgrey",
                 preview-changes-background-color: #12569a,
                 block-border: #6e6e6e 1px solid,
                 theme-switch-icon-color: yellow,

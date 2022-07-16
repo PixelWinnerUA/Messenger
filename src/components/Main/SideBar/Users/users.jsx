@@ -6,7 +6,7 @@ import {SetSideBarStatusActionCreator} from "../../../../store/reducers/appReduc
 import {SetCurrentChatActionCreator} from "../../../../store/reducers/chatsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {getSideBarStatus} from "../../../../store/reducers/appSelector";
-
+import {Link} from "react-router-dom";
 
 const Users = ({isLoading, usersList, UserInfo}) => {
 
@@ -22,7 +22,7 @@ const Users = ({isLoading, usersList, UserInfo}) => {
         <li style={{margin: "10px"}}>User is not found</li>
         :
         usersList.map(item => <li key={item.userName}>
-            <div className="User" onClick={() => handleClick({
+            <Link to={"/chat"} className="User" onClick={() => handleClick({
                 userName: UserInfo.userName,
                 otherName: item.name,
                 otherProfileImage: item.profileImage,
@@ -38,7 +38,7 @@ const Users = ({isLoading, usersList, UserInfo}) => {
                         <p>@{item.userName}</p>
                     </div>
                 </div>
-            </div>
+            </Link>
         </li>)) : null, [UserInfo, handleClick, usersList])
 
     return (

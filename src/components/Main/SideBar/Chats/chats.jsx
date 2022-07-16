@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {SetCurrentChatActionCreator} from "../../../../store/reducers/chatsReducer";
 import {SetSideBarStatusActionCreator} from "../../../../store/reducers/appReducer";
 import {getSideBarStatus} from "../../../../store/reducers/appSelector";
+import {Link} from "react-router-dom";
 
 
 const Chats = ({ChatsList, UserInfo}) => {
@@ -17,7 +18,7 @@ const Chats = ({ChatsList, UserInfo}) => {
     }, [SideBarStatus, dispatch])
 
     let chatList = useMemo(() => ChatsList ? (ChatsList.length !== 0 && ChatsList.map(item => <li key={item.otherName}>
-        <div className="Chat-Item" onClick={() => handleClick({
+        <Link to={"/chat"} className="Chat-Item" onClick={() => handleClick({
             userName: UserInfo.userName,
             otherName: item.otherName,
             otherProfileImage: item.otherProfileImage,
@@ -34,7 +35,7 @@ const Chats = ({ChatsList, UserInfo}) => {
                     <p>{item.lastMessage ? item.lastMessage.length > 20 ? item.lastMessage.substring(0, 20) + "..." : item.lastMessage : null}</p>
                 </div>
             </div>
-        </div>
+        </Link>
     </li>)) : null, [ChatsList, UserInfo, handleClick]);
 
     return (
