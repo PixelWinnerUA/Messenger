@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {ChangeUserInfo, UploadBackgroundImage, UploadImage} from "../../../../api/RestApi";
 import "../../../../styles/Auth.scss"
 import "../../../../styles/SettingsPage.scss"
@@ -12,6 +12,8 @@ import {useMutation} from "react-query";
 import {ThemeContext} from "../../../../context/ThemeContext";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
+import {FastAverageColor} from 'fast-average-color';
+
 
 const SettingsPage = ({refetchUserInfo, UserInfo}) => {
 
@@ -22,11 +24,21 @@ const SettingsPage = ({refetchUserInfo, UserInfo}) => {
         image: null,
         backgroundImage: null,
         changes: false,
+        backgroundImageIsDark: false
     })
     //Function for edit profile form variables
-    const changeLocalState = (prop) => (value) => {
+    const changeLocalState = useCallback((prop) => (value) => {
         setValues({...values, [prop]: value})
-    }
+    }, [values])
+
+    const backgroundIsDark = useCallback((url) => {
+        const fac = new FastAverageColor();
+        fac.getColorAsync(url, {algorithm: 'dominant'}).then(color => {
+            changeLocalState("backgroundImageIsDark")(color.isDark)
+            console.log(color.isDark)
+            return color.isDark
+        })
+    }, [])
 
     const {mutate: fetchNewImage, isLoading: newImageIsLoading} =
         useMutation(({image}) => UploadImage(image), {
@@ -66,7 +78,13 @@ const SettingsPage = ({refetchUserInfo, UserInfo}) => {
             fetchNewUserInfo({name: values.name, email: values.email, password: values.password})
         },
     });
-    //Попробуй оптимизировать через мемо
+
+    useEffect(() => {
+        if (UserInfo?.backgroundImage?.url) {
+            backgroundIsDark(UserInfo.backgroundImage.url)
+        }
+    }, [UserInfo.backgroundImage.url, backgroundIsDark])
+
     return (
         <div className="SettingsPage">
 
@@ -74,11 +92,13 @@ const SettingsPage = ({refetchUserInfo, UserInfo}) => {
                 <div className="UserInfo" style={UserInfo.backgroundImage && {
                     background: `url(${UserInfo.backgroundImage.url}) no-repeat center center / cover`,
                 }}>
-                    <img src={UserInfo.profileImage ? (UserInfo.profileImage.url) : (DefaultIcon)}
+                    <img src={UserInfo?.profileImage?.url ? UserInfo.profileImage.url : DefaultIcon}
                          alt={DefaultIcon}/>
                     <div className="UserInfo-Text">
-                        <div className="Name">{UserInfo.name}</div>
-                        <div className="UserName">{"@" + UserInfo.userName}</div>
+                        <div className="Name"
+                             style={UserInfo?.backgroundImage?.url ? (values.backgroundImageIsDark ? {color: "white"} : {color: "#000000"}) : null}>{UserInfo.name}</div>
+                        <div className="UserName"
+                             style={UserInfo?.backgroundImage?.url ? (values.backgroundImageIsDark ? {color: "darkgray"} : {color: "gray"}) : null}>{"@" + UserInfo.userName}</div>
                     </div>
                 </div>
                 :
