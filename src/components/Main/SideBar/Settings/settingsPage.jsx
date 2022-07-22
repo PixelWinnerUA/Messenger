@@ -83,7 +83,7 @@ const SettingsPage = ({refetchUserInfo, UserInfo}) => {
         if (UserInfo?.backgroundImage?.url) {
             backgroundIsDark(UserInfo.backgroundImage.url)
         }
-    }, [UserInfo.backgroundImage.url, backgroundIsDark])
+    }, [UserInfo?.backgroundImage?.url, backgroundIsDark])
 
     return (
         <div className="SettingsPage">
@@ -106,22 +106,13 @@ const SettingsPage = ({refetchUserInfo, UserInfo}) => {
                     <CircularProgress/>
                 </div>}
 
-            <div className="Theme-Switch">
-                <div className="Theme-Switch-Icon"> {theme === "theme-dark" ? <Brightness4Icon/> :
-                    <BrightnessHighIcon/>}</div>
-                <div className="Theme-Switch-Label">Night mode</div>
-                <Switch
-                    checked={theme === "theme-dark"}
-                    onChange={() => changeTheme(theme === "theme-dark" ? "theme-light" : "theme-dark")}/>
-            </div>
-
-            {(!values.changes && UserInfo) &&
-                <div>
-                    {values.image ?
-                        <div>
-                            <div className="Preview-Changes">
-                                <p>Profile changes preview:</p>
-                                {UserInfo ?
+            {UserInfo ?
+                <>
+                    <div className="Change-Buttons">
+                        {values.image ?
+                            <div>
+                                <div className="Preview-Changes">
+                                    <p>Profile changes preview:</p>
                                     <div className="Preview-Changes-UserInfo">
                                         <img src={URL.createObjectURL(values.image)} style={{
                                             objectPosition: "center center",
@@ -136,136 +127,149 @@ const SettingsPage = ({refetchUserInfo, UserInfo}) => {
                                             <div style={{color: "darkgrey"}}>{"@" + UserInfo.userName}</div>
                                         </div>
                                     </div>
-                                    :
-                                    <div className="UserInfo-Preloader">
-                                        <CircularProgress/>
-                                    </div>}
-                            </div>
-                            <div className="Uploading-Tools">
-                                <div className="item">
-                                    <Button variant="contained" disabled={newImageIsLoading}
-                                            onClick={() => {
-                                                fetchNewImage({image: values.image})
-                                            }}>
-                                        Upload picture</Button>
                                 </div>
-                                <div className="item">
-                                    <Button className="Cancel-Button" variant="contained"
-                                            onClick={() => changeLocalState("image")(null)}>
-                                        Cancel
-                                    </Button>
+                                <div className="Uploading-Tools">
+                                    <div className="item">
+                                        <Button variant="contained" disabled={newImageIsLoading}
+                                                onClick={() => {
+                                                    fetchNewImage({image: values.image})
+                                                }}>
+                                            Upload picture</Button>
+                                    </div>
+                                    <div className="item">
+                                        <Button className="Cancel-Button" variant="contained"
+                                                onClick={() => changeLocalState("image")(null)}>
+                                            Cancel
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        :
-                        <div className="item">
-                            <Button variant="contained" component="label">
+                            :
+                            <div className="item"><Button variant="contained" component="label">
                                 Choose a new picture
                                 <input id="inputImage" style={{display: "none"}}
                                        type="file"
                                        accept="image/png, image/gif, image/jpeg"
                                        onChange={e => changeLocalState("image")(e.target.files[0])}/>
                             </Button>
-                        </div>
-                    }
-                    <div className="item">
-                        <Button variant="contained" onClick={() => changeLocalState("changes")(!values.changes)}>
-                            Change profile info</Button>
-                    </div>
+                            </div>
+                        }
 
-                    <div className="item">
-                        <Button variant="contained" component="label">
-                            Choose a new background
-                            <input id="inputImage" style={{display: "none"}}
-                                   type="file"
-                                   accept="image/png, image/gif, image/jpeg"
-                                   onChange={e => changeLocalState("backgroundImage")(e.target.files[0])}/>
-                        </Button>
-                    </div>
-                </div>}
-
-            {(values.changes && UserInfo) &&
-                <form className="Profile-Changes-Preview" onSubmit={formik.handleSubmit}>
-                    <p className="Profile-Changes-Preview-Header">Changes preview</p>
-                    <FormControl className="item" sx={{width: 250}}>
-                        <TextField className="Custom-TextField"
-                                   variant="outlined"
-                                   id="name"
-                                   name="name"
-                                   label="Name"
-                                   value={formik.values.name}
-                                   onChange={formik.handleChange}
-                                   error={formik.touched.name && Boolean(formik.errors.name)}
-                                   helperText={formik.touched.name && formik.errors.name}
-                        />
-                    </FormControl>
-                    <FormControl className="item" sx={{width: 250}}>
-                        <TextField className="Custom-TextField"
-                                   variant="outlined"
-                                   id="email"
-                                   name="email"
-                                   label="Email"
-                                   value={formik.values.email}
-                                   onChange={formik.handleChange}
-                                   error={formik.touched.email && Boolean(formik.errors.email)}
-                                   helperText={formik.touched.email && formik.errors.email}
-                        />
-                    </FormControl>
-                    <FormControl className="item" sx={{width: 250}}>
-                        <TextField className="Custom-TextField"
-                                   variant="outlined"
-                                   id="password"
-                                   label="Password"
-                                   type="password"
-                                   value={formik.values.password}
-                                   onChange={formik.handleChange}
-                                   error={formik.touched.password && Boolean(formik.errors.password)}
-                                   helperText={formik.touched.password && formik.errors.password}
-                        />
-                    </FormControl>
-                    <div>
-                        <Button className="item" variant="contained" type="submit" disabled={newUserInfoIsLoading}>
-                            Set changes</Button>
-                        <Button className="Cancel-Button item" variant="contained"
-                                onClick={() => changeLocalState("changes")(!values.changes)}>Cancel</Button>
-                    </div>
-                </form>
-            }
-
-            {(UserInfo && values.backgroundImage) &&
-                <div>
-                    <div className="New-Background-Tools">
-                        <p>Background preview:</p>
-                        <img className="New-Background-Preview" src={URL.createObjectURL(values.backgroundImage)}
-                             style={{
-                                 objectPosition: "no-repeat center center",
-                                 objectFit: "cover"
-                             }} alt="backgroundImage"/>
-                        <div style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            width: "100%"
-                        }}>
+                        {values.changes ?
+                            <form className="Profile-Changes-Preview" onSubmit={formik.handleSubmit}>
+                                <p className="Profile-Changes-Preview-Header">Changes preview</p>
+                                <FormControl className="item" sx={{width: 250}}>
+                                    <TextField className="Custom-TextField"
+                                               variant="outlined"
+                                               id="name"
+                                               name="name"
+                                               label="Name"
+                                               value={formik.values.name}
+                                               onChange={formik.handleChange}
+                                               error={formik.touched.name && Boolean(formik.errors.name)}
+                                               helperText={formik.touched.name && formik.errors.name}
+                                    />
+                                </FormControl>
+                                <FormControl className="item" sx={{width: 250}}>
+                                    <TextField className="Custom-TextField"
+                                               variant="outlined"
+                                               id="email"
+                                               name="email"
+                                               label="Email"
+                                               value={formik.values.email}
+                                               onChange={formik.handleChange}
+                                               error={formik.touched.email && Boolean(formik.errors.email)}
+                                               helperText={formik.touched.email && formik.errors.email}
+                                    />
+                                </FormControl>
+                                <FormControl className="item" sx={{width: 250}}>
+                                    <TextField className="Custom-TextField"
+                                               variant="outlined"
+                                               id="password"
+                                               label="Password"
+                                               type="password"
+                                               value={formik.values.password}
+                                               onChange={formik.handleChange}
+                                               error={formik.touched.password && Boolean(formik.errors.password)}
+                                               helperText={formik.touched.password && formik.errors.password}
+                                    />
+                                </FormControl>
+                                <div>
+                                    <Button className="item" variant="contained" type="submit"
+                                            disabled={newUserInfoIsLoading}>
+                                        Set changes</Button>
+                                    <Button className="Cancel-Button item" variant="contained"
+                                            onClick={() => changeLocalState("changes")(!values.changes)}>Cancel</Button>
+                                </div>
+                            </form>
+                            :
                             <div className="item">
                                 <Button variant="contained"
-                                        disabled={newBackgroundImageIsLoading}
-                                        onClick={() => fetchNewBackgroundImage({backgroundImage: values.backgroundImage})}>Upload</Button>
+                                        onClick={() => changeLocalState("changes")(!values.changes)}>
+                                    Change profile info</Button>
                             </div>
+                        }
 
+                        {values.backgroundImage ?
+                            <div>
+                                <div className="New-Background-Tools">
+                                    <p>Background preview:</p>
+                                    <img className="New-Background-Preview"
+                                         src={URL.createObjectURL(values.backgroundImage)}
+                                         style={{
+                                             objectPosition: "no-repeat center center",
+                                             objectFit: "cover"
+                                         }} alt="backgroundImage"/>
+                                    <div style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        width: "100%"
+                                    }}>
+                                        <div className="item">
+                                            <Button variant="contained"
+                                                    disabled={newBackgroundImageIsLoading}
+                                                    onClick={() => fetchNewBackgroundImage({backgroundImage: values.backgroundImage})}>Upload</Button>
+                                        </div>
+
+                                        <div className="item">
+                                            <Button className="Cancel-Button" variant="contained"
+                                                    onClick={() => changeLocalState("backgroundImage")(null)}>
+                                                Cancel
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            :
                             <div className="item">
-                                <Button className="Cancel-Button" variant="contained"
-                                        onClick={() => changeLocalState("backgroundImage")(null)}>
-                                    Cancel
+                                <Button variant="contained" component="label">
+                                    Choose a new background
+                                    <input id="inputImage" style={{display: "none"}}
+                                           type="file"
+                                           accept="image/png, image/gif, image/jpeg"
+                                           onChange={e => changeLocalState("backgroundImage")(e.target.files[0])}/>
                                 </Button>
                             </div>
-                        </div>
+                        }
                     </div>
-                </div>}
+                </>
+                : null}
+
+
+            <div className="Theme-Switch">
+                <div className="Theme-Switch-Icon"> {theme === "theme-dark" ? <Brightness4Icon/> :
+                    <BrightnessHighIcon/>}</div>
+                <div className="Theme-Switch-Label">Night mode</div>
+                <Switch
+                    checked={theme === "theme-dark"}
+                    onChange={() => changeTheme(theme === "theme-dark" ? "theme-light" : "theme-dark")}/>
+            </div>
 
             <div>
                 <Button className="item" variant="contained" onClick={() => dispatch(DeleteUser())}>Log Out</Button>
             </div>
+
         </div>
     );
 };

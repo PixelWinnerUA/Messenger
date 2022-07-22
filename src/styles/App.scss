@@ -14,12 +14,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 input,
 button,
 textarea,
 select {
   font: inherit;
 }
+
 .App {
   animation: 0.5s show ease;
   transition: 0.2s all ease;
@@ -32,3 +34,15 @@ select {
   }
   font-size: $text-size;
 }
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  @include themify($themes) {
+    color: themed('text-color');
+  }
+}
+
+

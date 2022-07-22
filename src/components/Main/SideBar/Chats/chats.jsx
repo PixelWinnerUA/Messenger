@@ -29,7 +29,7 @@ const Chats = ({ChatsList, UserInfo}) => {
             <div className="Chat-Info">
                 <div className="Chat-UserName">
                     <p>{item.otherName}</p>
-                    <p className="Chat-Date">{item.messageStamp.split("T")[1].split(".")[0].substring(0, 5)}</p>
+                    <p className="Chat-Date">{(new Date(item.messageStamp)).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})}</p>
                 </div>
                 <div className="Chat-LastMessage">
                     <p>{item.lastMessage ? item.lastMessage.length > 20 ? item.lastMessage.substring(0, 20) + "..." : item.lastMessage : null}</p>

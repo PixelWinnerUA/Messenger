@@ -65,7 +65,7 @@ const Messages = ({Chat, ChatsConnection, CurrentChatMessages, UserInfo}) => {
                      style={{backgroundColor: "#12569a", color: "white"}}>
                     <span className="Messages-Item-Text">{item.text}</span>
                     <span className="Messages-Item-Date"
-                          style={{color: "#a9a9a9"}}>{item.sent.split("T")[1].split(".")[0].substring(0, 5)}</span>
+                          style={{color: "#a9a9a9"}}>{(new Date(item.sent)).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})}</span>
                 </div>
             </div>
         </li>
@@ -77,7 +77,7 @@ const Messages = ({Chat, ChatsConnection, CurrentChatMessages, UserInfo}) => {
                      alt={DefaultIcon}/>
                 <div className="Messages-Item-Content-Wrapper">
                     <span className="Messages-Item-Text">{item.text}</span>
-                    <span className="Messages-Item-Date">{item.sent.split("T")[1].split(".")[0].substring(0, 5)}</span>
+                    <span className="Messages-Item-Date">{(new Date(item.sent)).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})}</span>
                 </div>
             </div>
         </li>)) : null, [Chat, CurrentChatMessages, UserInfo]);
