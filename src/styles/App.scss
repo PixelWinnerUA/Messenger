@@ -35,14 +35,4 @@ select {
   font-size: $text-size;
 }
 
-a:link,
-a:visited,
-a:hover,
-a:active {
-  text-decoration: none;
-  @include themify($themes) {
-    color: themed('text-color');
-  }
-}
-
 
