@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Messenger/static/css/main.3617caae.css",
-    "main.js": "/Messenger/static/js/main.9462421a.js",
+    "main.js": "/Messenger/static/js/main.ae1d276c.js",
     "static/css/464.60f906af.chunk.css": "/Messenger/static/css/464.60f906af.chunk.css",
     "static/js/464.5d6f19b2.chunk.js": "/Messenger/static/js/464.5d6f19b2.chunk.js",
     "static/css/104.60f906af.chunk.css": "/Messenger/static/css/104.60f906af.chunk.css",
@@ -17,7 +17,7 @@
     "static/media/Default-Profile-Icon.png": "/Messenger/static/media/Default-Profile-Icon.5ab2e9ede4164e7ede76.png",
     "index.html": "/Messenger/index.html",
     "main.3617caae.css.map": "/Messenger/static/css/main.3617caae.css.map",
-    "main.9462421a.js.map": "/Messenger/static/js/main.9462421a.js.map",
+    "main.ae1d276c.js.map": "/Messenger/static/js/main.ae1d276c.js.map",
     "464.60f906af.chunk.css.map": "/Messenger/static/css/464.60f906af.chunk.css.map",
     "464.5d6f19b2.chunk.js.map": "/Messenger/static/js/464.5d6f19b2.chunk.js.map",
     "104.60f906af.chunk.css.map": "/Messenger/static/css/104.60f906af.chunk.css.map",
@@ -31,6 +31,6 @@
   },
   "entrypoints": [
     "static/css/main.3617caae.css",
-    "static/js/main.9462421a.js"
+    "static/js/main.ae1d276c.js"
   ]
 }
