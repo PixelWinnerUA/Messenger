@@ -1,0 +1,149 @@
+@import "./variables";
+
+.Auth-Wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Auth-Header {
+  margin: 10px 0;
+  @include themify($themes) {
+    color: themed('text-color')
+  }
+}
+
+.Auth-link {
+  text-align: center;
+  margin: 15px 0 15px 0;
+  @include themify($themes) {
+    color: themed('text-color');
+    background: themed('background-color');
+    border: themed('block-border');
+  }
+  padding: 15px;
+  border-radius: 15px;
+  width: fit-content;
+  height: fit-content;
+  min-width: $Auth-Min-Size;
+
+  a {
+    color: #1976d2;
+    text-decoration: none;
+  }
+}
+
+.Custom-Box {
+  width: fit-content;
+  height: fit-content;
+  min-width: $Auth-Min-Size;
+  min-height: $Auth-Min-Size;
+  @include themify($themes) {
+    background: themed('background-color');
+    border: themed('block-border');
+  }
+  border-radius: 15px;
+
+  & form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.Custom-TextField {
+  & input {
+    @include themify($themes) {
+      color: themed('text-color')
+    }
+    font-size: $text-size;
+  }
+
+  & label {
+    @include themify($themes) {
+      color: themed("custom-textfield-label");
+    }
+  }
+
+  &:hover label {
+    color: #006ac0;
+  }
+
+  & label.Mui-focused {
+    color: #006ac0;
+  }
+
+  & .MuiInput-underline:after {
+    border-bottom-color: #006ac0;
+  }
+
+  & .MuiOutlinedInput-root {
+    @include themify($themes) {
+      color: themed('text-color')
+    }
+
+    & fieldset {
+      @include themify($themes) {
+        border-color: themed('custom-textfield-fieldset-border-color');
+      }
+      border-width: 2px;
+    }
+
+    &:hover fieldset {
+      border-color: #006ac0;
+      border-width: 2px;
+    }
+
+    &.Mui-focused fieldset {
+      border-color: #006ac0;
+    }
+  }
+}
+
+.Custom-Auth-Button {
+  width: 100px;
+  color: #fff;
+
+  &:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+    box-shadow: none;
+  }
+
+  &:active {
+    box-shadow: none;
+    background-color: #0062cc;
+    border-color: #005cbf;
+  }
+
+  &:disabled {
+    background-color: #003983;
+  }
+}
+
+input:-webkit-autofill, //Fix yellow/white background when user use autofill
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  @include themify($themes) {
+    -webkit-text-fill-color: themed('text-color')
+  }
+  transition: background-color 50000s ease-in-out 0s;
+}
+
+input:-webkit-autofill:hover, //For text fields Material UI
+input:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: #006ac0;
+  transition: background-color 50000s ease-in-out 0s;
+}

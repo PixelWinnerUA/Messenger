@@ -1,0 +1,14 @@
+@import "./variables";
+
+.Main {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  max-width: 1680px;
+  @include themify($themes) {
+    border: themed('block-border');
+  }
+
+}

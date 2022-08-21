@@ -1,0 +1,57 @@
+$background-image: url(../assets/img/bg-img.png);
+$text-size: 18px;
+$settings-bar-height: 70px;
+$Search-Block-Width: calc(100% - 10px);
+$SideBar-Width: 300px;
+$SideBar-Scroll-Height: calc(100vh - #{$settings-bar-height} - 2px); //2px = 1px top + 1px bot is border
+$font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+sans-serif;
+$Auth-Min-Size: 300px;
+
+
+$themes: (
+        light: (
+                background-color: whitesmoke,
+                background-light-color: white,
+                text-color: #000000,
+                dark-text-color: darkgrey,
+                preview-changes-background-color: #12569a,
+                block-border: #6e6e6e 1px solid,
+                theme-switch-icon-color: yellow,
+                theme-switch-text-color: white,
+                theme-switch-background-color: #006ac0,
+                custom-textfield-label: #181818,
+                custom-textfield-fieldset-border-color: #181818,
+        ),
+        dark: (
+                background-color: #181818,
+                background-light-color: #212121,
+                text-color: white,
+                dark-text-color: gray,
+                preview-changes-background-color: #12569a,
+                block-border: #0f0f0f 1px solid,
+                theme-switch-icon-color: #1976d2,
+                theme-switch-text-color: white,
+                theme-switch-background-color: #181818,
+                custom-textfield-label: rgba(255, 255, 255, 0.7),
+                custom-textfield-fieldset-border-color:rgba(255, 255, 255, 0.7),
+        ),);
+
+@mixin themify($themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}

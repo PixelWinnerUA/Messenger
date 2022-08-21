@@ -1,0 +1,38 @@
+@import "./variables";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $font-family;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+.App {
+  animation: 0.5s show ease;
+  transition: 0.2s all ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include themify($themes) {
+    background-color: themed('background-color');
+    color: themed('text-color');
+  }
+  font-size: $text-size;
+}
+
+

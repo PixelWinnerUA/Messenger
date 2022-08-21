@@ -1,0 +1,19 @@
+@import "./variables";
+.Preloader {
+  @include themify($themes) {
+    background-color: themed('background-color');
+    color: themed('text-color');
+  }
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-Items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0
+}
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

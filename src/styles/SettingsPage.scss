@@ -1,0 +1,179 @@
+@import "./variables";
+
+.SettingsPage {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  //.Change-Buttons {
+  //  width: 100%;
+  //  //display: flex;
+  //  //flex-direction: column;
+  //  //align-items: center;
+  //  .MuiButton-contained {
+  //    width: 280px;
+  //  }
+  //}
+
+  .item {
+    margin: 10px;
+  }
+
+  .Theme-Switch {
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 7px;
+    @include themify($themes) {
+      color: themed('theme-switch-text-color');
+      background: themed('theme-switch-background-color');
+    }
+    border-radius: 5px;
+
+    .Theme-Switch-Icon {
+      @include themify($themes) {
+        color: themed('theme-switch-icon-color');
+      }
+      width: 25px;
+      height: 25px;
+    }
+
+    .Theme-Switch-Label {
+      margin: 0 10px 0 5px;
+    }
+  }
+
+  .UserInfo {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-items: flex-start;
+    flex-direction: column;
+    height: 130px;
+    margin: 0 0 10px 0;
+    @include themify($themes) {
+      border-bottom: themed('block-border');
+      border-top: themed('block-border');
+    }
+
+    .UserInfo-Text {
+      display: flex;
+      flex-direction: column;
+      width: max-content;
+    }
+
+    .Name {
+      margin: 0 10px;
+      font-weight: 500;
+      @include themify($themes) {
+        color: themed('text-color');
+      }
+    }
+
+    .UserName {
+      margin: 0 10px;
+      @include themify($themes) {
+        color: themed('dark-text-color');
+      }
+    }
+
+    img {
+      object-position: center center;
+      object-fit: cover;
+      height: 50px;
+      width: 50px;
+      margin: 10px;
+      border-radius: 50%;
+    }
+  }
+
+  .Preview-Changes-UserInfo {
+    @include themify($themes) {
+      background: themed('preview-changes-background-color');
+    }
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-items: flex-start;
+  }
+
+  .Preview-Changes {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  p {
+    margin: 0 0 10px 5px;
+  }
+
+  .UserInfo-Preloader {
+    margin: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .Uploading-Tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .Cancel-Button {
+    background-color: #bd0000;
+    color: #fff;
+
+    &:hover {
+      background-color: #a20000;
+    }
+
+    &:active {
+      background-color: #a20000;
+    }
+  }
+
+  .Profile-Changes-Preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .Profile-Changes-Preview-Header {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 10px 10px 10px 20px;
+    }
+  }
+
+  .New-Background-Tools {
+    width: $SideBar-Width;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    p {
+      margin: 0 10px 10px 10px;
+    }
+  }
+
+  .New-Background-Preview {
+    width: 100%;
+    max-height: 130px;
+  }
+}
+
+@media (max-width: 600px) {
+  .SettingsPage {
+    .New-Background-Tools {
+      width: calc(100vw - 1px);
+    }
+  }
+}
+

@@ -1,0 +1,86 @@
+@import "./variables";
+
+.SideBar {
+  height: 100%;
+  width: $SideBar-Width;
+  min-width: $SideBar-Width;
+  @include themify($themes) {
+    border-right: themed('block-border');
+    background-color: themed('background-light-color');
+  }
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
+
+  .Scroll {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: $SideBar-Scroll-Height;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @include themify($themes) {
+      background-color: themed('background-color');
+    }
+    border-radius: 5px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  div {
+    animation: 0.5s show ease;
+    transition: 0.2s all ease;
+  }
+
+  @keyframes show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .App {
+    overflow-x: hidden;
+  }
+  .Main.active {
+    transition: 0.2s ease;
+    transform: translateX(calc(-100vw));
+  }
+  .Main {
+    transition: 0.2s ease;
+    transform: translateX(0);
+
+    .SideBar {
+      width: calc(100vw - 1px);
+      min-width: calc(100vw - 1px);
+    }
+
+    .Messages {
+      min-width: 100vw;
+    }
+  }
+}
+
+
+

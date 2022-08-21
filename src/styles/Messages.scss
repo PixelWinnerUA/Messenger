@@ -1,0 +1,274 @@
+@import "./variables";
+
+.Messages {
+  transition: all 0.2s ease;
+  height: 100%;
+  width: 100%;
+}
+
+.Messages-Content {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "Messages-Header" "Messages-Content-Scroll" "Messages-Tools";
+  width: 100%;
+  height: 100%;
+  @include themify($themes) {
+    background-color: themed('background-light-color');
+  }
+
+  .Messages-List {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 100%;
+
+    .Messages-Item {
+      max-width: 90%;
+      animation: 0.5s show ease;
+      transition: 0.2s all ease;
+
+      .Messages-Item-Content {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        .Messages-Item-Image {
+          align-self: flex-start;
+          object-position: center center;
+          object-fit: cover;
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          margin: 10px 5px;
+        }
+
+        .Messages-Item-Content-Wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          flex-direction: row;
+          margin: 5px;
+          padding: 10px;
+          border-radius: 10px;
+          font-size: $text-size;
+          @include themify($themes) {
+            color: themed('text-color');
+            background-color: themed('background-color');
+          }
+
+          .Messages-Item-Text {
+            white-space: pre-line;
+            align-self: flex-end;
+          }
+        }
+
+        .Messages-Item-Date {
+          margin-left: 10px;
+          align-self: flex-end;
+          font-size: 12px;
+          @include themify($themes) {
+            color: themed('dark-text-color');
+          }
+        }
+      }
+    }
+  }
+
+  .Messages-Tools {
+    @include themify($themes) {
+      border-top: themed('block-border');
+      background: themed('background-color');
+    }
+    position: relative;
+    grid-area: Messages-Tools;
+    min-height: 50px;
+    height: min-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .Messages-Tools-Downward-Button {
+      top: -75px;
+      right: 20px;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      cursor: pointer;
+      width: 45px;
+      height: 45px;
+      text-align: center;
+      border-radius: 50%;
+      @include themify($themes) {
+        background: themed('background-color');
+        color: themed('dark-text-color');
+      }
+
+      .MuiSvgIcon-root {
+        font-size: 40px;
+      }
+    }
+
+    .Messages-Tools-Textarea {
+      @include themify($themes) {
+        color: themed('text-color');
+        background: themed('background-color');
+      }
+      border: none;
+      resize: none;
+      outline: none;
+      height: 100%;
+      width: 100%;
+    }
+
+    .Messages-Tools-Textarea:focus {
+      @include themify($themes) {
+        color: themed('text-color');
+      }
+      border: none;
+      outline: none;
+    }
+
+    .Messages-Tools-Button {
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      margin: 0 10px;
+
+      .MuiSvgIcon-root {
+        font-size: 32px;
+      }
+
+      text-align: center;
+      @include themify($themes) {
+        color: themed('text-color');
+      }
+    }
+
+    .Messages-Tools-Button:active {
+      @include themify($themes) {
+        color: themed('dark-text-color');
+      }
+    }
+
+    .Messages-Tools-Textarea {
+      padding: 10px;
+    }
+  }
+
+  .Messages-Content-Scroll {
+    grid-area: Messages-Content-Scroll;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @include themify($themes) {
+      background-color: themed('background-color');
+    }
+    border-radius: 5px;
+  }
+
+
+  .Messages-Header {
+    grid-area: Messages-Header;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: $text-size;
+    height: $settings-bar-height;
+    @include themify($themes) {
+      border-bottom: themed('block-border');
+      background-color: themed('background-light-color');
+    }
+
+    .Messages-Header-Content {
+      margin: 0 10px;
+      width: 100%;
+      height: $settings-bar-height;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      .profile-info {
+        margin: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          margin: 0 0 0 15px;
+        }
+      }
+
+      img {
+        object-position: center center;
+        object-fit: cover;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+      }
+
+      .Back-Button {
+        display: none;
+        width: 35px;
+        height: 35px;
+        text-align: center;
+
+
+        .MuiSvgIcon-root {
+          font-size: 30px;
+        }
+
+        @include themify($themes) {
+          color: themed('dark-text-color');
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .Messages-Content {
+    .Messages-List {
+      .Messages-Item {
+        .Messages-Item-Content {
+          img {
+            display: none;
+          }
+        }
+      }
+    }
+
+
+    .Messages-Header {
+      .Messages-Header-Content {
+        .Back-Button {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
