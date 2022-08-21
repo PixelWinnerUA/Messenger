@@ -1,8 +1,8 @@
 # Pixel Messenger
 
-This is my pet project, Messenger.
+This is one of my pet project, Messenger.
 
-Stack of technology: TypeScript, React, Redux, React-Router-Dom, Material UI, SASS, Formik, yup, SignalR, Axios
+Stack of technology: TypeScript, React, Redux-Thunk, React-Router-Dom, Material UI, SASS, Formik, yup, SignalR, Axios
 
 Released features:
 
@@ -13,3 +13,4 @@ Released features:
 * Search users
 * Profile and chats customization
 * Push Notifications
+
